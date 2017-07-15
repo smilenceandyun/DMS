@@ -90,7 +90,7 @@ public class TestController {
         return "test/result";
     }
 
-    //绑定类中类,若该类中类包含1对多关系，需要新建一个超类，专门用于包含该List，如下PurDetailList，即可获取参数，重新复制即可（line100）。springmvc中不允许直接传递list<class>对象
+    //绑定类中类,若该类中类包含1对多关系，需要新建一个超类，专门用于包含该List，如下PurDetailList，即可获取参数，重新复制即可（line100）。springmvc中不允许直接传递list<class>对象12121
     @RequestMapping(value = "test6",method = RequestMethod.POST)
     public  String test9(PurOrder purOrder, ModelMap modelMap, PurDetailList purDetail)
     {
