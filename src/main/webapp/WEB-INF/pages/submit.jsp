@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: laoli
@@ -11,14 +12,14 @@
     <title>类中类测试</title>
 </head>
 <body>
-<form action="/test6" method="post">
-  采购单号是：  <input name="orderNo">
-   业务员名字是：<input name="salesMan.name">
+<form:form action="/test20" method="post">
+  采购单号是：  <input name="name">
+   业务员名字是：<input name="sex">
 
-    1号产品名字是：<input name="purDetail[0].factoryCode">
-    2号产品名字是：<input name="purDetail[1].factoryCode">
+    <%--1号产品名字是：<input name="purDetail[0].factoryCode">--%>
+    <%--2号产品名字是：<input name="purDetail[1].factoryCode">--%>
     <input type="submit">
-</form>
+</form:form>
 
 </body>
 </html>

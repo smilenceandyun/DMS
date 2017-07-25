@@ -17,9 +17,9 @@ http://www.springframework.org/schema/tx ">
           destroy-method="close">
         <!-- MySQL5 -->
         <property name="driverClass" value="${driverClassName}"></property>
-        <property name="jdbcUrl" value="${url}"></property>
-        <property name="user" value="${username}"></property>
-        <property name="password" value="${password}"></property>
+        <property name="jdbcUrl" value="jdbc:sqlserver://192.168.1.118\MSSQLSERVER:1433;databaseName=logistics_test"></property>
+        <property name="user" value="manager001"></property>
+        <property name="password" value="123123."></property>
         <property name="maxPoolSize" value="40"></property>
         <property name="minPoolSize" value="1"></property>
         <property name="initialPoolSize" value="1"></property>

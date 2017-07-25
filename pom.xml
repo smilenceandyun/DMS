@@ -52,10 +52,26 @@
 
     <!--mysql驱动包-->
     <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.35</version>
+      <groupId>com.microsoft.sqlserver</groupId>
+      <artifactId>sqljdbc4</artifactId>
+      <version>4.0</version>
     </dependency>
+    <!--&lt;!&ndash;SQLserver驱动包&ndash;&gt;-->
+    <!--&lt;!&ndash; https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc &ndash;&gt;-->
+    <!--<dependency>-->
+      <!--<groupId>com.microsoft.sqlserver</groupId>-->
+      <!--<artifactId>mssql-jdbc</artifactId>-->
+      <!--<version>6.2.1.jre8</version>-->
+      <!--<scope>test</scope>-->
+    <!--</dependency>-->
+    <!-- sql server driver -->
+    <!--<dependency>-->
+      <!--<groupId>net.sourceforge.jtds</groupId>-->
+      <!--<artifactId>jtds</artifactId>-->
+      <!--<version>1.2.4</version>-->
+    <!--</dependency>-->
+
+
     <!--c3p0连接池-->
     <dependency>
       <groupId>c3p0</groupId>
@@ -102,7 +118,6 @@
       <artifactId>hibernate-core</artifactId>
       <version>${hibernate.version}</version>
     </dependency>
-      <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
       <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
       <dependency>
           <groupId>org.hibernate</groupId>

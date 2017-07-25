@@ -108,5 +108,14 @@ public class TestController {
         return "test/result";
     }
 
+    //绑定数组 Integer[] list, 定义数组名，与页面name属性对应即可
+    @RequestMapping(value = "test20",method = RequestMethod.POST)
+    public  String test10(@ModelAttribute("command") User user,ModelMap modelMap)
+    {
+        modelMap.addAttribute("p1",user);
+
+        return "test/result2";
+    }
+
 
 }
