@@ -36,6 +36,7 @@ public class TCarEntity {
     private String remark;
     private Timestamp createDate;
     private Timestamp modifiTime;
+    //sss
 
     @Id
     @Column(name = "car_no", nullable = false, length = 10)
