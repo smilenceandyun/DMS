@@ -2,7 +2,7 @@ package com.dms.model.procure;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-//aaaaaa
+//aaaaaaaaaaaaaaaaaaaawssssssssssssssssssssss
 @Entity
 @Table(name = "b_procure_m", schema = "dbo", catalog = "logistics_test")
 public class BProcureMEntity {
