@@ -2,28 +2,23 @@ package com.dms.controller;
 
 import com.dms.model.pur.PurDetail;
 import com.dms.model.pur.PurOrder;
-import com.dms.service.UserService;
 import com.dms.serviceImpl.Person;
-import javafx.util.converter.ShortStringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 
 /**
- * Created by laoli on 2017/6/27.
+ * Created by Lin on 2017/6/27.
  */
 @Controller
 public class MainController {
     @Autowired
-    private UserService userService;
-    List<PurOrder> purOrderList = initial();
+//    private UserService userService;
+//    List<PurOrder> purOrderList = initial();
 
 
     List<PurOrder> initial(){
@@ -88,22 +83,22 @@ public class MainController {
 //        return "index3";
 //    }
 
-    @RequestMapping(value = "/pur_order/pur_search",method = RequestMethod.POST)
-    public String purSearch( @RequestParam(value = "search") String search) {
-        purOrderList=initial();
-        return "index2";
-    }
-    @RequestMapping(value = "/pur_order/delete",method = RequestMethod.POST)
-    public String purDelete( @RequestParam(value = "qid[]") String[] id) {
-        int count=0;
-        for(String i:id)
-        {
-            int index=Integer.parseInt(i)-count;
-            purOrderList.remove(index);
-            count++;
-        }
-        return "index2";
-    }
+//    @RequestMapping(value = "/pur_order/pur_search",method = RequestMethod.POST)
+//    public String purSearch( @RequestParam(value = "search") String search) {
+//        purOrderList=initial();
+//        return "index2";
+//    }
+//    @RequestMapping(value = "/pur_order/delete",method = RequestMethod.POST)
+//    public String purDelete( @RequestParam(value = "qid[]") String[] id) {
+//        int count=0;
+//        for(String i:id)
+//        {
+//            int index=Integer.parseInt(i)-count;
+//            purOrderList.remove(index);
+//            count++;
+//        }
+//        return "index2";
+//    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
@@ -138,13 +133,13 @@ public class MainController {
 //        modelMap.addAttribute("personList", personList);
 //        return "pur_order";
 //    }
-    @RequestMapping(value = "/pur_order", method = RequestMethod.GET)
-    public String pur_order(ModelMap modelMap) {
-
-//        System.out.println(checked_id[0]);
-        modelMap.addAttribute("purOrderList", purOrderList);
-        return "pur_order";
-    }
+//    @RequestMapping(value = "/pur_order", method = RequestMethod.GET)
+//    public String pur_order(ModelMap modelMap) {
+//
+////        System.out.println(checked_id[0]);
+//        modelMap.addAttribute("purOrderList", purOrderList);
+//        return "pur_order";
+//    }
 
 
 

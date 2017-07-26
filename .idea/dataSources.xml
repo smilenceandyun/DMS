@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="lin@localhost" uuid="3a4e85bf-381c-49a7-896c-cea78a5a51c8">
-      <driver-ref>sqlserver.jtds</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>net.sourceforge.jtds.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:jtds:sqlserver://localhost/lin</jdbc-url>
-    </data-source>
-    <data-source source="LOCAL" name="logistics_test@192.168.1.118" uuid="b2639987-3463-4e25-92bd-d367f2608c89">
+    <data-source source="LOCAL" name="logistics@192.168.1.118" uuid="b2639987-3463-4e25-92bd-d367f2608c89">
       <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
-      <jdbc-url>jdbc:sqlserver://192.168.1.118\MSSQLSERVER:1433;databaseName=logistics_test</jdbc-url>
+      <jdbc-url>jdbc:sqlserver://192.168.1.118\MSSQLSERVER:1433;databaseName=logistics</jdbc-url>
     </data-source>
   </component>
 </project>

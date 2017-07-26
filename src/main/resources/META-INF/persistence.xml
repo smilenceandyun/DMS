@@ -5,6 +5,84 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>com.dms.model.procure.BProcureMEntity</class>
         <class>com.dms.model.procure.BProcureSEntity</class>
+        <class>com.dms.model.DistributionListEntity</class>
+        <class>com.dms.model.PromotionClientGroupEntity</class>
+        <class>com.dms.model.PromotionMEntity</class>
+        <class>com.dms.model.PromotionMProductSEntity</class>
+        <class>com.dms.model.PromotionMSEntity</class>
+        <class>com.dms.model.PromotionPGroupEntity</class>
+        <class>com.dms.model.AdvancePaymentEntity</class>
+        <class>com.dms.model.AgeAnalysisEntity</class>
+        <class>com.dms.model.BAgentInstockMEntity</class>
+        <class>com.dms.model.BAgentInstockSEntity</class>
+        <class>com.dms.model.BAgentRsalesMEntity</class>
+        <class>com.dms.model.BAgentRsalesSEntity</class>
+        <class>com.dms.model.BAgentSalesMEntity</class>
+        <class>com.dms.model.BAgentSalesSEntity</class>
+        <class>com.dms.model.BInPresentMEntity</class>
+        <class>com.dms.model.BInPresentSEntity</class>
+        <class>com.dms.model.BInProductMEntity</class>
+        <class>com.dms.model.BInProductSEntity</class>
+        <class>com.dms.model.BOutPresentMEntity</class>
+        <class>com.dms.model.BOutPresentSEntity</class>
+        <class>com.dms.model.BProcureMEntity</class>
+        <class>com.dms.model.BProcureSEntity</class>
+        <class>com.dms.model.BPurchaseOrdMEntity</class>
+        <class>com.dms.model.BPurchaseOrdSEntity</class>
+        <class>com.dms.model.BRProcureMEntity</class>
+        <class>com.dms.model.BRProcureSEntity</class>
+        <class>com.dms.model.BSConMEntity</class>
+        <class>com.dms.model.BSConSEntity</class>
+        <class>com.dms.model.BSOrderMEntity</class>
+        <class>com.dms.model.BSOrderSEntity</class>
+        <class>com.dms.model.BSProcureMEntity</class>
+        <class>com.dms.model.BSalesMEntity</class>
+        <class>com.dms.model.BWProcureEntity</class>
+        <class>com.dms.model.BankAccountEntity</class>
+        <class>com.dms.model.BillTypeEntity</class>
+        <class>com.dms.model.CPurchaseConMEntity</class>
+        <class>com.dms.model.CPurchaseConSEntity</class>
+        <class>com.dms.model.ClientZoneEntity</class>
+        <class>com.dms.model.CreditLevelEntity</class>
+        <class>com.dms.model.DeliverymanEntity</class>
+        <class>com.dms.model.EncodingTypeEntity</class>
+        <class>com.dms.model.FConMEntity</class>
+        <class>com.dms.model.FConSEntity</class>
+        <class>com.dms.model.FStockAdjusMEntity</class>
+        <class>com.dms.model.FStockAdjusSEntity</class>
+        <class>com.dms.model.FeeClassEntity</class>
+        <class>com.dms.model.PayTypeEntity</class>
+        <class>com.dms.model.PromotionPropertyEntity</class>
+        <class>com.dms.model.SBreakageMEntity</class>
+        <class>com.dms.model.SBreakageSEntity</class>
+        <class>com.dms.model.SInBorrowMEntity</class>
+        <class>com.dms.model.SInBorrowSEntity</class>
+        <class>com.dms.model.SInLoanMEntity</class>
+        <class>com.dms.model.SInLoanSEntity</class>
+        <class>com.dms.model.SOutLoanMEntity</class>
+        <class>com.dms.model.SOutLoanSEntity</class>
+        <class>com.dms.model.SRoomTransferMEntity</class>
+        <class>com.dms.model.SRoomTransferSEntity</class>
+        <class>com.dms.model.SalesPropertiesEntity</class>
+        <class>com.dms.model.SalesmanGroupEntity</class>
+        <class>com.dms.model.StoreLocationEntity</class>
+        <class>com.dms.model.TBrandEntity</class>
+        <class>com.dms.model.TCarEntity</class>
+        <class>com.dms.model.TClientEntity</class>
+        <class>com.dms.model.TClientClassifyEntity</class>
+        <class>com.dms.model.TDepartmentEntity</class>
+        <class>com.dms.model.TFactorysEntity</class>
+        <class>com.dms.model.TGoodsEntity</class>
+        <class>com.dms.model.TGoodsClassifyEntity</class>
+        <class>com.dms.model.TOrgEntity</class>
+        <class>com.dms.model.TPaymentEntity</class>
+        <class>com.dms.model.TPositionEntity</class>
+        <class>com.dms.model.TPresentEntity</class>
+        <class>com.dms.model.TRoomEntity</class>
+        <class>com.dms.model.TRouteEntity</class>
+        <class>com.dms.model.TSalesPromotionEntity</class>
+        <class>com.dms.model.TStaffEntity</class>
+        <class>com.dms.model.UserGroupEntity</class>
         <!--<class>com.dms.model.BPurchaseOrdSEntity</class>-->
         <!--<class>com.dms.model.BPurchaseOrdMEntity</class>-->
         <properties>
@@ -12,7 +90,7 @@
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2012Dialect"/>
             <!--&lt;!&ndash; 数据库连接的URL地址 &ndash;&gt;-->
             <property name="hibernate.connection.url"
-                      value="jdbc:sqlserver://192.168.1.118\MSSQLSERVER:1433;databaseName=logistics_test"/>
+                      value="jdbc:sqlserver://192.168.1.118\MSSQLSERVER:1433;databaseName=logistics"/>
             <!--&lt;!&ndash; 数据库连接的驱动 &ndash;&gt;-->
             <property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
             <!-- 数据库连接的用户名 -->
