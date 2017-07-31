@@ -56,10 +56,10 @@
         //查询订单，使用post时，参数必须一一对应，才可以匹配到controller中
         function purSearch(){
 //                 var search =$("input[id='search']").val();
-                 var search=$("#search").val();
-                alert("确定要查询吗？");
-                $.post('/pur_order/pur_search',{'search':search});
-                 window.location='pur_order';
+            var search=$("#search").val();
+            alert("确定要查询吗？");
+            $.post('/pur_order/pur_search',{'search':search});
+            window.location='pur_order';
         }
     </script>
 
@@ -89,53 +89,56 @@
 			<a href="javascript:void(0);" class="btn btn-primary upload-btn"><i class="Hui-iconfont">&#xe642;</i> 上传文件</a>
 			<input type="file" multiple name="file-2" class="input-file">
 			</span>
-          <%--<button type="button" class="btn btn-success" id="" name="" onClick="picture_colume_add(this);"><i class="Hui-iconfont">&#xe600;</i> 添加</button>--%>
+            <%--<button type="button" class="btn btn-success" id="" name="" onClick="picture_colume_add(this);"><i class="Hui-iconfont">&#xe600;</i> 添加</button>--%>
         </form>
     </div>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel1()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>
+    <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel1()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>--%>
+    <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>--%>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel1()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span><span class="l">&nbsp;&nbsp;&nbsp;<a href="/pur_order/add" class="btn btn-success radius"><i class="Hui-iconfont">&#xe6e2;</i> 添加</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>--%>
     <div class="mt-20">
-<form:form action="/index3" method="post" commondName="p">
 
-        <table class="table table-border table-bordered table-bg table-sort">
-            <thead>
-            <tr class="text-c">
-                <th width="25"><input type="checkbox" name="id" value=""></th>
-                <th width="70">ID</th>
-                <%--<th width="80">排序</th>--%>
-                <th width="80">订单号</th>
-                <th width="80">客户名称</th>
-                <th width="80">入库单号</th>
-                <th width="80">预付款</th>
-                <th width="80">结算方式</th>
-                <th width="80">业务员</th>
-                <th width="80">制单人</th>
-                <th width="80">审核日期</th>
-                <th width="120">备注</th>
-                <th width="100">操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${purOrderList}" var="purOrder">
-            <tr class="text-c">
-                <td><input name="id" type="checkbox"  value="${purOrder.id}"></td>
-                <td>${purOrder.id}</td>
-                <td>${purOrder.orderNo}</td>
-                <td>${purOrder.clientName}</td>
-                <td >${purOrder.storageNo}</td>
-                <td >${purOrder.advancedCharge}</td>
-                <td >${purOrder.payWay}</td>
-                <td >${purOrder.salesMan.name}</td>
-                <td >${purOrder.createMan.name}</td>
-                <td >${purOrder.date}</td>
-                <td class="text-l">我的备注</td>
-                <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-            </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+            <table class="table table-border table-bordered table-bg table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="25"><input type="checkbox" name="id" value=""></th>
+                    <th width="30">ID</th>
+                    <th width="70">采购订单号</th>
+                        <%--<th width="80">排序</th>--%>
+                    <th width="80">客户名称</th>
+                    <th width="80">入库单号</th>
+                    <th width="80">预付款</th>
+                    <th width="80">结算方式</th>
+                    <th width="80">业务员</th>
+                    <th width="80">制单人</th>
+                    <th width="100">审核日期</th>
+                    <th width="40">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                    int i = 1;
+                %>
+                <c:forEach items="${bPurchaseOrdM}" var="purOrder">
+                    <tr class="text-c">
+                        <td><input name="id" type="checkbox"  value="${purOrder.bPurchaseOrdMOrdProcureNo}"></td>
+                        <td><%=i %><% i++; %></td>
+                        <td><a href="/pur_order/detaileOrder/${purOrder.bPurchaseOrdMOrdProcureNo}">${purOrder.bPurchaseOrdMOrdProcureNo}</a></td>
+                        <td>#客户名称</td>
+                        <td >${purOrder.bPurchaseOrdMOrdProcureNo}</td>
+                        <td >${purOrder.bPurchaseOrdMAdPaymoney}</td>
+                        <td >${purOrder.bPurchaseOrdMPaymentAttributer}</td>
+                        <td >#业务员</td>
+                        <td >#制单人</td>
+                        <td >${purOrder.bPurchaseOrdMCheckDate}</td>
+                        <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/pur_order/update/${purOrder.bPurchaseOrdMOrdProcureNo}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="/pur_order/delete/${purOrder.bPurchaseOrdMOrdProcureNo}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
 
-</form:form>
+
+
     </div>
 </div>
 
