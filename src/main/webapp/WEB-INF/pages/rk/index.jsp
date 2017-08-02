@@ -92,7 +92,7 @@
           <%--<button type="button" class="btn btn-success" id="" name="" onClick="picture_colume_add(this);"><i class="Hui-iconfont">&#xe600;</i> 添加</button>--%>
         </form>
     </div>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel1()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel1()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span style="margin-left: 10px"><a href="/procure/add" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 新增单据</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>--%>
     <div class="mt-20">
 <form:form action="/index3" method="post" commondName="p">
@@ -117,16 +117,16 @@
             <% int i = 0; %>
             <c:forEach items="${list}" var="item">
             <tr class="text-c">
-                <td><input name="id" type="checkbox"  value="${item.procureNo}"></td>
+                <td><input name="id" type="checkbox"  value="${item.bProcureMProcureNo}"></td>
                 <td><%=i %><% i++; %></td>
-                <td><a href="/procure/detail/${item.procureNo}">${item.procureNo}</a></td>
+                <td><a href="/procure/detail/${item.bProcureMProcureNo}">${item.bProcureMProcureNo}</a></td>
                 <td>#客户名称</td>
-                <td>#订单号</td>
+                <td>${item.bProcureMOrdProcureNo}</td>
                 <td >#业务员</td>
                 <td >#制单人</td>
-                <td >${item.checkDate}</td>
-                <td >${item.state}</td>
-                <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick='window.location.href="/procure/detail/${item.procureNo}";' title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                <td >${item.bProcureMCheckDate}</td>
+                <td >${item.bProcureMCheckDate != null ? "已审核" : "未审核"}</td>
+                <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick='window.location.href="/rk/detail/${item.bProcureMProcureNo}";' title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
             </tr>
             </c:forEach>
             </tbody>
@@ -152,7 +152,7 @@
         "bStateSave": true,//状态保存
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[0,6]}// 制定列不参与排序
+//            {"orderable":false,"aTargets":[0,6]}// 制定列不参与排序
         ]
     });
 </script>

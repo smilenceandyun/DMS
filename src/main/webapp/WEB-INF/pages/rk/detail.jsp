@@ -71,7 +71,7 @@
     }
 </style>
 <style type="text/css">
-    div{width:1000px; height:50px;}
+    div{ height:50px;}
     ul{width:900px; height:20px; size: 20px;}
     li{width:130px; height:20px; float:left;}
 </style>
@@ -80,51 +80,41 @@
 <div class="page-container">
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单货号</li>
-        <li><input type="text" class="input-text" name="ordProcureNo"></li>
+        <li><input disabled id="d1" type="text" class="input-text" name="ordProcureNo"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
-        <li><input type="text" class="input-text" name=""></li>
+        <li><input id="d2" type="text" class="input-text" name=""></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;赠送性质</li>
-        <li><input type="text" class="input-text" name=""></li>
+        <li><input id="d3" type="text" class="input-text" name=""></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品条码</li>
-        <li><input type="text" class="input-text" name=""></li>
+        <li><input id="d4" type="text" class="input-text" name=""></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;规格型号</li>
-        <li><input type="text" class="input-text" name=""></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交易原价</li>
-        <li><input type="text" class="input-text" name=""></li>
-    </ul><br>
-    <ul>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编码</li>
-        <li><input type="text" class="input-text" name=""></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库存</li>
-        <li><input type="text" class="input-text" name=""></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;含税金额</li>
-        <li><input type="text" class="input-text" name=""></li>
-    </ul><br>
-    <ul>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
-        <li><input type="text" class="input-text" name=""></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税率</li>
-        <li><input type="text" class="input-text" name=""></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未含税金额</li>
-        <li><input type="text" class="input-text" name=""></li>
-    </ul><br>
-    <ul>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓库</li>
-        <li><input type="text" class="input-text" name=""></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位</li>
-        <li><input type="text" class="input-text" name=""></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单价</li>
-        <li><input type="text" class="input-text" name=""></li>
-
-    </ul><br>
-    <ul>
+        <li><input id="d5" type="text" class="input-text" name=""></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数量</li>
-        <li><input type="text" class="input-text" name=""></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </li></ul>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe6e2;</i> 保存</a></span>&nbsp;&nbsp; <span class="l"><a href="javascript:;" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe6e2;</i> 新增明细</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>
+        <li><input id="d6" type="text" class="input-text" name=""></li>
+    </ul><br>
+    <ul>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编号</li>
+        <li><input id="d7" type="text" class="input-text" name=""></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
+        <li><input id="d8" type="text" class="input-text" name=""></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位</li>
+        <li><input  id="d9" type="text" class="input-text" name=""></li>
+    </ul><br>
+    <ul>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓库编号</li>
+        <li><input id="d10" type="text" class="input-text" name=""></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保质期/月</li>
+        <li><input  id="d11" type="text" class="input-text" name=""></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;批次</li>
+        <li><input id="d12" type="text" class="input-text" name=""></li>
+    </ul><br>
+    <ul>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库位编号</li>
+        <li><input id="d13" type="text" class="input-text" name=""></li>
+    </ul>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 保存</a></span>&nbsp;&nbsp; <span class="l" style="margin-left: 10px"><a href="javascript:;" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 新增明细</a></span> <span class="r">共有数据：<strong>${procure.size() != 0 ? procure.size() : 0}</strong> 条</span> </div>
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>--%>
     <div class="mt-20">
 <form:form action="/index3" method="post" commondName="p">
@@ -149,15 +139,15 @@
             <% int i = 0; %>
             <c:forEach items="${procure}" var="item">
             <tr class="text-c">
-                <td><input name="id" type="checkbox"  value="${item.procureNo}"></td>
+                <td><input name="id" type="checkbox"  value="${item.bProcureSProcureNo}"></td>
                 <td><%=i %><% i++; %></td>
-                <td>#商品名称</td>
-                <td >${item.roomNo}</td>
+                <td><a onclick="getDetail('${item.bProcureSProcureNo}','${item.bProcureSDetailId}')">#商品名称</a></td>
+                <td >#仓库</td>
                 <td>#单位</td>
                 <td>#单价</td>
-                <td >${item.quantity}</td>
+                <td >${item.bProcureSQuantity}</td>
                 <td>#保质期</td>
-                <td >${item.lot}</td>
+                <td >${item.bProcureSLot}</td>
                 <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
             </tr>
             </c:forEach>
@@ -184,9 +174,38 @@
         "bStateSave": true,//状态保存
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[0,6]}// 制定列不参与排序
+//            {"orderable":false,"aTargets":[0,6]}// 制定列不参与排序
         ]
     });
+
+    function getDetail(no,id) {
+        var url = "one/" + no +"/"+ id;
+        $.ajax({
+            url: url,
+            type: "get",
+            success: function (data) {
+//                alert(data);
+                var obj = JSON.parse(data);
+//                alert(obj[0].bProcureSQuantity);
+                document.getElementById("d1").value = obj[0].bProcureSProcureNo;
+                document.getElementById("d2").value = "厂家编号"+obj[0].bProcureSDetailId;
+                document.getElementById("d3").value = "赠送性质"+obj[0].bProcureSDetailId;
+                document.getElementById("d4").value = "商品条码"+obj[0].bProcureSDetailId;
+                document.getElementById("d5").value = "规格型号"+obj[0].bProcureSDetailId;
+                document.getElementById("d6").value = obj[0].bProcureSQuantity;
+                document.getElementById("d7").value = obj[0].bProcureSGoodsNo;
+                document.getElementById("d8").value = "商品名称"+obj[0].bProcureSDetailId;
+                document.getElementById("d9").value = "单位"+obj[0].bProcureSDetailId;
+                document.getElementById("d10").value = obj[0].bProcureSRoomNo;
+                document.getElementById("d11").value = "保质期"+obj[0].bProcureSDetailId;
+                document.getElementById("d12").value = obj[0].bProcureSLot;
+                document.getElementById("d13").value = obj[0].bProcureSLocationNo;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(textStatus + ", 获取数据失败");
+            }
+        });
+    }
 </script>
 </body>
 </html>

@@ -1,13 +1,10 @@
 
-package com.dms.repository.procure;
+package com.dms.repository.rk;
 
 
 import com.dms.model.BProcureMEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by jc on 2017/7/25.
