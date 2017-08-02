@@ -89,8 +89,6 @@
         <class>com.dms.model.SalesPropertiesEntity</class>
         <class>com.dms.model.SalesmanGroupEntity</class>
         <class>com.dms.model.StoreLocationEntity</class>
-        <class>com.dms.model.T01Entity</class>
-        <class>com.dms.model.T02Entity</class>
         <class>com.dms.model.TBrandEntity</class>
         <class>com.dms.model.TCarEntity</class>
         <class>com.dms.model.TClientEntity</class>
@@ -169,7 +167,7 @@
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2012Dialect"/>
             <!--&lt;!&ndash; 数据库连接的URL地址 &ndash;&gt;-->
             <property name="hibernate.connection.url"
-                      value="jdbc:sqlserver://192.168.1.118\MSSQLSERVER:1433;databaseName=logistics"/>
+                      value="jdbc:sqlserver://192.168.1.143\MSSQLSERVER:1433;databaseName=logistics"/>
             <!--&lt;!&ndash; 数据库连接的驱动 &ndash;&gt;-->
             <property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
             <!-- 数据库连接的用户名 -->
