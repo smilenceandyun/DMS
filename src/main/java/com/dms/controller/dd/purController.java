@@ -17,10 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Date;
-import java.util.Map;
+
+import  com.dms.serviceImpl.GetOrderNumber;
 
 import org.springframework.web.bind.annotation.InitBinder;
 
@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 public class purController {
 
     //*************************************************************************************
+
+    static GetOrderNumber c;
 
     final
     BPurchaseOrdMRepository bPurchaseOrdMRepository;
@@ -45,6 +47,7 @@ public class purController {
         this.bPurchaseOrdMRepository = bPurchaseOrdMRepository;
         this.bPurchaseOrdSRepository = bPurchaseOrdSRepository;
         this.tStaffRepository = tStaffRepository;
+        c = new GetOrderNumber();
     }
     //============================================================================================
 
@@ -72,7 +75,12 @@ public class purController {
     @RequestMapping(value = "/pur_order/add", method = RequestMethod.GET)
     public String addBPurchaseOrdM(ModelMap modelMap) {
         List<TStaffEntity> Staff = tStaffRepository.findAll();
+
+
+        String UUID = c.getOrderNo();
         modelMap.addAttribute("Staff", Staff);
+        modelMap.addAttribute("UUID", UUID);
+
         // 转到addOrder.jsp页面
         return "/dd/addOrder";
     }
