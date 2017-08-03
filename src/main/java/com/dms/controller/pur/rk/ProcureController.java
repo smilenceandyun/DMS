@@ -2,6 +2,8 @@ package com.dms.controller.pur.rk;
 
 import com.dms.model.BProcureMEntity;
 import com.dms.model.BProcureSEntity;
+import com.dms.model.TStaffEntity;
+import com.dms.repository.TStaffRepository;
 import com.dms.repository.rk.BProcureMRepository;
 import com.dms.repository.rk.BProcureSRepository;
 import com.google.gson.Gson;
@@ -23,12 +25,15 @@ public class ProcureController {
 
     final BProcureSRepository sRepository;
 
+    final TStaffRepository tStaffRepository;//员工
+
     final Gson gson;
 
     @Autowired
-    public ProcureController(BProcureMRepository bProcureMRepository, BProcureSRepository bProcureSRepository) {
+    public ProcureController(BProcureMRepository bProcureMRepository, BProcureSRepository bProcureSRepository, TStaffRepository tStaffRepository) {
         this.mRepository = bProcureMRepository;
         this.sRepository = bProcureSRepository;
+        this.tStaffRepository = tStaffRepository;
         this.gson = new Gson();
     }
 
@@ -63,7 +68,6 @@ public class ProcureController {
 
         try {
             String str = gson.toJson(procures);
-//            System.out.println(str);
             response.getWriter().write(str);
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,6 +81,10 @@ public class ProcureController {
     @RequestMapping(value = "procure/add")
     public  String detail(ModelMap map)
     {
-     return "rk/add";
+        List<TStaffEntity> staff = tStaffRepository.findAll();
+
+        map.put("staff",staff);
+
+        return "rk/add";
     }
 }

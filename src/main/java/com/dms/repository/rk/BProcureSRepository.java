@@ -25,7 +25,7 @@ public interface BProcureSRepository extends JpaRepository<BProcureSEntity,Strin
     @Query(value = " select b from BProcureSEntity b where b.bProcureSDetailId = :id and b.bProcureSProcureNo = :no")
     List<BProcureSEntity> findByBProcureSProcureNoAndBProcureSDetailIdEquals(@Param("no") String no, @Param("id") Integer id);
 
-//    @Query(value = " select b from BProcureSEntity b where b.bProcureSProcureNo = :id")
+    @Query(value = " select b from BProcureSEntity b where b.bProcureSProcureNo = :id")
     List<BProcureSEntity> findByBProcureSProcureNoEquals(@Param("id") String id);
 
 }
