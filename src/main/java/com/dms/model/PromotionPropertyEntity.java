@@ -15,7 +15,7 @@ public class PromotionPropertyEntity {
     private String promotionPropertyCreateNo;
     private String promotionPropertyModifiNo;
     private Timestamp promotionPropertyModifiTime;
-    private String promotionFlag;
+    private String promotionPropertyFlag;
     private TOrgEntity tOrgByPromotionPropertyGroupNodeId;
     private TStaffEntity tStaffByPromotionPropertyCreateNo;
     private TStaffEntity tStaffByPromotionPropertyModifiNo;
@@ -102,13 +102,13 @@ public class PromotionPropertyEntity {
     }
 
     @Basic
-    @Column(name = "promotion_flag", nullable = false, length = -1)
+    @Column(name = "promotion_property_flag", nullable = false, length = -1)
     public String getPromotionFlag() {
-        return promotionFlag;
+        return promotionPropertyFlag;
     }
 
     public void setPromotionFlag(String promotionFlag) {
-        this.promotionFlag = promotionFlag;
+        this.promotionPropertyFlag = promotionFlag;
     }
 
     @Override
@@ -134,7 +134,7 @@ public class PromotionPropertyEntity {
             return false;
         if (promotionPropertyModifiTime != null ? !promotionPropertyModifiTime.equals(that.promotionPropertyModifiTime) : that.promotionPropertyModifiTime != null)
             return false;
-        if (promotionFlag != null ? !promotionFlag.equals(that.promotionFlag) : that.promotionFlag != null)
+        if (promotionPropertyFlag != null ? !promotionPropertyFlag.equals(that.promotionPropertyFlag) : that.promotionPropertyFlag != null)
             return false;
 
         return true;
@@ -150,7 +150,7 @@ public class PromotionPropertyEntity {
         result = 31 * result + (promotionPropertyCreateNo != null ? promotionPropertyCreateNo.hashCode() : 0);
         result = 31 * result + (promotionPropertyModifiNo != null ? promotionPropertyModifiNo.hashCode() : 0);
         result = 31 * result + (promotionPropertyModifiTime != null ? promotionPropertyModifiTime.hashCode() : 0);
-        result = 31 * result + (promotionFlag != null ? promotionFlag.hashCode() : 0);
+        result = 31 * result + (promotionPropertyFlag != null ? promotionPropertyFlag.hashCode() : 0);
         return result;
     }
 

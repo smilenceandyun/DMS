@@ -67,7 +67,7 @@
         <form:form name="pur" id="pur" action="/pur_order/addP" method="post" role="form" onsubmit="return checkinput(this)">
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单货号</li>
-                <li><input id="bPurchaseOrdMOrdProcureNo" type="text" class="input-text" name="bPurchaseOrdMOrdProcureNo"></li>
+                <li><input id="bPurchaseOrdMOrdProcureNo" type="text" class="input-text" name="bPurchaseOrdMOrdProcureNo" value="${UUID}" readonly="readonly"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务员</li>
                 <li>
                     <select class="input-text" name="bPurchaseOrdMSalesman" onchange="test()" id="select0">
@@ -84,81 +84,44 @@
                 </li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;预付款</li>
                 <li><input id="bPurchaseOrdMAdPaymoney" type="text" class="input-text" name="bPurchaseOrdMAdPaymoney"></li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结算性质</li>
-                <li><input type="text" class="input-text" name=""></li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结算方式</li>
-                <li><input type="text" class="input-text" name=""></li>
+                <%--<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结算性质</li>--%>
+                <%--<li><input type="text" class="input-text" name=""></li>--%>
+                <%--<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结算方式</li>--%>
+                <%--<li><input type="text" class="input-text" name=""></li>--%>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单人</li>
+                <li><input type="text" class="input-text" id="bPurchaseOrdMCreateNo" name="bPurchaseOrdMCreateNo" value="superadmin" readonly="readonly"></li>
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手工单号</li>
                 <li><input type="text" class="input-text" name=""></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务属性</li>
-                <li><input type="text" class="input-text" name="bPurchaseOrdMServiceAttribute"></li>
+                <li><input type="text" class="input-text" id="bPurchaseOrdMServiceAttribute" name="bPurchaseOrdMServiceAttribute"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订货日期</li>
-                <li style="float: left;width: 345px;"><input type="date" class="input-text" name="bPurchaseOrdMOrdDate" ></li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总经理</li>
-                <li><input type="text" class="input-text" name="bPurchaseOrdMManagerNo"></li>
+                <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bPurchaseOrdMOrdDate" name="bPurchaseOrdMOrdDate" ></li>
+
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;付款性质</li>
                 <li><input type="text" class="input-text" name=""></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家名称</li>
                 <li><input type="text" class="input-text" name=""></li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交货日期</li>
-                <li style="float: left;width: 345px;"><input type="date" class="input-text" name=""></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;来货期</li>
+                <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bPurchaseOrdMDeliveryDate" name="bPurchaseOrdMDeliveryDate"></li>
             </ul><br>
             <ul>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;状态</li>
-                <li><input type="text" class="input-text" name=""></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总经理</li>
+                <li><input type="text" class="input-text" id="bPurchaseOrdMManagerNo" name="bPurchaseOrdMManagerNo" readonly="readonly"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核人</li>
-                <li><input type="text" class="input-text" name=""></li>
+                <li><input type="text" class="input-text" id="tStaffByBPurchaseOrdMChecker" name="tStaffByBPurchaseOrdMChecker" readonly="readonly" ></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核日期</li>
-                <li style="float: left;width: 345px;"><input type="date" class="input-text" name=""></li>
+                <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bPurchaseOrdMCheckDate" name="bPurchaseOrdMCheckDate" readonly="readonly"></li>
             </ul><br>
-            <ul>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建人</li>
-                <li><input type="text" class="input-text" name=""></li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建日期</li>
-                <li style="float: left;width: 345px;"><input type="date" class="input-text" name=""></li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单据总金额</li>
-                <li><input type="text" class="input-text" name=""></li>
-            </ul><br>
+
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
-                <li style="float: left;width: 810px;"><input type="text" class="input-text" name=""></li>
+                <li style="float: left;width: 810px;"><input type="text" class="input-text" id="bPurchaseOrdMNotes" name="bPurchaseOrdMNotes"></li>
             </ul>
-        <%--<table class="table table-border table-bordered table-bg table-sort">--%>
-            <%--<thead>--%>
-            <%--<tr class="text-c">--%>
-                <%--<th width="40">采购编号</th>--%>
-                <%--<th width="40">订单号</th>--%>
-                <%--<th width="40">客户名称</th>--%>
-                <%--<th width="40">入库单号</th>--%>
-                <%--<th width="40">预付款</th>--%>
-                <%--<th width="40">结算方式</th>--%>
-                <%--<th width="40">业务员</th>--%>
-                <%--<th width="40">制单人</th>--%>
-                <%--<th width="90">审核日期</th>--%>
-                <%--<th width="90">备注</th>--%>
-                <%--&lt;%&ndash;<th width="100">操作</th>&ndash;%&gt;--%>
-            <%--</tr>--%>
-            <%--</thead>--%>
-            <%--<tbody>--%>
-                <%--<tr class="text-c">--%>
-                    <%--<td><input type="text" class="input-text" id="id" name="id" placeholder="请输入采购编号:"/></td>--%>
-                    <%--<td><input type="text" class="input-text" id="orderNo" name="orderNo" placeholder="请输入订单号:"/></td>--%>
-                    <%--<td><input type="text" class="input-text" id="clientName" name="clientName" placeholder="请输入客户名称:"/></td>--%>
-                    <%--<td><input type="text" class="input-text" id="storageNo" name="storageNo" placeholder="请输入入库单号:"/></td>--%>
-                    <%--<td><input type="text" class="input-text" id="advancedCharge" name="advancedCharge" placeholder="请输入预付款:"/></td>--%>
-                    <%--<td><input type="text" class="input-text" id="payWay" name="payWay" placeholder="请输入结算方式:"/></td>--%>
-                    <%--<td><input type="text" class="input-text" id="salesMan" name="salesMan" placeholder="请输入业务员:"/></td>--%>
-                    <%--<td><input type="text" class="input-text" id="createMan" name="createMan" placeholder="请输入制单人:"/></td>--%>
-                    <%--<td><input type="datetime" class="input-text" id="date" name="date" placeholder="请输入审核日期:" value="<% out.print(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())); %>"/></td>--%>
-                    <%--<td><input type="text" class="input-text" id="purDetail" name="purDetail" placeholder="请输入备注:"/></td>--%>
-                    <%--&lt;%&ndash;<td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>&ndash;%&gt;--%>
-                <%--</tr>--%>
-            <%--</tbody>--%>
-        <%--</table>--%>
+
             <center>
            <div style="margin:0 auto;">
                <br><br><input class="btn btn-primary upload-btn" type="submit" name="submit" value="确定添加并继续添加明细">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

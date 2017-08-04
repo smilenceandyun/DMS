@@ -1,4 +1,4 @@
-package com.dms.controller.dd;
+package com.dms.controller.pur.dd;
 import com.dms.model.BPurchaseOrdMEntity;
 import com.dms.model.BPurchaseOrdSEntity;
 import com.dms.model.TStaffEntity;
@@ -47,7 +47,7 @@ public class purController {
         this.bPurchaseOrdMRepository = bPurchaseOrdMRepository;
         this.bPurchaseOrdSRepository = bPurchaseOrdSRepository;
         this.tStaffRepository = tStaffRepository;
-        c = new GetOrderNumber();
+        c = new GetOrderNumber("O");
     }
     //============================================================================================
 
@@ -85,10 +85,10 @@ public class purController {
         return "/dd/addOrder";
     }
     //==========================================================
-    @RequestMapping(value = "/pur_order/check", method = RequestMethod.GET)
-    public void check(HttpServletRequest request){
-        String a = request.getParameter("OrdProcureNo");
-        System.out.println(a);
+//    @RequestMapping(value = "/pur_order/check", method = RequestMethod.GET)
+//    public void check(HttpServletRequest request){
+//        String a = request.getParameter("OrdProcureNo");
+//
 //        Map<String,String> result = new HashMap<String,String>();
 //        boolean flag = false;
 //        try{
@@ -102,7 +102,7 @@ public class purController {
 //            renderJson(result);//返回json数据
 //            e.printStackTrace();
 //        }
-    }
+//    }
     //============================================================================================
     @RequestMapping(value = "/pur_order/addP", method = RequestMethod.POST)
     public String addBPurchaseOrdMPost(BPurchaseOrdMEntity bPurchaseOrdMEntity) {

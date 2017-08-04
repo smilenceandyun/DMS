@@ -10,9 +10,13 @@ public class GetOrderNumber implements getOrderNo {
     public String  lasttime;
     public Integer num;
     public String orderNo;
+    public String No;
 
 
-    @Override
+    //@Override
+    public GetOrderNumber(String No){
+        this.No = No;
+    }
     public String getOrderNo(){
 
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");//设置日期格式
@@ -44,14 +48,14 @@ public class GetOrderNumber implements getOrderNo {
         if (num == 0000){
             num = 0001;
             String num2= String.format("%04d",num);
-            orderNo = "O"+lasttime + num2 ;
+            orderNo = No + lasttime + num2 ;
 
 
         }
         else{
             num++;
             String num3= String.format("%04d",num);
-            orderNo = "O"+ lasttime + num3;
+            orderNo = No + lasttime + num3;
         }
         return lasttime ;
     }
