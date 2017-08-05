@@ -80,9 +80,9 @@
 <div class="page-container">
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单货号</li>
-        <li><input disabled id="d1" type="text" class="input-text" value="${pm.bProcureMOrdProcureNo}" name="bProcureMOrdProcureNo"></li>
+        <li><input disabled id="d1" type="text" class="input-text" value="${mpur.bProcureMOrdProcureNo}" name="bProcureMOrdProcureNo"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
-        <li><input id="d2" type="text" class="input-text" value="${pro.tGoodsByBProcureSGoodsNo.tGoodsFactoryGoodsNo}" name="tGoodsFactoryGoodsNo"></li>
+        <li><input id="d2" type="text" class="input-text" value="${pro.bProcureSGoodsNo}" name="tGoodsFactoryGoodsNo"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;赠送性质</li>
         <li><input id="d3" type="text" class="input-text"  name=""></li>
     </ul><br>
@@ -114,7 +114,11 @@
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库位编号</li>
         <li><input id="d13" type="text" class="input-text" value="${pro.bProcureSLocationNo}" name=""></li>
     </ul>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 保存</a></span>&nbsp;&nbsp; <span class="l" style="margin-left: 10px"><a href="/procure/addDetail/${pm.bProcureMProcureNo}" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 新增明细</a></span> <span class="r">共有数据：<strong>${procures.size() != 0 ? procures.size() : 0}</strong> 条</span> </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <c:if test="${mpur.bProcureMState == null}">
+        <span class="l"><a href="javascript:;" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 保存</a></span>&nbsp;&nbsp; <span class="l" style="margin-left: 10px"><a href="/procure/addDetail/${mpur.bProcureMProcureNo}" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 新增明细</a></span>
+        </c:if>
+            <span class="r">共有数据：<strong>${procures.size() != 0 ? procures.size() : 0}</strong> 条</span> </div>
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>--%>
     <div class="mt-20">
         <form:form action="/index3" method="post" commondName="p">
@@ -132,7 +136,7 @@
                     <th width="80">数量</th>
                     <th width="80">保质期/月</th>
                     <th width="80">批次</th>
-                    <th width="100">操作</th>
+                    <c:if test="${mpur.bProcureMState == null}"><th width="100">操作</th></c:if>
                 </tr>
                 </thead>
                 <tbody>
@@ -148,7 +152,9 @@
                         <td >${item.bProcureSQuantity}</td>
                         <td>${item.tGoodsByBProcureSGoodsNo.tGoodsExDay}</td>
                         <td >${item.bProcureSLot}</td>
-                        <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                        <c:if test="${mpur.bProcureMState == null}">
+                        <td class="f-14 product-brand-manage"><a style="text-decoration:none"  href="/procure/updateDetail/${item.bProcureSProcureNo}&${item.bProcureSDetailId}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" href="/procure/deteleDetail/${item.bProcureSProcureNo}&${item.bProcureSDetailId}" onclick="if(!confirm('确定删除？')) return false;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                        </c:if>
                     </tr>
                 </c:forEach>
                 </tbody>
