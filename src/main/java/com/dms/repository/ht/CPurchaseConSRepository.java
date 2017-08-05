@@ -26,4 +26,8 @@ public interface CPurchaseConSRepository extends JpaRepository<CPurchaseConSEnti
     @Modifying
     @Query("delete from CPurchaseConSEntity where cPurchaseConSPurchasConNo in (:cPurchaseConSPurchasConNo) and cPurchaseConSDetailId in (:cPurchaseConSDetailId)")
     public void deleteCPurchaseConSEntity(@Param("cPurchaseConSPurchasConNo") String cPurchaseConSPurchasConNo, @Param("cPurchaseConSDetailId") Integer cPurchaseConSDetailId );
+
+    @Transactional
+    @Query("select max(cPurchasConM.cPurchaseConSDetailId) from CPurchaseConSEntity cPurchasConM where cPurchasConM.cPurchaseConSPurchasConNo = ?1")
+    Integer  findMaxDetailId(String PurchasConNo);
 }

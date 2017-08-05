@@ -11,16 +11,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="../../statics/lib/html5shiv.js"></script>
-    <script type="text/javascript" src="../../statics/lib/respond.min.js
+    <script type="text/javascript" src="../../../statics/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="../../../statics/lib/respond.min.js
     <![endif]-->
-    <link rel="stylesheet" type="text/css" href="../../statics/css/H-ui.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../statics/css/admin/H-ui.admin.css" />
-    <link rel="stylesheet" type="text/css" href="../../statics/lib/Hui-iconfont/1.0.8/iconfont.css" />
-    <link rel="stylesheet" type="text/css" href="../../statics/skin/green/skin.css" id="skin" />
-    <link rel="stylesheet" type="text/css" href="../../statics/css/admin/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../statics/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../statics/css/admin/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../../../statics/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../../statics/skin/green/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../../../statics/css/admin/style.css" />
     <!--[if IE 6]>
-    <script type="text/javascript" src="../../statics/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script type="text/javascript" src="../../../statics/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
     <script type="text/javascript">
@@ -81,35 +81,63 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购订单 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
    <div class="mt-20">
-        <form:form action="/updateM" method="post" commondName="p">
+        <form:form action="/updateMM" method="post" commondName="p">
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同编号</li>
-                <li><input type="text" class="input-text" name="" value="${cPurchaseConM.cPurchaseConMPurchasConNo}"></li>
+                <li><input type="text" class="input-text" name="CPurchaseConMPurchasConNo" id="CPurchaseConMPurchasConNo" value="${cPurchaseConM.cPurchaseConMPurchasConNo}" readonly="readonly"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户名称</li>
-                <li><input type="text" class="input-text" name="" value="#客户名称"></li>
+                <li>
+                    <select class="input-text" name="CPurchaseConMClientNo" id="select1">
+                        <option value="" >${cPurchaseConM.tClientByCPurchaseConMClientNo.tClientClientName}</option>
+                        <c:forEach items="${Client}" var="Client">
+                            <option value="${Client.tClientClientNo}">${Client.tClientClientName}</option>
+                        </c:forEach>
+                    </select>
+                </li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同日期</li>
-                <li><input type="text" class="input-text" name="" value="${cPurchaseConM.cPurchaseConMConDate}"></li>
+                <li><input type="date" class="input-text" name="cPurchaseConMConDate" id="cPurchaseConMConDate" readonly="readonly" value="${cPurchaseConM.cPurchaseConMConDate}"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核人</li>
-                <li><input type="text" class="input-text" name="" value="#审核人"></li>
+                <li>
+                    <select class="input-text" name="CPurchaseConMChecker" id="select2">
+                        <option value="" >${cPurchaseConM.tStaffByCPurchaseConMChecker.tStaffStaffName}</option>
+                        <c:forEach items="${Staff}" var="Staff">
+                            <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                        </c:forEach>
+                    </select>
+                </li>
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单人</li>
-                <li><input type="text" class="input-text" name="" value="制单人"></li>
+                <li>
+                    <select class="input-text" name="CPurchaseConMCreateNo" id="select3">
+                        <option value="" >${cPurchaseConM.tStaffByCPurchaseConMCreateNo.tStaffStaffName}</option>
+                        <c:forEach items="${Staff}" var="Staff">
+                            <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                        </c:forEach>
+                    </select>
+                </li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结算方式</li>
-                <li><input type="text" class="input-text" name="" value="${cPurchaseConM.cPurchaseConMGrossMode}"></li>
+                <li><input type="text" class="input-text" name="cPurchaseConMGrossMode" id="cPurchaseConMGrossMode" value="${cPurchaseConM.cPurchaseConMGrossMode}"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务员</li>
-                <li><input type="text" class="input-text" name="" value="业务员"></li>
+                <li>
+                    <select class="input-text" name="CPurchaseConMSalesman" id="select4">
+                        <option value="" >${cPurchaseConM.tStaffByCPurchaseConMSalesman.tStaffStaffName}</option>
+                        <c:forEach items="${Staff}" var="Staff">
+                            <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                        </c:forEach>
+                    </select>
+                </li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总经理</li>
-                <li><input type="text" class="input-text" name="" value="总经理"></li>
+                <li><input type="text" class="input-text" name=""></li>
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
-                <li ><input type="text" class="input-text" name="" style="width: 378px" value="${cPurchaseConM.cPurchaseConMNotes}"></li>
+                <li ><input type="text" class="input-text" name="cPurchaseConMNotes" id="cPurchaseConMNotes" style="width: 378px" value="${cPurchaseConM.cPurchaseConMNotes}"></li>
                 <li></li><li></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户业务员</li>
-                <li><input type="text" class="input-text" name="" value="客户业务员"></li>
+                <li><input type="text" class="input-text" name="cPurchaseConMCustomerSalesman" id="cPurchaseConMCustomerSalesman" value="${cPurchaseConM.cPurchaseConMCustomerSalesmanName}"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有效期</li>
-                <li><input type="text" class="input-text" name="" value="${cPurchaseConM.cPurchaseConMValidity}"></li>
+                <li><input type="text" class="input-text" name="cPurchaseConMValidity" id="cPurchaseConMValidity" value="${cPurchaseConM.cPurchaseConMValidity}"></li>
             </ul><br>
         </form:form>
     </div>
@@ -118,15 +146,16 @@
 </div>
 
 <!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="../../statics/lib/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="../../statics/lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="../../statics/jss/H-ui.min.js"></script>
-<script type="text/javascript" src="../../statics/jss/admin/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../../../statics/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../../../statics/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../../../statics/jss/H-ui.min.js"></script>
+<script type="text/javascript" src="../../../statics/jss/admin/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="../../statics/lib/My97DatePicker/4.8/WdatePicker.js"></script>
-<script type="text/javascript" src="../../statics/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="../../statics/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="../../../statics/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="../../../statics/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../../statics/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="../../../statics/jss/CPurchaseCon.js"></script>
 <script type="text/javascript">
     $('.table-sort').dataTable({
         "aaSorting": [[ 1, "desc" ]],//默认第几个排序

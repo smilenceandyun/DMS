@@ -93,36 +93,44 @@
         <%--</table>--%>
         <%--</c:if>--%>
         <%--<c:if test="${!empty cPurchaseConS}">--%>
-            <ul>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
-                <li><input type="text" class="input-text" name="" value="${detail.tGoodsByCPurchaseConSGoodsNo.tGoodsGoodsName}"></li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
-                <li><input type="text" class="input-text" name="" value="#厂家编码${detail.cPurchaseConSDetailId}"></li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税率</li>
-                <li><input type="text" class="input-text" name="" value="${detail.cPurchaseConSTaxRate}"></li>
-            </ul><br>
-            <ul>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品条码</li>
-                <li><input type="text" class="input-text" name=""  value="${detail.tGoodsByCPurchaseConSGoodsNo.tGoodsBoxBarcode}"></li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱价</li>
-                <li><input type="text" class="input-text" name="" value="${detail.cPurchaseConSBoxPrice}"></li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单价</li>
-                <li><input type="text" class="input-text" name="" value="${detail.cPurchaseConSPrice}"></li>
-            </ul><br>
-            <ul>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编码</li>
-                <li><input type="text" class="input-text" name="" value="${detail.tGoodsByCPurchaseConSGoodsNo.tGoodsGoodsNo}" ></li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位</li>
-                <li><input type="text" class="input-text" name="" value="${detail.tGoodsByCPurchaseConSGoodsNo.tGoodsUnit}"></li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;规格型号</li>
-                <li><input type="text" class="input-text" name="" value="${detail.tGoodsByCPurchaseConSGoodsNo.tGoodsGoodsSpce}"></li>
-            </ul><br>
-            <ul>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同编号</li>
-                <li><input type="text" class="input-text" name="" style="background-color: #F5F5F5"  readonly ="readonly" value="${detail.cPurchaseConSPurchasConNo}"></li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;明细ID</li>
-                <li><input type="text" class="input-text" name="" style="background-color: #F5F5F5"  readonly ="readonly" value="${detail.cPurchaseConSDetailId}"></li>
-            </ul><br>
+        <form:form name="ht" id="ht" action="/addS" method="post" role="form" onsubmit="return checkinput(this)">
+        <ul>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
+            <li>
+                <select class="input-text" name="" id="select0" onchange="">
+                    <option value=""></option>
+                    <c:forEach items="${Goods}" var="Goods">
+                        <option value="${Goods.tGoodsGoodsName}">${Goods.tGoodsGoodsName}</option>
+                    </c:forEach>
+                </select>
+            </li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
+            <li><input type="text" class="input-text" name=""></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税率</li>
+            <li><input type="text" class="input-text" name=""></li>
+        </ul><br>
+        <ul>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品条码</li>
+            <li><input type="text" class="input-text" name=""></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱价</li>
+            <li><input type="text" class="input-text" name=""></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单价</li>
+            <li><input type="text" class="input-text" name=""></li>
+        </ul><br>
+        <ul>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编码</li>
+            <li><input type="text" class="input-text" name=""></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位</li>
+            <li><input type="text" class="input-text" name=""></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;规格型号</li>
+            <li><input type="text" class="input-text" name="" ></li>
+        </ul><br>
+        <ul>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同编号</li>
+            <li><input type="text" class="input-text" name="" readonly ="readonly"  value="${PurchasConNo}"></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;明细ID</li>
+            <li><input type="text" class="input-text" name="" value="${detailId}" readonly ="readonly"></li>
+        </ul><br>
         <div class="cl pd-5 mt-20 bg-1 bk-gray" style="height:32px;"> <span class="l"><a href="" class="btn btn-success radius">保存</a></span><span class="l">&nbsp;&nbsp;&nbsp;<a href="" class="btn btn-success radius">新增明细</a></span></div>
         <br>
         <table class="table table-border table-bordered table-bg table-sort">
@@ -146,17 +154,18 @@
                 <tr class="text-c">
                     <td><%=i %><% i++; %></td>
                     <td><a href="/detail2/${cPurchaseConS.cPurchaseConSPurchasConNo} & ${cPurchaseConS.cPurchaseConSDetailId}">${cPurchaseConS.tGoodsByCPurchaseConSGoodsNo.tGoodsGoodsName}</a></td>
-                    <td>${cPurchaseConS.tGoodsByCPurchaseConSGoodsNo.tGoodsGoodsSpce}</td>
+                    <td>${cPurchaseConS.tGoodsByCPurchaseConSGoodsNo.tGoodsSSpec}</td>
                     <td>${cPurchaseConS.cPurchaseConSTaxRate}</td>
                     <td>${cPurchaseConS.tGoodsByCPurchaseConSGoodsNo.tGoodsUnit}</td>
                     <td>${cPurchaseConS.cPurchaseConSPrice}</td>
                     <td>${cPurchaseConS.cPurchaseConSBoxPrice}</td>
-                    <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/updateS/${cPurchaseConS.cPurchaseConSPurchasConNo} & ${cPurchaseConS.cPurchaseConSDetailId}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="/pur_order/deleteS/${cPurchaseConS.cPurchaseConSPurchasConNo} & ${cPurchaseConS.cPurchaseConSDetailId}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                    <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/updateS/${cPurchaseConS.cPurchaseConSPurchasConNo} & ${cPurchaseConS.cPurchaseConSDetailId}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="deleteS/${cPurchaseConS.cPurchaseConSPurchasConNo} & ${cPurchaseConS.cPurchaseConSDetailId}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
         <%--</c:if>--%>
+        </form:form>
     </div>
 </div>
 
@@ -170,6 +179,7 @@
 <script type="text/javascript" src="../../../statics/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="../../../statics/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../../statics/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="../../../statics/jss/CPurchaseCon.js"></script>
 <script type="text/javascript">
     $('.table-sort').dataTable({
         "aaSorting": [[ 1, "desc" ]],//默认第几个排序
