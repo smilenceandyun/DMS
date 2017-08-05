@@ -28,5 +28,8 @@ public interface BProcureSRepository extends JpaRepository<BProcureSEntity,Strin
     @Query(value = " select b from BProcureSEntity b where b.bProcureSProcureNo = :id")
     List<BProcureSEntity> findByBProcureSProcureNoEquals(@Param("id") String id);
 
+    @Query(value = " select max (b.bProcureSDetailId) from BProcureSEntity b where b.bProcureSProcureNo = :no")
+    int findMaxDetailID(@Param("no") String no);
+
 }
 

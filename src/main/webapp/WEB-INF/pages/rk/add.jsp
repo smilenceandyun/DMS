@@ -61,6 +61,28 @@
                 $.post('/pur_order/pur_search',{'search':search});
                  window.location='pur_order';
         }
+        
+        function changefactory(id) {
+            switch (id){
+                case  "":
+                    document.getElementById("factory").value = "";
+                    document.getElementById("purOrdno").value = "";
+                    document.getElementById("factory1").value = "";
+                    document.getElementById("deildate").value = "";
+                    document.getElementById("factoryName").value = "";
+                    break;
+                <c:forEach items="${purOrds}" var="purOrd">
+                case "${purOrd.bPurchaseOrdMOrdProcureNo}":
+                    document.getElementById("purOrdno").value = "${purOrd.bPurchaseOrdMOrdProcureNo}";
+                    document.getElementById("factory").value = "${purOrd.bPurchaseOrdMFactoryGoodsNo}";
+                    document.getElementById("factory1").value = "${purOrd.bPurchaseOrdMFactoryGoodsNo}";
+                    document.getElementById("deildate").value = "${purOrd.bPurchaseOrdMDeliveryDate}";
+                    document.getElementById("factoryName").value = "${purOrd.tFactorysByBPurchaseOrdMFactoryGoodsNo.tFactorysFactoryGoodsName}";
+                    break;
+                </c:forEach>
+            }
+
+        }
     </script>
 
     <title>采购入库明细</title>
@@ -77,29 +99,36 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购入库新增单据 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    <form>
+    <form action="/procure/adddb" method="POST">
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;入库单号</li>
-        <li><input type="text" class="input-text" name="ordProcureNo" required></li>
+        <li><input  type="text" class="input-text" name="bProcureMProcureNo"  value="${no}" required></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家订单号</li>
-        <li><input type="text" class="input-text" name="" required></li>
+        <li>
+            <select style="width: 100%; height: 31px;" name="bProcureMOrdProcureNo" onchange="changefactory(this.value);" required>
+                <option value=""></option>
+                <c:forEach items="${purOrds}" var="purOrd">
+                    <option value="${purOrd.bPurchaseOrdMOrdProcureNo}">${purOrd.bPurchaseOrdMOrdProcureNo}</option>
+                </c:forEach>
+            </select>
+        </li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家代表</li>
-        <li><input style="width: 200px;" type="text" class="input-text" name="" required></li>
+        <li><input id="factory" style="width: 200px;" type="text" class="input-text" name="" required></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手工单号</li>
-        <li><input type="text" class="input-text" name="" required></li>
+        <li><input type="text" class="input-text" name="bProcureMHandbillNo" required></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;供货商编号</li>
-        <li><input type="text" class="input-text" name="" required></li>
+        <li><input id="factory1" type="text" class="input-text" name="" required></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交货日期</li>
-        <li><input style="width: 200px;" type="date" class="input-text" name="" required></li>
+        <li><input id="deildate" style="width: 200px;" type="date" class="input-text" name="" required></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单货号</li>
-        <li><input type="text" class="input-text" name="" required></li>
+        <li><input id="purOrdno" type="text" class="input-text" name="" required></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓管员</li>
         <li>
-            <select style="width: 100%; height: 31px;" required>
+            <select style="width: 100%; height: 31px;" required name="bProcureMWarehouseKep">
                 <option value=""></option>
                 <c:forEach items="${staff}" var="Staff">
                     <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
@@ -107,15 +136,15 @@
             </select>
         </li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建日期</li>
-        <li><input style="width: 200px;" required type="date" value="<% out.print(new java.text.SimpleDateFormat("yyyy-MM-dd").format(new Date())); %>" class="input-text" name=""></li>
+        <li><input style="width: 200px;" required type="date" value="<% out.print(new java.text.SimpleDateFormat("yyyy-MM-dd").format(new Date())); %>" class="input-text" name="bProcureMCreateDate"></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;供货商名称</li>
-        <li><input style="width: 720px;" required type="text" class="input-text" name=""></li>
+        <li><input id="factoryName" style="width: 720px;" required type="text" class="input-text" name=""></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;附注</li>
-        <li><input style="width: 720px;" required type="text" class="input-text" name=""></li>
+        <li><input style="width: 720px;" required type="text" class="input-text" name="bProcureMNotes"></li>
     </ul>
     <div class="cl pd-5 bg-1 bk-gray mt-20">&nbsp;&nbsp;&nbsp;&nbsp;
         <span class="l"><button onclick="" type="submit" class="btn btn-success radius">确认继续并添加明细</button></span>&nbsp;&nbsp;

@@ -56,10 +56,10 @@
         //查询订单，使用post时，参数必须一一对应，才可以匹配到controller中
         function purSearch(){
 //                 var search =$("input[id='search']").val();
-                 var search=$("#search").val();
-                alert("确定要查询吗？");
-                $.post('/pur_order/pur_search',{'search':search});
-                 window.location='pur_order';
+            var search=$("#search").val();
+            alert("确定要查询吗？");
+            $.post('/pur_order/pur_search',{'search':search});
+            window.location='pur_order';
         }
     </script>
 
@@ -80,81 +80,81 @@
 <div class="page-container">
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单货号</li>
-        <li><input disabled id="d1" type="text" class="input-text" name="ordProcureNo"></li>
+        <li><input disabled id="d1" type="text" class="input-text" value="${pm.bProcureMOrdProcureNo}" name="bProcureMOrdProcureNo"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
-        <li><input id="d2" type="text" class="input-text" name=""></li>
+        <li><input id="d2" type="text" class="input-text" value="${pro.tGoodsByBProcureSGoodsNo.tGoodsFactoryGoodsNo}" name="tGoodsFactoryGoodsNo"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;赠送性质</li>
-        <li><input id="d3" type="text" class="input-text" name=""></li>
+        <li><input id="d3" type="text" class="input-text"  name=""></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品条码</li>
-        <li><input id="d4" type="text" class="input-text" name=""></li>
+        <li><input id="d4" type="text" class="input-text" value="${pro.tGoodsByBProcureSGoodsNo.tGoodsBarcode}" name="tGoodsBarcode"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;规格型号</li>
-        <li><input id="d5" type="text" class="input-text" name=""></li>
+        <li><input id="d5" type="text" class="input-text" value="${pro.tGoodsByBProcureSGoodsNo.tGoodsSSpec}" name="tGoodsSSpec"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数量</li>
-        <li><input id="d6" type="text" class="input-text" name=""></li>
+        <li><input id="d6" type="text" class="input-text" value="${pro.bProcureSQuantity}" name="bProcureSQuantity"></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编号</li>
-        <li><input id="d7" type="text" class="input-text" name=""></li>
+        <li><input id="d7" type="text" class="input-text" value="${pro.bProcureSGoodsNo}" name="bProcureSGoodsNo"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
-        <li><input id="d8" type="text" class="input-text" name=""></li>
+        <li><input id="d8" type="text" class="input-text" value="${pro.tGoodsByBProcureSGoodsNo.tGoodsGoodsName}" name="tGoodsGoodsName"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位</li>
-        <li><input  id="d9" type="text" class="input-text" name=""></li>
+        <li><input  id="d9" type="text" class="input-text" value="${pro.tGoodsByBProcureSGoodsNo.tGoodsUnit}" name="tGoodsUnit"></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓库编号</li>
-        <li><input id="d10" type="text" class="input-text" name=""></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保质期/天</li>
-        <li><input  id="d11" type="text" class="input-text" name=""></li>
+        <li><input id="d10" type="text" class="input-text" value="${pro.bProcureSRoomNo}" name="bProcureSRoomNo"></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保质期/月</li>
+        <li><input  id="d11" type="text" class="input-text" value="${pro.tGoodsByBProcureSGoodsNo.tGoodsExDay}" name="tGoodsExDay"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;批次</li>
-        <li><input id="d12" type="text" class="input-text" name=""></li>
+        <li><input id="d12" type="text" class="input-text" value="${pro.bProcureSLot}" name="bProcureSLot"></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库位编号</li>
-        <li><input id="d13" type="text" class="input-text" name=""></li>
+        <li><input id="d13" type="text" class="input-text" value="${pro.bProcureSLocationNo}" name=""></li>
     </ul>
-<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 保存</a></span>&nbsp;&nbsp; <span class="l" style="margin-left: 10px"><a href="/procure/addDetail/${no}" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 新增明细</a></span> <span class="r">共有数据：<strong>${procures.size() != 0 ? procures.size() : 0}</strong> 条</span> </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 保存</a></span>&nbsp;&nbsp; <span class="l" style="margin-left: 10px"><a href="/procure/addDetail/${pm.bProcureMProcureNo}" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 新增明细</a></span> <span class="r">共有数据：<strong>${procures.size() != 0 ? procures.size() : 0}</strong> 条</span> </div>
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>--%>
     <div class="mt-20">
-<form:form action="/index3" method="post" commondName="p">
+        <form:form action="/index3" method="post" commondName="p">
 
-        <table class="table table-border table-bordered table-bg table-sort">
-            <thead>
-            <tr class="text-c">
-                <th width="25"><input type="checkbox" name="id" value=""></th>
-                <th width="70">ID</th>
-                <%--<th width="80">排序</th>--%>
-                <th width="80">商品名称</th>
-                <th width="80">仓库</th>
-                <th width="80">单位</th>
-                <th width="80">单价</th>
-                <th width="80">数量</th>
-                <th width="80">保质期/天</th>
-                <th width="80">批次</th>
-                <th width="100">操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% int i = 0; %>
-            <c:forEach items="${procures}" var="item">
-            <tr class="text-c">
-                <td><input name="id" type="checkbox"  value="${item.bProcureSProcureNo}"></td>
-                <td><%=i %><% i++; %></td>
-                <td><a href="/procure/detailone/${item.bProcureSProcureNo}&${item.bProcureSDetailId}">${item.tGoodsByBProcureSGoodsNo.tGoodsGoodsName}</a></td>
-                <td >${item.bProcureSRoomNo}</td>
-                <td>${item.tGoodsByBProcureSGoodsNo.tGoodsUnit}</td>
-                <td>${item.tGoodsByBProcureSGoodsNo.tGoodsSPrice}</td>
-                <td >${item.bProcureSQuantity}</td>
-                <td>${item.tGoodsByBProcureSGoodsNo.tGoodsExDay}</td>
-                <td >${item.bProcureSLot}</td>
-                <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-            </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+            <table class="table table-border table-bordered table-bg table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="25"><input type="checkbox" name="id" value=""></th>
+                    <th width="70">ID</th>
+                        <%--<th width="80">排序</th>--%>
+                    <th width="80">商品名称</th>
+                    <th width="80">仓库</th>
+                    <th width="80">单位</th>
+                    <th width="80">单价</th>
+                    <th width="80">数量</th>
+                    <th width="80">保质期/月</th>
+                    <th width="80">批次</th>
+                    <th width="100">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% int i = 0; %>
+                <c:forEach items="${procures}" var="item">
+                    <tr class="text-c">
+                        <td><input name="id" type="checkbox"  value="${item.bProcureSProcureNo}"></td>
+                        <td><%=i %><% i++; %></td>
+                        <td><a href="/procure/detailone/${item.bProcureSProcureNo}&${item.bProcureSDetailId}">${item.tGoodsByBProcureSGoodsNo.tGoodsGoodsName}</a></td>
+                        <td >${item.bProcureSRoomNo}</td>
+                        <td>${item.tGoodsByBProcureSGoodsNo.tGoodsUnit}</td>
+                        <td>${item.tGoodsByBProcureSGoodsNo.tGoodsSPrice}</td>
+                        <td >${item.bProcureSQuantity}</td>
+                        <td>${item.tGoodsByBProcureSGoodsNo.tGoodsExDay}</td>
+                        <td >${item.bProcureSLot}</td>
+                        <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
 
-</form:form>
+        </form:form>
     </div>
 </div>
 
