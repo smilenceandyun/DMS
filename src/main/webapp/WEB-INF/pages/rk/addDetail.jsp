@@ -96,14 +96,16 @@
     ul{width:900px; height:20px; size: 20px;}
     li{width:130px; height:20px; float:left;}
 </style>
-<body>
+<body onload="goodsChange(document.getElementById('good1').value)">
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购入库明细 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
     <form action="/procure/addDetaildb" method="post">
+        <c:if test="${spur.bProcureSDetailId != null}"><input type="hidden" name="bProcureSDetailId" value="${spur.bProcureSDetailId}"></c:if>
     <%--单据头--%>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;入库单号</li>
-        <li><input readonly type="text" class="input-text" name="bProcureSProcureNo"  value="${procure.bProcureMProcureNo}" required></li>
+        <li><input readonly type="text" class="input-text" name="bProcureSProcureNo"  value="${procure.bProcureMProcureNo}" required>
+        </li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家订单号</li>
         <li><input readonly type="text" class="input-text" value="${procure.bProcureMOrdProcureNo}" required>
         </li>
@@ -148,17 +150,19 @@
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编号</li>
         <li>
-            <select style="width: 100%; height: 31px;" required onchange="goodsChange(this.value);" name="bProcureSGoodsNo">
+            <select id="good1" style="width: 100%; height: 31px;" required onchange="goodsChange(this.value);" name="bProcureSGoodsNo">
                 <option value=""></option>
                 <c:forEach items="${goods}" var="good">
-                    <option value="${good.tGoodsGoodsNo}">${good.tGoodsGoodsNo}(${good.tGoodsGoodsName})</option>
+                    <option value="${good.tGoodsGoodsNo}"
+                            <c:if test="${good.tGoodsGoodsNo.equals(spur.bProcureSGoodsNo)}">selected</c:if>
+                    >${good.tGoodsGoodsNo}(${good.tGoodsGoodsName})</option>
                 </c:forEach>
             </select>
         </li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;规格型号</li>
         <li><input required id="d5" type="text" class="input-text" name=""></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数量</li>
-        <li><input required id="d6" type="text" class="input-text" name="bProcureSQuantity"></li>
+        <li><input required id="d6" type="text" value="${spur.bProcureSQuantity}" class="input-text" name="bProcureSQuantity"></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品条码</li>
@@ -174,14 +178,16 @@
             <select style="width: 100%; height: 31px;" required name="bProcureSRoomNo">
                 <option value=""></option>
                 <c:forEach items="${rooms}" var="room">
-                    <option value="${room.tRoomRoomNo}">${room.tRoomRoomNo}(${room.tRoomRoomName})</option>
+                    <option value="${room.tRoomRoomNo}"
+                            <c:if test="${room.tRoomRoomNo.equals(spur.bProcureSRoomNo)}">selected</c:if>
+                    >${room.tRoomRoomNo}(${room.tRoomRoomName})</option>
                 </c:forEach>
             </select>
         </li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保质期/天</li>
         <li><input required id="d11" type="text" class="input-text" name=""></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;批次</li>
-        <li><input required id="d12" type="text" class="input-text" name="bProcureSLot"></li>
+        <li><input required id="d12" type="text" value="${spur.bProcureSLot}" class="input-text" name="bProcureSLot"></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库位编号</li>
@@ -189,12 +195,14 @@
             <select style="width: 100%; height: 31px;" required name="bProcureSLocationNo">
                 <option value=""></option>
                 <c:forEach items="${stores}" var="store">
-                    <option value="${store.storeLocationLocationNo}">${store.storeLocationLocationNo}(${store.storeLocationLocation})</option>
+                    <option value="${store.storeLocationLocationNo}"
+                            <c:if test="${store.storeLocationLocationNo.equals(spur.bProcureSLocationNo)}">selected</c:if>
+                    >${store.storeLocationLocationNo}(${store.storeLocationLocation})</option>
                 </c:forEach>
             </select>
         </li>
     </ul>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><button type="submit" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 确认添加</button></span>&nbsp;&nbsp; <span class="l" style="margin-left: 10px"></div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><button type="submit" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 确认</button></span>&nbsp;&nbsp; <span class="l" style="margin-left: 10px"></div>
         </form>
 </div>
 <!--_footer 作为公共模版分离出去-->

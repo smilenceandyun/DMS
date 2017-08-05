@@ -154,7 +154,7 @@
                 <td>${item.tGoodsByBProcureSGoodsNo.tGoodsExDay}</td>
                 <td >${item.bProcureSLot}</td>
                 <c:if test="${mpur.bProcureMState == null}">
-                <td class="f-14 product-brand-manage"><a style="text-decoration:none" href="/procure/detailone/${item.bProcureSProcureNo}&${item.bProcureSDetailId}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onclick="if(!confirm('确定删除？')) return false;" href="/procure/deteleDetail/${item.bProcureSProcureNo}&${item.bProcureSDetailId}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                <td class="f-14 product-brand-manage"><a style="text-decoration:none" href="/procure/updateDetail/${item.bProcureSProcureNo}&${item.bProcureSDetailId}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onclick="if(!confirm('确定删除？')) return false;" href="/procure/deteleDetail/${item.bProcureSProcureNo}&${item.bProcureSDetailId}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                 </c:if>
             </tr>
             </c:forEach>

@@ -187,6 +187,33 @@ public class ProcureController {
         return "rk/addDetail";
     }
 
+    //采购入库 修改明细
+    @RequestMapping(value = "procure/updateDetail/{no}&{id}")
+    public  String updateDetail(@PathVariable("no") String no,@PathVariable("id") int id,ModelMap map)
+    {
+
+        //获取采购单信息
+        BProcureMEntity procure = mRepository.findOne(no);
+        map.addAttribute("procure",procure);
+
+        //获取商品资料
+        List<TGoodsEntity> goods = tGoodsRepository.findAll();
+        map.addAttribute("goods",goods);
+
+        //获取所有仓库及库位信息
+        List<TRoomEntity> roomes = tRoomRepository.findAll();
+        List<StoreLocationEntity> stores = storeLocationRepository.findAll();
+        map.addAttribute("rooms",roomes);
+        map.addAttribute("stores",stores);
+
+        //获取该明细详情
+        List<BProcureSEntity> spurs = sRepository.findByBProcureSProcureNoAndBProcureSDetailIdEquals(no,id);
+        BProcureSEntity spur = spurs.get(0);
+        map.addAttribute("spur",spur);
+
+        return "rk/addDetail";
+    }
+
     //采购入库 添加明细到数据库
     @RequestMapping(value = "procure/addDetaildb",method = RequestMethod.POST)
     public  String addDetaildb(BProcureSEntity sEntity,HttpServletRequest request)
@@ -196,14 +223,17 @@ public class ProcureController {
         sEntity.setbProcureSCreateDate(new Timestamp(new Date().getTime()));
 
         //设置DeatilID
-        int detailID = 0;
-        try {
-            detailID = sRepository.findMaxDetailID(sEntity.getbProcureSProcureNo());
-        }catch (AopInvocationException e){ //数据库无明细，无返回产生的异常
-            e.printStackTrace();
+        String str1 = request.getParameter("bProcureSDetailId");
+        if(str1 == null) {
+            int detailID = 0;
+            try {
+                detailID = sRepository.findMaxDetailID(sEntity.getbProcureSProcureNo());
+            } catch (AopInvocationException e) { //数据库无明细，无返回产生的异常
+                e.printStackTrace();
+            }
+            detailID++;
+            sEntity.setbProcureSDetailId(detailID);
         }
-        detailID++;
-        sEntity.setbProcureSDetailId(detailID);
 
         //!!!数据库 到期日期 不能为空？？ hibernate错误如下：
 //        org.hibernate.PropertyValueException: not-null property references a null or transient value : com.dms.model.BProcureSEntity.bProcureSExp
