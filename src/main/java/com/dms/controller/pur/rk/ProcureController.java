@@ -10,6 +10,7 @@ import com.dms.repository.rk.BProcureMRepository;
 import com.dms.repository.rk.BProcureSRepository;
 import com.dms.serviceImpl.GetOrderNumber;
 import com.google.gson.Gson;
+import org.springframework.aop.AopInvocationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -72,7 +73,8 @@ public class ProcureController {
 
          map.addAttribute("procures",procures);
 
-         map.addAttribute("no",id);
+         BProcureMEntity mEntity = mRepository.findOne(id);
+         map.addAttribute("mpur",mEntity);
 
          return "rk/detail";
     }
@@ -93,7 +95,7 @@ public class ProcureController {
 
          //获取订单号
         BProcureMEntity pm = mRepository.findOne(no);
-        map.addAttribute("pm",pm);
+        map.addAttribute("mpur",pm);
 
         return "rk/detail1";
     }
@@ -194,7 +196,12 @@ public class ProcureController {
         sEntity.setbProcureSCreateDate(new Timestamp(new Date().getTime()));
 
         //设置DeatilID
-        int detailID = sRepository.findMaxDetailID(sEntity.getbProcureSProcureNo());
+        int detailID = 0;
+        try {
+            detailID = sRepository.findMaxDetailID(sEntity.getbProcureSProcureNo());
+        }catch (AopInvocationException e){ //数据库无明细，无返回产生的异常
+            e.printStackTrace();
+        }
         detailID++;
         sEntity.setbProcureSDetailId(detailID);
 
@@ -213,16 +220,21 @@ public class ProcureController {
 
     //采购入库 删除明细
     @RequestMapping(value = "procure/deteleDetail/{no}&{id}")
-    public  String deteleDetail(@PathVariable("no") String no,@PathVariable("id") int id)
+    public  String deteleDetail(@PathVariable("no") String no,@PathVariable("id") int id ,ModelMap map)
     {
 
+        int resutl = sRepository.deleteByBProcureSProcureNoAndBProcureSDetailIdEquals(no,id);
+
+        map.addAttribute("reslut",resutl);
         return "redirect:/procure/detail/"+ no;
     }
 
     //采购入库 删除单据
     @RequestMapping(value = "procure/detele/{no}")
-    public  String detele(@PathVariable("no") String no)
+    public  String detele(@PathVariable("no") String no,ModelMap map)
     {
+        mRepository.delete(no);
+        sRepository.deleteAllByBProcureSProcureNoEquals(no);
 
         return "redirect:/procure";
     }
