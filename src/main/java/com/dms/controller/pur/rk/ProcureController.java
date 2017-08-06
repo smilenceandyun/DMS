@@ -259,7 +259,17 @@ public class ProcureController {
         return "redirect:/procure/detail/"+ no;
     }
 
-    //采购入库
+    //采购入库 删除单据
+    @RequestMapping(value = "procure/detele/{no}")
+    public  String detele(@PathVariable("no") String no,ModelMap map)
+    {
+        mRepository.delete(no);
+        sRepository.deleteAllByBProcureSProcureNoEquals(no);
+
+        return "redirect:/procure";
+    }
+
+    //采购入库 修改单据头
     @RequestMapping(value = "procure/update/{no}")
     public  String update(@PathVariable("no") String no,ModelMap map)
     {

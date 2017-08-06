@@ -63,63 +63,36 @@
         }
     </script>
 
-    <title>采购入库明细</title>
+    <title>采购入库</title>
 </head>
 <style>
     .display-none {
         display:none;
     }
 </style>
-<style type="text/css">
-    div{ height:50px;}
-    ul{width:900px; height:20px; size: 20px;}
-    li{width:130px; height:20px; float:left;}
-</style>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购入库明细 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购入库 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    <ul>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单货号</li>
-        <li><input disabled id="d1" type="text" class="input-text" name="ordProcureNo"></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
-        <li><input id="d2" type="text" class="input-text" name=""></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;赠送性质</li>
-        <li><input id="d3" type="text" class="input-text" name=""></li>
-    </ul><br>
-    <ul>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品条码</li>
-        <li><input id="d4" type="text" class="input-text" name=""></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;规格型号</li>
-        <li><input id="d5" type="text" class="input-text" name=""></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数量</li>
-        <li><input id="d6" type="text" class="input-text" name=""></li>
-    </ul><br>
-    <ul>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编号</li>
-        <li><input id="d7" type="text" class="input-text" name=""></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
-        <li><input id="d8" type="text" class="input-text" name=""></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位</li>
-        <li><input  id="d9" type="text" class="input-text" name=""></li>
-    </ul><br>
-    <ul>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓库编号</li>
-        <li><input id="d10" type="text" class="input-text" name=""></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保质期/天</li>
-        <li><input  id="d11" type="text" class="input-text" name=""></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;批次</li>
-        <li><input id="d12" type="text" class="input-text" name=""></li>
-    </ul><br>
-    <ul>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库位编号</li>
-        <li><input id="d13" type="text" class="input-text" name=""></li>
-    </ul>
-<div class="cl pd-5 bg-1 bk-gray mt-20">
-    <c:if test="${mpur.bProcureMState == null}">
-    <%--<span class="l"><a href="javascript:;" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 保存</a></span>&nbsp;&nbsp;--%>
-    <span class="l" style="margin-left: 10px"><a href="/procure/addDetail/${mpur.bProcureMProcureNo}" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 新增明细</a></span>
-    </c:if>
-    <span class="r">共有数据：<strong>${procures.size() != 0 ? procures.size() : 0}</strong> 条</span> </div>
+    <div class="text-c">
+        <form class="Huiform" method="post" action="" target="_self">
+            <input type="text" placeholder="请输入订单号" name="search" id="search" value="" class="input-text" style="width:120px">
+            <span class="select-box" style="width:150px">
+			<select class="select"  name="brandclass" size="1">
+                <option value="" disabled selected  class="display-none">选择厂家</option>
+				<option value="1" selected>厂家名称 </option>
+				<option value="0">厂家2</option>
+			</select>
+			</span>
+            </span><button type="button" class="btn btn-success" id="" name="" onClick="purSearch()"><i class="Hui-iconfont">&#xe600;</i> 查询</button>
+            <span class="btn-upload form-group">
+			<input class="input-text upload-url" type="text" name="uploadfile-2" id="uploadfile-2" readonly style="width:200px">
+			<a href="javascript:void(0);" class="btn btn-primary upload-btn"><i class="Hui-iconfont">&#xe642;</i> 上传文件</a>
+			<input type="file" multiple name="file-2" class="input-file">
+			</span>
+          <%--<button type="button" class="btn btn-success" id="" name="" onClick="picture_colume_add(this);"><i class="Hui-iconfont">&#xe600;</i> 添加</button>--%>
+        </form>
+    </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel1()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span style="margin-left: 10px"><a href="/promotion/add" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 新增协议</a></span> <span class="r">共有数据：<strong>${list.size()}</strong> 条</span> </div>
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>--%>
     <div class="mt-20">
 <form:form action="/index3" method="post" commondName="p">
@@ -130,32 +103,30 @@
                 <th width="25"><input type="checkbox" name="id" value=""></th>
                 <th width="70">ID</th>
                 <%--<th width="80">排序</th>--%>
-                <th width="80">商品名称</th>
-                <th width="80">仓库</th>
-                <th width="80">单位</th>
-                <th width="80">单价</th>
-                <th width="80">数量</th>
-                <th width="80">保质期/天</th>
-                <th width="80">批次</th>
-                <c:if test="${mpur.bProcureMState == null}"><th width="100">操作</th></c:if>
+                <th width="80">协议编号</th>
+                <th width="80">客户名称</th>
+                <th width="80">开始日期</th>
+                <th width="80">结束日期</th>
+                <th width="80">结算方式</th>
+                <th width="100">业务员</th>
+                <th width="80">制单人</th>
+                <th width="100">操作</th>
             </tr>
             </thead>
             <tbody>
             <% int i = 0; %>
-            <c:forEach items="${procures}" var="item">
+            <c:forEach items="${list}" var="item">
             <tr class="text-c">
-                <td><input name="id" type="checkbox"  value="${item.bProcureSProcureNo}"></td>
+                <td><input name="id" type="checkbox"  value="${item.promotionMPromotionNo}"></td>
                 <td><%=i %><% i++; %></td>
-                <td><a href="/procure/detailone/${item.bProcureSProcureNo}&${item.bProcureSDetailId}">${item.tGoodsByBProcureSGoodsNo.tGoodsGoodsName}</a></td>
-                <td >${item.bProcureSRoomNo}</td>
-                <td>${item.tGoodsByBProcureSGoodsNo.tGoodsUnit}</td>
-                <td>${item.tGoodsByBProcureSGoodsNo.tGoodsSPrice}</td>
-                <td >${item.bProcureSQuantity}</td>
-                <td>${item.tGoodsByBProcureSGoodsNo.tGoodsExDay}</td>
-                <td >${item.bProcureSLot}</td>
-                <c:if test="${mpur.bProcureMState == null}">
-                <td class="f-14 product-brand-manage"><a style="text-decoration:none" href="/procure/updateDetail/${item.bProcureSProcureNo}&${item.bProcureSDetailId}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onclick="if(!confirm('确定删除？')) return false;" href="/procure/deteleDetail/${item.bProcureSProcureNo}&${item.bProcureSDetailId}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-                </c:if>
+                <td><a href="/promotion/detail/${item.promotionMPromotionNo}">${item.promotionMPromotionNo}</a></td>
+                <td>${item.promotionMFactPromotionNo}</td>
+                <td>${item.promotionMStartDate}</td>
+                <td >${item.promotionMEndDate}</td>
+                <td >整单结算</td>
+                <td >${item.tStaffByPromotionMSalesman.tStaffStaffName}</td>
+                <td >${item.tStaffByPromotionMCreateNo.tStaffStaffName}</td>
+                <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick='window.location.href="/promotion/update/${item.promotionMPromotionNo}";' title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" href="/promotion/detele/${item.promotionMPromotionNo}" onclick="if(!confirm('确定删除？')) return false;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
             </tr>
             </c:forEach>
             </tbody>
@@ -184,7 +155,6 @@
 //            {"orderable":false,"aTargets":[0,6]}// 制定列不参与排序
         ]
     });
-
 </script>
 </body>
 </html>
