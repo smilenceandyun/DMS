@@ -126,7 +126,7 @@
                 <td >${item.tStaffByBProcureMCreateNo.tStaffStaffName}</td>
                 <td >${item.bProcureMCheckDate}</td>
                 <td >${item.bProcureMState != null ? (item.bProcureMState == 0 ? "不通过" : "通过") : "未审核"}</td>
-                <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick='window.location.href="/procure/detail/${item.bProcureMProcureNo}";' title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" href="/procure/detele/${item.bProcureMProcureNo}" onclick="if(!confirm('确定删除？')) return false;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick='window.location.href="/procure/update/${item.bProcureMProcureNo}";' title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" href="/procure/detele/${item.bProcureMProcureNo}" onclick="if(!confirm('确定删除？')) return false;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
             </tr>
             </c:forEach>
             </tbody>

@@ -134,7 +134,7 @@
                     <th width="80">单位</th>
                     <th width="80">单价</th>
                     <th width="80">数量</th>
-                    <th width="80">保质期/月</th>
+                    <th width="80">保质期/天</th>
                     <th width="80">批次</th>
                     <c:if test="${mpur.bProcureMState == null}"><th width="100">操作</th></c:if>
                 </tr>

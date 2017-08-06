@@ -259,13 +259,21 @@ public class ProcureController {
         return "redirect:/procure/detail/"+ no;
     }
 
-    //采购入库 删除单据
-    @RequestMapping(value = "procure/detele/{no}")
-    public  String detele(@PathVariable("no") String no,ModelMap map)
+    //采购入库
+    @RequestMapping(value = "procure/update/{no}")
+    public  String update(@PathVariable("no") String no,ModelMap map)
     {
-        mRepository.delete(no);
-        sRepository.deleteAllByBProcureSProcureNoEquals(no);
 
-        return "redirect:/procure";
+        //获取员工
+        List<TStaffEntity> staff = tStaffRepository.findAll();
+        map.addAttribute("staff",staff);
+        //获取所有订单
+        List<BPurchaseOrdMEntity> purchaseOrdMEntityList = mOrdRepository.findAll();
+        map.addAttribute("purOrds",purchaseOrdMEntityList);
+
+        BProcureMEntity pur = mRepository.findOne(no);
+        map.addAttribute("pur",pur);
+
+        return "rk/update";
     }
 }
