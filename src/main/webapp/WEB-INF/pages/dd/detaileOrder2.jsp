@@ -72,7 +72,7 @@
 </style>
 <style type="text/css">
     ul{width:900px; height:20px;  size: 20px; color: rgba(0,0,0,0.5); font-weight: 600; font-size: inherit;}
-    li{width:130px; height:20px; float:left;}
+    li{width:150px; height:20px; float:left;}
 </style>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购明细 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
@@ -106,54 +106,64 @@
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单货号</li>
         <li><input type="text" class="input-text" readonly="readonly" name="ordProcureNo" value="${ordProcureNo}"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" value="#参加编码"></li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.tFactorysByBPurchaseOrdSFactoryGoodsNo.tFactorysFactoryGoodsNo}"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;赠送性质</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" value="#赠送性质"></li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.bPurchaseOrdSPresentationProperty}"></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品条码</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" value="#商品条码"></li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.tGoodsByBPurchaseOrdSGoodsNo.tGoodsBarcode}"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;规格型号</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" value="#规格型号"></li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsSpce}"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交易原价</li>
         <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.bPurchaseOrdSOriginalPrice}"></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编码</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" value="#商品编码"></li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.tGoodsByBPurchaseOrdSGoodsNo.tGoodsBrandNo}"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库存</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" value="#库存"></li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.tGoodsByBPurchaseOrdSGoodsNo.tGoodsPackQuantity}"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;含税金额</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" value="#含税金额"></li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.bPurchaseOrdSDetailMoney *(1 + detail.bPurchaseOrdSTaxRate)}"></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" value="#商品名称"></li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsName}"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税率</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="taxRate"value="${detail.bPurchaseOrdSTaxRate}"></li>
+        <li><input type="text" class="input-text" readonly="readonly" name="taxRate" value="${detail.bPurchaseOrdSTaxRate}"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未含税金额</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.bPurchaseOrdSTaxRate}"></li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.bPurchaseOrdSDetailMoney}"></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓库</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" value="#仓库"></li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.tRoomByBPurchaseOrdSRoomNo.tRoomRoomName}"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" value="#单位"></li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.tGoodsByBPurchaseOrdSGoodsNo.tGoodsUnit}"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单价</li>
         <li><input type="text" class="input-text" readonly="readonly" name="price" value="${detail.bPurchaseOrdSPrice}"></li>
 
     </ul><br>
     <ul>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数量</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="quantity" value="${detail.bPurchaseOrdSBoxQuantity}"></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数量/箱</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="quantity" value="${detail.bPurchaseOrdSQuantity}"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保质期/月</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.bPurchaseOrdSMfg}"></li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.tGoodsByBPurchaseOrdSGoodsNo.tGoodsExDay/30}"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.bPurchaseOrdSDetailMoney}"></li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.bPurchaseOrdSDetailMoney *(1 + detail.bPurchaseOrdSTaxRate)}"></li>
     </ul><br>
     <ul>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
-        <li style="float: left;width: 650px;"><input type="text" class="input-text" readonly="readonly" name=""></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱数</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.bPurchaseOrdSBoxQuantity}" ></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;生产日期</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.bPurchaseOrdSMfg}"></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;过期日期</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.bPurchaseOrdSExp}"></li>
+        <%--<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>--%>
+        <%--<li style="float: left;width: 650px;"><input type="text" class="input-text" readonly="readonly" name="" value="${detail.}"></li>--%>
+    </ul><br>
+    <ul>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结算方式</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" value="${detail.tPaymentByBPurchaseOrdSPaymentNo.tPaymentPaymentName}" ></li>
     </ul><br>
     <br>
     <table class="table table-border table-bordered table-bg table-sort">
@@ -166,7 +176,8 @@
             <th width="80">仓库</th>
             <th width="80">单位</th>
             <th width="80">单价</th>
-            <th width="80">数量</th>
+            <th width="80">数量/箱</th>
+            <th width="80">箱数</th>
             <th width="80">保质期/月</th>
             <th width="80">总金额</th>
             <th width="40">操作</th>
@@ -181,14 +192,15 @@
                 <%--<td><input name="id" type="checkbox"  value="${purOrder.ordProcureNo}"></td>--%>
                 <td ><%=i %><% i++; %></td>
                 <%--<td><a href="/pur_order/detaileOrder/${purOrder.bPurchaseOrdSOrdProcureNo}">${purOrder.bPurchaseOrdSOrdProcureNo}</a></td>--%>
-                <td><a href="/pur_order/detaileOrderDetail/${purOrder.bPurchaseOrdSDetailId}&${purOrder.bPurchaseOrdSOrdProcureNo}">#商品名称</a></td>
-                <td >#仓库</td>
-                <td >#单位</td>
+                <td><a href="/pur_order/detaileOrderDetail/${purOrder.bPurchaseOrdSDetailId}&${purOrder.bPurchaseOrdSOrdProcureNo}">${detail.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsName}</a></td>
+                <td >${purOrder.tRoomByBPurchaseOrdSRoomNo.tRoomRoomName}</td>
+                <td >${purOrder.tGoodsByBPurchaseOrdSGoodsNo.tGoodsUnit}</td>
                 <td >${purOrder.bPurchaseOrdSPrice}</td>
                 <td >${purOrder.bPurchaseOrdSQuantity}</td>
+                <td >${purOrder.bPurchaseOrdSBoxQuantity}</td>
                 <td >${purOrder.bPurchaseOrdSMfg}</td>
                 <td >${purOrder.bPurchaseOrdSDetailMoney}</td>
-                <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('明细编辑','index2.html','1')" href="/pur_order/update/${purOrder.bPurchaseOrdSOrdProcureNo}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="/pur_order/detaileOrder/delete/${purOrder.bPurchaseOrdSDetailId}&${purOrder.bPurchaseOrdSOrdProcureNo}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('明细编辑','index2.html','1')" href="/pur_order/detaileOrder/update/${purOrder.bPurchaseOrdSDetailId}&${purOrder.bPurchaseOrdSOrdProcureNo}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="/pur_order/detaileOrder/delete/${purOrder.bPurchaseOrdSDetailId}&${purOrder.bPurchaseOrdSOrdProcureNo}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
             </tr>
         </c:forEach>
         </tbody>

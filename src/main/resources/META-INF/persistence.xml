@@ -171,7 +171,7 @@
             <!--&lt;!&ndash; 数据库连接的驱动 &ndash;&gt;-->
             <property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
             <!-- 数据库连接的用户名 -->
-            <property name="hibernate.connection.username" value="manager001"/>
+            <property name="hibernate.connection.username" value="logisticsTest"/>
             <!-- 数据库连接的密码 -->
             <property name="hibernate.connection.password" value="123123."/>
             <!-- 显示SQL语句 -->

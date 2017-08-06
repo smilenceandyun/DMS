@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -15,14 +16,20 @@ import java.util.List;
  */
 @Repository
 public interface BPurchaseOrdSRepository extends JpaRepository<BPurchaseOrdSEntity, String> {
-//    @Modifying      // 说明该方法是修改操作
-//    @Transactional  // 说明该方法是事务性操作
-//    // 定义查询
-//    // @Param注解用于提取参数
-//    @Query("update BPurchaseOrdSEntity detaileorder set detaileorder.detaile1=:qDetaile1, detaileorder.detaile2=:qDetaile2, " +
-//            "detaileorder.detaile3=:qDetaile3, detaileorder.detaile4=:qDetaile4  where detaileorder.detaileId=:qId")
-//    public void updatePurOrder(@Param("qDetaile1") String detaile1, @Param("qDetaile2") String detaile2,
-//                               @Param("qDetaile3") String detaile3, @Param("qDetaile4") String detaile4, @Param("qId") int detaileId);
+    @Modifying      // 说明该方法是修改操作
+    @Transactional  // 说明该方法是事务性操作
+    // 定义查询
+    // @Param注解用于提取参数
+    @Query("update BPurchaseOrdSEntity detaileorder set detaileorder.bPurchaseOrdSFactoryGoodsNo=:bPurchaseOrdSFactoryGoodsNo, detaileorder.bPurchaseOrdSPresentationProperty=:bPurchaseOrdSPresentationProperty, " +
+            "detaileorder.bPurchaseOrdSGoodsNo=:bPurchaseOrdSGoodsNo, detaileorder.bPurchaseOrdSOriginalPrice=:bPurchaseOrdSOriginalPrice, detaileorder.bPurchaseOrdSTaxRate=:bPurchaseOrdSTaxRate," +
+            "detaileorder.bPurchaseOrdSRoomNo=:bPurchaseOrdSRoomNo,detaileorder.bPurchaseOrdSPrice=:bPurchaseOrdSPrice,detaileorder.bPurchaseOrdSQuantity=:bPurchaseOrdSQuantity,detaileorder.bPurchaseOrdSDetailMoney=:bPurchaseOrdSDetailMoney" +
+            ",detaileorder.bPurchaseOrdSBoxQuantity=:bPurchaseOrdSBoxQuantity,detaileorder.bPurchaseOrdSBoxPrice=:bPurchaseOrdSBoxPrice, detaileorder.bPurchaseOrdSPaymentNo=:bPurchaseOrdSPaymentNo" +
+            ",detaileorder.bPurchaseOrdSMfg=:bPurchaseOrdSMfg,detaileorder.bPurchaseOrdSExp=:bPurchaseOrdSExp where detaileorder.bPurchaseOrdSDetailId=:bPurchaseOrdSDetailId and detaileorder.bPurchaseOrdSOrdProcureNo=:bPurchaseOrdSOrdProcureNo")
+    public void updateDetailOrder(@Param("bPurchaseOrdSFactoryGoodsNo") String bPurchaseOrdSFactoryGoodsNo, @Param("bPurchaseOrdSPresentationProperty") String bPurchaseOrdSPresentationProperty,
+                               @Param("bPurchaseOrdSGoodsNo") String bPurchaseOrdSGoodsNo, @Param("bPurchaseOrdSOriginalPrice") BigDecimal bPurchaseOrdSOriginalPrice, @Param("bPurchaseOrdSTaxRate") BigDecimal bPurchaseOrdSTaxRate,
+                               @Param("bPurchaseOrdSRoomNo") String bPurchaseOrdSRoomNo,@Param("bPurchaseOrdSPrice") BigDecimal bPurchaseOrdSPrice,@Param("bPurchaseOrdSQuantity") BigDecimal bPurchaseOrdSQuantity,@Param("bPurchaseOrdSDetailMoney") BigDecimal bPurchaseOrdSDetailMoney,
+                               @Param("bPurchaseOrdSBoxQuantity") BigDecimal bPurchaseOrdSBoxQuantity,@Param("bPurchaseOrdSBoxPrice") BigDecimal bPurchaseOrdSBoxPrice,@Param("bPurchaseOrdSPaymentNo") String bPurchaseOrdSPaymentNo,@Param("bPurchaseOrdSMfg") String bPurchaseOrdSMfg,
+                               @Param("bPurchaseOrdSExp") String bPurchaseOrdSExp,@Param("bPurchaseOrdSDetailId") int bPurchaseOrdSDetailId,@Param("bPurchaseOrdSOrdProcureNo") String bPurchaseOrdSOrdProcureNo);
 //@Transactional(timeout = 10)
 //@Query("select bPurchaseOrdS from BPurchaseOrdSEntity bPurchaseOrdS where bPurchaseOrdS.bPurchaseOrdSOrdProcureNo = ?1")
 //    List<BPurchaseOrdSEntity> findByordProcureNo(java.lang.String ordProcureNo);
