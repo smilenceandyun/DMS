@@ -131,7 +131,7 @@
                     <%--</select>--%>
 
                     <select id="good1" class="input-text" required onchange="goodsChange(this.value);" name="bPurchaseOrdSGoodsNo" required>
-                        <option value="1" selected>选择商品编号</option>
+                        <option value="" selected>选择商品编号</option>
                         <c:forEach items="${TGoods}" var="TGoods">
                             <option value="${TGoods.tGoodsGoodsNo}">${TGoods.tGoodsGoodsNo}(${TGoods.tGoodsGoodsName})</option>
                         </c:forEach>
