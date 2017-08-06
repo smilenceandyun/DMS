@@ -98,7 +98,6 @@
                     <th width="25"><input type="checkbox" name="id" value=""></th>
                     <th width="30">ID</th>
                     <th width="80">退货单号</th>
-                    <th width="80">客户名称</th>
                     <th width="80">结算方式</th>
                     <th width="80">业务日期</th>
                     <th width="80">制单日期</th>
@@ -115,14 +114,13 @@
                     <tr class="text-c">
                         <td><input name="id" type="checkbox" value="${brProcureM.bRProcureMRProcureNo}"></td>
                         <td><%=i %><% i++; %></td>
-                        <td>${brProcureM.bRProcureMRProcureNo}</td>
-                        <td>广州合生元生物制品有限公司</td>
+                        <td><a href="">${brProcureM.bRProcureMRProcureNo}</a></td>
                         <td>${brProcureM.bRProcureMPaymentAttributer}</td>
                         <td>${brProcureM.bRProcureMModifiTime}</td>
                         <td>${brProcureM.bRProcureMCreateDate}</td>
                         <td>${brProcureM.bRProcureMCheckDate}</td>
                         <td>${brProcureM.bRProcureMState == 0? "未审核" : "已审核"}</td>
-                        <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/updateM/${brProcureM.bRProcureMRProcureNo}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="/delete/${brProcureM.bRProcureMRProcureNo}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                        <td class="f-14 product-brand-manage"><c:if test="${brProcureM.bRProcureMState ==  \"0\"}"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/updateR/${brProcureM.bRProcureMRProcureNo}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> </c:if> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="/deleteRM/${brProcureM.bRProcureMRProcureNo}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
