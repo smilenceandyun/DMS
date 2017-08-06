@@ -1,16 +1,13 @@
 package com.dms.controller.pur.th;
 
 import com.dms.model.*;
-import com.dms.repository.TFactorysRepository;
-import com.dms.repository.TGoodsRepository;
-import com.dms.repository.TRoomRepository;
-import com.dms.repository.TStaffRepository;
-import com.dms.repository.dd.BPurchaseOrdMRepository;
+import com.dms.repository.*;
 import com.dms.repository.th.BRProcureMRepository;
 import com.dms.repository.th.BRProcureSRepository;
 import com.dms.serviceImpl.GetOrderNumber;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -45,16 +42,13 @@ public class ReturnController {
 
     final TRoomRepository tRoomRepository;//仓库
 
-    final BPurchaseOrdMRepository bPurchaseOrdMRepository;//采购订单
-
-    public ReturnController(BRProcureMRepository brProcureMRepository, BRProcureSRepository brProcureSRepository, TStaffRepository tStaffRepository, TGoodsRepository tGoodsRepository, TFactorysRepository tFactorysRepository, TRoomRepository tRoomRepository, BPurchaseOrdMRepository bPurchaseOrdMRepository) {
+    public ReturnController(BRProcureMRepository brProcureMRepository, BRProcureSRepository brProcureSRepository, TStaffRepository tStaffRepository, TGoodsRepository tGoodsRepository, TFactorysRepository tFactorysRepository, TRoomRepository tRoomRepository) {
         this.brProcureMRepository = brProcureMRepository;
         this.brProcureSRepository = brProcureSRepository;
         this.tStaffRepository = tStaffRepository;
         this.tGoodsRepository = tGoodsRepository;
         this.tFactorysRepository = tFactorysRepository;
         this.tRoomRepository = tRoomRepository;
-        this.bPurchaseOrdMRepository = bPurchaseOrdMRepository;
         t = new GetOrderNumber("t");
     }
 
@@ -80,11 +74,9 @@ public class ReturnController {
 
         List<TStaffEntity> Staff = tStaffRepository.findAll();//获取员工信息
         List<TFactorysEntity> Factorys = tFactorysRepository.findAll();//获取厂家信息
-        List<BPurchaseOrdMEntity> bPurchaseOrdMEntities = bPurchaseOrdMRepository.findAll();
         String UUID = t.getOrderNo();//获取UUID
 
         // 传递给请求页面
-        modelMap.addAttribute("bPurchaseOrdMEntities", bPurchaseOrdMEntities);
         modelMap.addAttribute("Staff", Staff);
         modelMap.addAttribute("Factorys", Factorys);
         modelMap.addAttribute("UUID", UUID);
@@ -132,6 +124,52 @@ public class ReturnController {
        brProcureMRepository.saveAndFlush(brProcureMEntity);
 
         // 重定向到用户管理页面，方法为 redirect:url
+        return "redirect:/BRProM_order";
+    }
+
+    //======修改采购退货================================================================================================
+
+    // 更新采购合同信息 页面
+    @RequestMapping(value = "/updateR/{bRProcureMRProcureNo}", method = RequestMethod.GET)
+    public String updatebRProcureM(@PathVariable("bRProcureMRProcureNo") String bRProcureMRProcureNo, ModelMap modelMap) {
+
+        // 找到相应采购退货单
+        BRProcureMEntity brProcureMEntity = brProcureMRepository.findOne(bRProcureMRProcureNo);
+
+        List<TStaffEntity> Staff = tStaffRepository.findAll();//获取员工信息
+        List<TFactorysEntity> Factorys = tFactorysRepository.findAll();//获取厂家信息
+
+        // 传递给请求页面
+        modelMap.addAttribute("bRProcureM", brProcureMEntity);
+        modelMap.addAttribute("Factorys", Factorys);
+        modelMap.addAttribute("Staff", Staff);
+
+        return "th/BRProcureM_update";
+    }
+
+    // 更新采购退货 信息操作
+    @RequestMapping(value = "/updateRE", method = RequestMethod.POST)
+    public String updatebRProcureMPost(BRProcureMEntity brProcureMEntity) {
+
+        //读取原state数据，bProcureMEntity
+        BRProcureMEntity b = brProcureMRepository.findOne(brProcureMEntity.getbRProcureMRProcureNo());
+        brProcureMEntity.setbRProcureMState(b.getbRProcureMState());
+
+        // 修改，并立即刷新缓存
+        brProcureMRepository.saveAndFlush(brProcureMEntity);
+
+        return "redirect:/BRProM_order";
+    }
+
+    //======删除采购退货================================================================================================
+
+    @RequestMapping(value = "/deleteRM/{bRProcureMRProcureNo}", method = RequestMethod.GET)
+    public  String deleteM(@PathVariable("bRProcureMRProcureNo") String bRProcureMRProcureNo)
+    {
+
+        brProcureMRepository.delete(bRProcureMRProcureNo);
+//        brProcureSRepository.
+
         return "redirect:/BRProM_order";
     }
 }

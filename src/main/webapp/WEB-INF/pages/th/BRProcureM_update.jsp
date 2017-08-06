@@ -80,30 +80,31 @@
 </style>
 <body onload="factoryChange(document.getElementById('f1').value)">
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购退货 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
-<div class="page-container">
-    <div class="mt-20">
-    <form:form action="/addRE" method="post" commondName="p">
+<div style="padding: 20px">
+    <form:form action="/updateRE" method="post" commondName="p">
         <ul>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退货单号</li>
-        <li><input type="text" class="input-text" name="bRProcureMRProcureNo" id="bRProcureMRProcureNo" value="${UUID}" readonly="readonly"></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手工单号</li>
-        <li><input type="text" class="input-text" name="bRProcureMHandbillNo" id="bRProcureMHandbillNo" required></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单日期</li>
-        <li><input type="date" class="input-text" name="bRProcureMCreateDate" id="bRProcureMCreateDate" required></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核日期</li>
-        <li><input type="date" class="input-text" name="bRProcureMCheckDate" id="bRProcureMCheckDate" required></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退货单号</li>
+            <li><input type="text" class="input-text" name="bRProcureMRProcureNo" id="bRProcureMRProcureNo" value="${bRProcureM.bRProcureMRProcureNo}" readonly="readonly"></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手工单号</li>
+            <li><input type="text" class="input-text" name="bRProcureMHandbillNo" id="bRProcureMHandbillNo" value="${bRProcureM.bRProcureMHandbillNo}"></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单日期</li>
+            <li><input type="text" class="input-text" name="bRProcureMCreateDate" id="bRProcureMCreateDate" value="${bRProcureM.bRProcureMCreateDate}"></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核日期</li>
+            <li><input type="text" class="input-text" name="bRProcureMCheckDate" id="bRProcureMCheckDate" value="${bRProcureM.bRProcureMCheckDate}"></li>
         </ul><br>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务性质</li>
-            <li><input type="text" class="input-text" name="bRProcureMServiceAttribute" id="bRProcureMServiceAttribute" required></li>
+            <li><input type="text" class="input-text" name="bRProcureMServiceAttribute" id="bRProcureMServiceAttribute" value="${bRProcureM.bRProcureMServiceAttribute}"></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结算方式</li>
-            <li><input type="text" class="input-text" name="bRProcureMPaymentAttributer" id="bRProcureMPaymentAttributer" required></li>
+            <li><input type="text" class="input-text" name="bRProcureMPaymentAttributer" id="bRProcureMPaymentAttributer" value="${bRProcureM.bRProcureMPaymentAttributer}"></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓管员</li>
             <li>
-                <select class="input-text" name="bRProcureMWarehouseKeeper" id="bRProcureMWarehouseKeeper" required>
+                <select class="input-text" name="bRProcureMWarehouseKeeper" id="bRProcureMWarehouseKeeper">
                     <option value="" ></option>
                     <c:forEach items="${Staff}" var="Staff">
-                        <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                        <option value="${Staff.tStaffStaffNo}" <c:if test="${Staff.tStaffStaffNo.equals(bRProcureM.bRProcureMWarehouseKeeper)}">selected</c:if>>
+                                ${Staff.tStaffStaffName}
+                        </option>
                     </c:forEach>
                 </select>
             </li>
@@ -112,45 +113,50 @@
                 <select class="input-text" name="bRProcureMChecker" id="bRProcureMChecker">
                     <option value="" ></option>
                     <c:forEach items="${Staff}" var="Staff">
-                        <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                        <option value="${Staff.tStaffStaffNo}" <c:if test="${Staff.tStaffStaffNo.equals(bRProcureM.bRProcureMChecker)}">selected</c:if>>
+                                ${Staff.tStaffStaffName}
+                        </option>
                     </c:forEach>
                 </select>
             </li>
         </ul><br>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务日期</li>
-            <li><input type="date" class="input-text" name="bRProcureMModifiTime" id="bRProcureMModifiTime" required></li>
+            <li><input type="text" class="input-text" name="bRProcureMModifiTime" id="bRProcureMModifiTime" value="${bRProcureM.bRProcureMModifiTime}"></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务员</li>
             <li>
-                <select class="input-text" name="bRProcureMSalesman" id="bRProcureMSalesman" required>
+                <select class="input-text" name="bRProcureMSalesman" id="bRProcureMSalesman">
                     <option value="" ></option>
                     <c:forEach items="${Staff}" var="Staff">
-                        <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                        <option value="${Staff.tStaffStaffNo}" <c:if test="${Staff.tStaffStaffNo.equals(bRProcureM.bRProcureMSalesman)}">selected</c:if>>
+                                ${Staff.tStaffStaffName}
+                        </option>
                     </c:forEach>
                 </select>
             </li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;送货员</li>
             <li>
-                <select class="input-text" name="bRProcureMDeliverymanNo" id="bRProcureMDeliverymanNo" required>
+                <select class="input-text" name="bRProcureMDeliverymanNo" id="bRProcureMDeliverymanNo">
                     <option value="" ></option>
                     <c:forEach items="${Staff}" var="Staff">
-                        <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                        <option value="${Staff.tStaffStaffNo}" <c:if test="${Staff.tStaffStaffNo.equals(bRProcureM.bRProcureMDeliverymanNo)}">selected</c:if>>
+                                ${Staff.tStaffStaffName}
+                        </option>
                     </c:forEach>
                 </select>
             </li>
         </ul><br>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
-            <li><input type="text" style="width: 376px" class="input-text" name="bRProcureMNotes" id="bRProcureMNotes" required></li>
+            <li><input type="text" style="width: 376px" class="input-text" name="bRProcureMNotes" id="bRProcureMNotes" value="${bRProcureM.bRProcureMNotes}"></li>
         </ul><br>
         <center>
             <div style="margin:0 auto;">
-                <br><br><input class="btn btn-primary upload-btn" type="submit" name="submit" value="确定添加">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="/CPurCon_order"  class="btn btn radius">取消</a>
+                <br><br><input class="btn btn-primary upload-btn" type="submit" name="submit" value="确认修改">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/BRProM_order"  class="btn btn radius">取消</a>
             </div>
         </center>
     </form:form>
-</div>
 </div>
 
 <!--_footer 作为公共模版分离出去-->
