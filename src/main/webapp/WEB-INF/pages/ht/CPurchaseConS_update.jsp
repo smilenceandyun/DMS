@@ -54,6 +54,29 @@
             $.post('/pur_order/pur_search',{'search':search});
             window.location='pur_order';
         }
+
+        function goodsChange(id) {
+            switch (id){
+                case  "":
+                    document.getElementById("d1").value = "";
+                    document.getElementById("d2").value = "";
+                    document.getElementById("d3").value = "";
+                    document.getElementById("d4").value = "";
+                    document.getElementById("d5").value = "";
+                    document.getElementById("d6").value = "";
+                    break;
+                <c:forEach items="${Goods}" var="Goods">
+                case "${Goods.tGoodsGoodsNo}":
+                    document.getElementById("d1").value = "${Goods.tGoodsBoxBarcode}";
+                    document.getElementById("d2").value = "${Goods.tGoodsPackQuantity * Goods.tGoodsSPrice}";
+                    document.getElementById("d3").value = "${Goods.tGoodsSPrice}";
+                    document.getElementById("d4").value = "${Goods.tGoodsGoodsNo}";
+                    document.getElementById("d5").value = "${Goods.tGoodsUnit}";
+                    document.getElementById("d6").value = "${Goods.tGoodsGoodsSpce}";
+                    break;
+                </c:forEach>
+            }
+        }
     </script>
 
     <title>采购管理</title>
@@ -71,59 +94,64 @@
         width:120px; height:20px; float:left;
     }
 </style>
-<body>
+<body onload="goodsChange(document.getElementById('good1').value)">
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购订单 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
     <div class="mt-20">
-        <%--<c:if test="${empty cPurchaseConS}">--%>
-        <%--<table class="table table-border table-bordered table-bg table-sort">--%>
-        <%--<thead>--%>
-        <%--<tr class="text-c">--%>
-        <%--<th width="80">提示</th>--%>
-        <%--</tr>--%>
-        <%--</thead>--%>
-        <%--<tbody>--%>
-
-        <%--<tr class="text-c">--%>
-        <%--<td >没有添加明细，请添加</td>--%>
-        <%--&lt;%&ndash;<td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('明细编辑','index2.html','1')" href="/pur_order/detaileOrder/update/${detail.detaileId}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> </td>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="/pur_order/detaileOrder/delete/${detail.detaileId}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>&ndash;%&gt;--%>
-        <%--</tr>--%>
-        <%--</tbody>--%>
-        <%--</table>--%>
-        <%--</c:if>--%>
-        <%--<c:if test="${!empty cPurchaseConS}">--%>
+        <form:form name="ht" id="ht" action="/updateSS" method="post" role="form">
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
-                <li><input type="text" class="input-text" name="" value="${detail.tGoodsByCPurchaseConSGoodsNo.tGoodsGoodsName}"></li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
-                <li><input type="text" class="input-text" name="" value="#厂家编码${detail.cPurchaseConSDetailId}"></li>
+                <li>
+                    <select class="input-text" name="" id="good1" onchange="goodsChange(this.value);">
+                        <option value=""></option>
+                        <c:forEach items="${Goods}" var="Goods">
+                            <option value="${Goods.tGoodsGoodsNo}" <c:if test="${Goods.tGoodsGoodsNo.equals(detail.cPurchaseConSGoodsNo)}">selected</c:if>>
+                                    ${Goods.tGoodsGoodsName}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总经理</li>
+                <li>
+                    <select class="input-text" name="cPurchaseConSManagerNo" id="cPurchaseConSManagerNo">
+                        <option value=""></option>
+                        <c:forEach items="${Staff}" var="Staff">
+                            <option value="${Staff.tStaffStaffNo}" <c:if test="${Staff.tStaffStaffNo.equals(detail.cPurchaseConSManagerNo)}">selected</c:if>>
+                                    ${Staff.tStaffStaffName}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税率</li>
-                <li><input type="text" class="input-text" name="" value="${detail.cPurchaseConSTaxRate}"></li>
+                <li><input type="text" class="input-text" name="cPurchaseConSTaxRate" id="cPurchaseConSTaxRate" value="${detail.cPurchaseConSTaxRate}"></li>
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品条码</li>
-                <li><input type="text" class="input-text" name=""  value="${detail.tGoodsByCPurchaseConSGoodsNo.tGoodsBoxBarcode}"></li>
+                <li><input type="text" class="input-text" name="" id="d1"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱价</li>
-                <li><input type="text" class="input-text" name="" value="${detail.cPurchaseConSBoxPrice}"></li>
+                <li><input type="text" class="input-text" name="cPurchaseConSBoxPrice" id="d2"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单价</li>
-                <li><input type="text" class="input-text" name="" value="${detail.cPurchaseConSPrice}"></li>
+                <li><input type="text" class="input-text" name="cPurchaseConSPrice" id="d3"></li>
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编码</li>
-                <li><input type="text" class="input-text" name="" value="${detail.tGoodsByCPurchaseConSGoodsNo.tGoodsGoodsNo}" ></li>
+                <li><input type="text" class="input-text" name="cPurchaseConSGoodsNo" id="d4"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位</li>
-                <li><input type="text" class="input-text" name="" value="${detail.tGoodsByCPurchaseConSGoodsNo.tGoodsUnit}"></li>
+                <li><input type="text" class="input-text" name="" id="d5"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;规格型号</li>
-                <li><input type="text" class="input-text" name="" value="${detail.tGoodsByCPurchaseConSGoodsNo.tGoodsGoodsSpce}"></li>
+                <li><input type="text" class="input-text" name="" id="d6" ></li>
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同编号</li>
-                <li><input type="text" class="input-text" name="" style="background-color: #F5F5F5"  readonly ="readonly" value="${detail.cPurchaseConSPurchasConNo}"></li>
+                <li><input type="text" class="input-text" name="cPurchaseConSPurchasConNo" readonly ="readonly"  value="${detail.cPurchaseConSPurchasConNo}"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;明细ID</li>
-                <li><input type="text" class="input-text" name="" style="background-color: #F5F5F5"  readonly ="readonly" value="${detail.cPurchaseConSDetailId}"></li>
+                <li><input type="text" class="input-text" name="cPurchaseConSDetailId" value="${detail.cPurchaseConSDetailId}" readonly ="readonly"></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同数量</li>
+                <li><input type="text" class="input-text" name="cPurchaseConSConQuantity" id="cPurchaseConSConQuantity" value="${detail.cPurchaseConSConQuantity}"></li>
             </ul><br>
-        <div class="cl pd-5 mt-20 bg-1 bk-gray" style="height:32px;"> <span class="l"><a href="" class="btn btn-success radius">保存</a></span><span class="l">&nbsp;&nbsp;&nbsp;<a href="" class="btn btn-success radius">新增明细</a></span></div>
+            <div class="cl pd-5 mt-20 bg-1 bk-gray" style="height:32px;"><button type="submit" onclick="" class="btn btn-success radius">保存</button></div>
+            <br>
+        </form:form>
         <br>
         <table class="table table-border table-bordered table-bg table-sort">
             <thead>

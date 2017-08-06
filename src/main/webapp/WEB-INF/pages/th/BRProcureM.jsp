@@ -12,16 +12,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="../../statics/lib/html5shiv.js"></script>
-    <script type="text/javascript" src="../../statics/lib/respond.min.js
+    <script type="text/javascript" src="../../../statics/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="../../../statics/lib/respond.min.js
     <![endif]-->
-    <link rel="stylesheet" type="text/css" href="../../statics/css/H-ui.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../statics/css/admin/H-ui.admin.css" />
-    <link rel="stylesheet" type="text/css" href="../../statics/lib/Hui-iconfont/1.0.8/iconfont.css" />
-    <link rel="stylesheet" type="text/css" href="../../statics/skin/green/skin.css" id="skin" />
-    <link rel="stylesheet" type="text/css" href="../../statics/css/admin/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../statics/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../statics/css/admin/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../../../statics/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../../statics/skin/green/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../../../statics/css/admin/style.css" />
     <!--[if IE 6]>
-    <script type="text/javascript" src="../../statics/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script type="text/javascript" src="../../../statics/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
     <script type="text/javascript">
@@ -103,7 +103,7 @@
                     <th width="80">业务日期</th>
                     <th width="80">制单日期</th>
                     <th width="80">审核日期</th>
-                    <th width="80">审核人</th>
+                    <th width="80">审核状态</th>
                     <th width="40">操作</th>
                 </tr>
                 </thead>
@@ -115,14 +115,13 @@
                     <tr class="text-c">
                         <td><input name="id" type="checkbox" value="${brProcureM.bRProcureMRProcureNo}"></td>
                         <td><%=i %><% i++; %></td>
-                        <%--******退货单号******<td><a href="/detail/${cPurchaseConM.cPurchaseConMPurchasConNo}">${cPurchaseConM.cPurchaseConMPurchasConNo}</a></td>--%>
-                        <td>#退货单号</td>
-                        <td>#客户名称</td>
-                        <td>#结算方式</td>
-                        <td>#业务日期</td>
-                        <td>#制单日期</td>
-                        <td>#审核日期</td>
-                        <td>#审核人</td>
+                        <td>${brProcureM.bRProcureMRProcureNo}</td>
+                        <td>广州合生元生物制品有限公司</td>
+                        <td>${brProcureM.bRProcureMPaymentAttributer}</td>
+                        <td>${brProcureM.bRProcureMModifiTime}</td>
+                        <td>${brProcureM.bRProcureMCreateDate}</td>
+                        <td>${brProcureM.bRProcureMCheckDate}</td>
+                        <td>${brProcureM.bRProcureMState == 0? "未审核" : "已审核"}</td>
                         <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/updateM/${brProcureM.bRProcureMRProcureNo}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="/delete/${brProcureM.bRProcureMRProcureNo}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                     </tr>
                 </c:forEach>
@@ -133,15 +132,15 @@
 </div>
 
 <!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="../../statics/lib/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="../../statics/lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="../../statics/jss/H-ui.min.js"></script>
-<script type="text/javascript" src="../../statics/jss/admin/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../../../statics/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../../../statics/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../../../statics/jss/H-ui.min.js"></script>
+<script type="text/javascript" src="../../../statics/jss/admin/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="../../statics/lib/My97DatePicker/4.8/WdatePicker.js"></script>
-<script type="text/javascript" src="../../statics/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="../../statics/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="../../../statics/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="../../../statics/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../../statics/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
     $('.table-sort').dataTable({
         "aaSorting": [[ 1, "desc" ]],//默认第几个排序

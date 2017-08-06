@@ -76,25 +76,25 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购合同 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
     <div class="mt-20">
-        <form:form name="ht" id="ht" action="/addM" method="post" commondName="p" role="form" onsubmit="return checkinput(this)">
+        <form:form name="ht" id="ht" action="/addM" method="post" commondName="p" role="form">
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同编号</li>
-                <li><input type="text" class="input-text" name="cPurchaseConMPurchasConNo" id="cPurchaseConMPurchasConNo" value="${UUID}" readonly="readonly"></li>
+                <li><input type="text" class="input-text" name="cPurchaseConMPurchasConNo" id="cPurchaseConMPurchasConNo" value="${UUID}" readonly="readonly" required></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户名称</li>
                 <li>
-                    <select class="input-text" name="cPurchaseConMClientNo" id="select1">
-                        <option value="" >选择客户名称</option>
+                    <select class="input-text" name="cPurchaseConMClientNo" id="select1" required>
+                        <option value="" ></option>
                         <c:forEach items="${Client}" var="Client">
                             <option value="${Client.tClientClientNo}">${Client.tClientClientName}</option>
                         </c:forEach>
                     </select>
                 </li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同日期</li>
-                <li><input type="date" class="input-text" name="cPurchaseConMConDate" id="cPurchaseConMConDate"></li>
+                <li><input type="date" class="input-text" name="cPurchaseConMConDate" id="cPurchaseConMConDate" required></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核人</li>
                 <li>
-                    <select class="input-text" name="cPurchaseConMChecker" id="select2">
-                        <option value="" >选择审核人</option>
+                    <select class="input-text" name="cPurchaseConMChecker" id="select2" required>
+                        <option value="" ></option>
                         <c:forEach items="${Staff}" var="Staff">
                             <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
                         </c:forEach>
@@ -104,39 +104,46 @@
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单人</li>
                 <li>
-                    <select class="input-text" name="cPurchaseConMCreateNo" id="select3">
-                        <option value="" >选择制单人</option>
+                    <select class="input-text" name="cPurchaseConMCreateNo" id="select3" required>
+                        <option value="" ></option>
                         <c:forEach items="${Staff}" var="Staff">
                             <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
                         </c:forEach>
                     </select>
                 </li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结算方式</li>
-                <li><input type="text" class="input-text" name="cPurchaseConMGrossMode" id="cPurchaseConMGrossMode"></li>
+                <li><input type="text" class="input-text" name="cPurchaseConMGrossMode" id="cPurchaseConMGrossMode" required></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务员</li>
                 <li>
-                    <select class="input-text" name="cPurchaseConMSalesman" id="select4">
-                        <option value="" >选择审核人</option>
+                    <select class="input-text" name="cPurchaseConMSalesman" id="select4" required>
+                        <option value="" ></option>
                         <c:forEach items="${Staff}" var="Staff">
                             <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
                         </c:forEach>
                     </select>
                 </li>
-                <%--<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总经理</li>--%>
-                <%--<li><input type="text" class="input-text" name=""></li>--%>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
+                <li>
+                    <select class="input-text" name="cPurchaseConMFactoryGoodsNo" id="select5" required>
+                        <option value="" ></option>
+                        <c:forEach items="${Factorys}" var="Factorys">
+                            <option value="${Factorys.tFactorysFactoryGoodsNo}">${Factorys.tFactorysFactoryGoodsNo}(${Factorys.tFactorysFactoryGoodsName})</option>
+                        </c:forEach>
+                    </select>
+                </li>
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
-                <li ><input type="text" class="input-text" name="cPurchaseConMNotes" id="cPurchaseConMNotes" style="width: 378px"></li>
+                <li ><input type="text" class="input-text" name="cPurchaseConMNotes" id="cPurchaseConMNotes" style="width: 378px" required></li>
                 <li></li><li></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户业务员</li>
-                <li><input type="text" class="input-text" name="cPurchaseConMCustomerSalesmanName" id="cPurchaseConMCustomerSalesmanName"></li>
+                <li><input type="text" class="input-text" name="cPurchaseConMCustomerSalesmanName" id="cPurchaseConMCustomerSalesmanName" required></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有效期</li>
-                <li><input type="text" class="input-text" name="cPurchaseConMValidity" id="cPurchaseConMValidity"></li>
+                <li><input type="text" class="input-text" name="cPurchaseConMValidity" id="cPurchaseConMValidity" required></li>
             </ul><br>
             <center>
                 <div style="margin:0 auto;">
-                    <br><br><input class="btn btn-primary upload-btn" type="submit" name="submit" value="确定添加并继续添加明细">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <br><br><input class="btn btn-primary upload-btn" type="submit" name="submit" value="确定添加">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="/CPurCon_order"  class="btn btn radius">取消</a>
                 </div>
             </center>

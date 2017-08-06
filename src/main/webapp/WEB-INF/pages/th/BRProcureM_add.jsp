@@ -12,16 +12,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="../../statics/lib/html5shiv.js"></script>
-    <script type="text/javascript" src="../../statics/lib/respond.min.js
+    <script type="text/javascript" src="../../../statics/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="../../../statics/lib/respond.min.js
     <![endif]-->
-    <link rel="stylesheet" type="text/css" href="../../statics/css/H-ui.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../statics/css/admin/H-ui.admin.css" />
-    <link rel="stylesheet" type="text/css" href="../../statics/lib/Hui-iconfont/1.0.8/iconfont.css" />
-    <link rel="stylesheet" type="text/css" href="../../statics/skin/green/skin.css" id="skin" />
-    <link rel="stylesheet" type="text/css" href="../../statics/css/admin/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../statics/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../statics/css/admin/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../../../statics/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../../statics/skin/green/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../../../statics/css/admin/style.css" />
     <!--[if IE 6]>
-    <script type="text/javascript" src="../../statics/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script type="text/javascript" src="../../../statics/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
     <script type="text/javascript">
@@ -55,6 +55,19 @@
             $.post('/pur_order/pur_search',{'search':search});
             window.location='pur_order';
         }
+
+        function factoryChange(id) {
+            switch (id){
+                case  "":
+                    document.getElementById("f2").value = "";
+                    break;
+                <c:forEach items="${bPurchaseOrdMEntities}" var="bPurchaseOrdMEntities">
+                case "${bPurchaseOrdMEntities.bPurchaseOrdMOrdProcureNo}":
+                    document.getElementById("f2").value = "${bPurchaseOrdMEntities.tFactorysByBPurchaseOrdMFactoryGoodsNo.tFactorysFactoryGoodsName}";
+                    break;
+                </c:forEach>
+            }
+        }
     </script>
 
     <title>采购管理</title>
@@ -78,59 +91,100 @@
         text-align:center;
     }
 </style>
-<body>
+<body onload="factoryChange(document.getElementById('f1').value)">
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购退货 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div style="padding: 20px">
     <form:form action="/addRE" method="post" commondName="p">
         <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退货单号</li>
-        <li><input type="text" class="input-text" name=""></li>
+        <li><input type="text" class="input-text" name="bRProcureMRProcureNo" id="bRProcureMRProcureNo" value="${UUID}" readonly="readonly"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手工单号</li>
-        <li><input type="text" class="input-text" name=""></li>
+        <li><input type="text" class="input-text" name="bRProcureMHandbillNo" id="bRProcureMHandbillNo" required></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家名称</li>
-        <li><input type="text" class="input-text" name=""></li>
+        <li><input type="text" class="input-text" name="" id="f2" required></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家订单号</li>
-        <li><input type="text" class="input-text" name=""></li>
+        <li>
+            <select class="input-text" name="" id="f1" onchange="factoryChange(this.value);" required>
+                <option value="" ></option>
+                <c:forEach items="${bPurchaseOrdMEntities}" var="bPurchaseOrdMEntities">
+                    <option value="${bPurchaseOrdMEntities.bPurchaseOrdMOrdProcureNo}">${bPurchaseOrdMEntities.bPurchaseOrdMOrdProcureNo}</option>
+                </c:forEach>
+            </select>
+        </li>
         </ul><br>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务性质</li>
-            <li><input type="text" class="input-text" name=""></li>
+            <li><input type="text" class="input-text" name="bRProcureMServiceAttribute" id="bRProcureMServiceAttribute" required></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结算方式</li>
-            <li><input type="text" class="input-text" name=""></li>
+            <li><input type="text" class="input-text" name="bRProcureMPaymentAttributer" id="bRProcureMPaymentAttributer" required></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单日期</li>
-            <li><input type="date" class="input-text" name=""></li>
+            <li><input type="date" class="input-text" name="bRProcureMCreateDate" id="bRProcureMCreateDate" required></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核日期</li>
-            <li><input type="date" class="input-text" name=""></li>
+            <li><input type="date" class="input-text" name="bRProcureMCheckDate" id="bRProcureMCheckDate" required></li>
         </ul><br>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务日期</li>
-            <li><input type="text" class="input-text" name=""></li>
+            <li><input type="date" class="input-text" name="bRProcureMModifiTime" id="bRProcureMModifiTime" required></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务员</li>
-            <li><input type="text" class="input-text" name=""></li>
+            <li>
+                <select class="input-text" name="bRProcureMSalesman" id="bRProcureMSalesman" required>
+                    <option value="" ></option>
+                    <c:forEach items="${Staff}" var="Staff">
+                        <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                    </c:forEach>
+                </select>
+            </li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓管员</li>
-            <li><input type="text" class="input-text" name=""></li>
+            <li>
+                <select class="input-text" name="bRProcureMWarehouseKeeper" id="bRProcureMWarehouseKeeper" required>
+                    <option value="" ></option>
+                    <c:forEach items="${Staff}" var="Staff">
+                        <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                    </c:forEach>
+                </select>
+            </li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核人</li>
-            <li><input type="text" class="input-text" name=""></li>
+            <li>
+                <select class="input-text" name="bRProcureMChecker" id="bRProcureMChecker">
+                    <option value="" ></option>
+                    <c:forEach items="${Staff}" var="Staff">
+                        <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                    </c:forEach>
+                </select>
+            </li>
         </ul><br>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;送货员</li>
-            <li><input type="text" class="input-text" name=""></li>
+            <li>
+                <select class="input-text" name="bRProcureMDeliverymanNo" id="bRProcureMDeliverymanNo" required>
+                    <option value="" ></option>
+                    <c:forEach items="${Staff}" var="Staff">
+                        <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                    </c:forEach>
+                </select>
+            </li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
-            <li><input type="text" style="width: 376px" class="input-text" name=""></li>
+            <li><input type="text" style="width: 376px" class="input-text" name="bRProcureMNotes" id="bRProcureMNotes" required></li>
         </ul><br>
+        <center>
+            <div style="margin:0 auto;">
+                <br><br><input class="btn btn-primary upload-btn" type="submit" name="submit" value="确定添加">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/CPurCon_order"  class="btn btn radius">取消</a>
+            </div>
+        </center>
     </form:form>
-    <div class="cl pd-5 mt-20 bg-1 bk-gray" style="height:30px;"> <span class="l"><a href="" class="btn btn-success radius">下一步</a></span><span class="l">&nbsp&nbsp&nbsp<a href="" class="btn btn-success radius">完成</a></span><span class="l">&nbsp&nbsp&nbsp<a href="" class="btn btn-success radius">取消</a></span></div>
 </div>
+
 <!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="../../statics/lib/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="../../statics/lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="../../statics/jss/H-ui.min.js"></script>
-<script type="text/javascript" src="../../statics/jss/admin/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../../../statics/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../../../statics/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../../../statics/jss/H-ui.min.js"></script>
+<script type="text/javascript" src="../../../statics/jss/admin/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="../../statics/lib/My97DatePicker/4.8/WdatePicker.js"></script>
-<script type="text/javascript" src="../../statics/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="../../statics/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="../../../statics/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="../../../statics/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../../statics/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
     $('.table-sort').dataTable({
         "aaSorting": [[ 1, "desc" ]],//默认第几个排序

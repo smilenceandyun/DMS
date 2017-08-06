@@ -84,24 +84,28 @@
         <form:form action="/updateMM" method="post" commondName="p">
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同编号</li>
-                <li><input type="text" class="input-text" name="CPurchaseConMPurchasConNo" id="CPurchaseConMPurchasConNo" value="${cPurchaseConM.cPurchaseConMPurchasConNo}" readonly="readonly"></li>
+                <li><input type="text" class="input-text" name="cPurchaseConMPurchasConNo" id="cPurchaseConMPurchasConNo" value="${cPurchaseConM.cPurchaseConMPurchasConNo}" readonly="readonly"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户名称</li>
                 <li>
-                    <select class="input-text" name="CPurchaseConMClientNo" id="select1">
-                        <option value="" >${cPurchaseConM.tClientByCPurchaseConMClientNo.tClientClientName}</option>
+                    <select class="input-text" name="cPurchaseConMClientNo" id="select1">
+                        <option value="" ></option>
                         <c:forEach items="${Client}" var="Client">
-                            <option value="${Client.tClientClientNo}">${Client.tClientClientName}</option>
+                            <option value="${Client.tClientClientNo}" <c:if test="${Client.tClientClientNo.equals(cPurchaseConM.cPurchaseConMClientNo)}">selected</c:if>>
+                                    ${Client.tClientClientName}
+                            </option>
                         </c:forEach>
                     </select>
                 </li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同日期</li>
-                <li><input type="date" class="input-text" name="cPurchaseConMConDate" id="cPurchaseConMConDate" readonly="readonly" value="${cPurchaseConM.cPurchaseConMConDate}"></li>
+                <li><input type="text" class="input-text" name="cPurchaseConMConDate" id="cPurchaseConMConDate" readonly="readonly" value="${cPurchaseConM.cPurchaseConMConDate}"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核人</li>
                 <li>
-                    <select class="input-text" name="CPurchaseConMChecker" id="select2">
-                        <option value="" >${cPurchaseConM.tStaffByCPurchaseConMChecker.tStaffStaffName}</option>
+                    <select class="input-text" name="cPurchaseConMChecker" id="select2">
+                        <option value="" ></option>
                         <c:forEach items="${Staff}" var="Staff">
-                            <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                            <option value="${Staff.tStaffStaffNo}" <c:if test="${Staff.tStaffStaffNo.equals(cPurchaseConM.cPurchaseConMChecker)}">selected</c:if>>
+                                    ${Staff.tStaffStaffName}
+                            </option>
                         </c:forEach>
                     </select>
                 </li>
@@ -109,10 +113,12 @@
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单人</li>
                 <li>
-                    <select class="input-text" name="CPurchaseConMCreateNo" id="select3">
-                        <option value="" >${cPurchaseConM.tStaffByCPurchaseConMCreateNo.tStaffStaffName}</option>
+                    <select class="input-text" name="cPurchaseConMCreateNo" id="select3">
+                        <option value="" ></option>
                         <c:forEach items="${Staff}" var="Staff">
-                            <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                            <option value="${Staff.tStaffStaffNo}" <c:if test="${Staff.tStaffStaffNo.equals(cPurchaseConM.cPurchaseConMCreateNo)}">selected</c:if>>
+                                    ${Staff.tStaffStaffName}
+                            </option>
                         </c:forEach>
                     </select>
                 </li>
@@ -120,29 +126,41 @@
                 <li><input type="text" class="input-text" name="cPurchaseConMGrossMode" id="cPurchaseConMGrossMode" value="${cPurchaseConM.cPurchaseConMGrossMode}"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务员</li>
                 <li>
-                    <select class="input-text" name="CPurchaseConMSalesman" id="select4">
-                        <option value="" >${cPurchaseConM.tStaffByCPurchaseConMSalesman.tStaffStaffName}</option>
+                    <select class="input-text" name="cPurchaseConMSalesman" id="select4">
+                        <option value="" ></option>
                         <c:forEach items="${Staff}" var="Staff">
-                            <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                            <option value="${Staff.tStaffStaffNo}" <c:if test="${Staff.tStaffStaffNo.equals(cPurchaseConM.cPurchaseConMSalesman)}">selected</c:if>>
+                                    ${Staff.tStaffStaffName}
+                            </option>
                         </c:forEach>
                     </select>
                 </li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总经理</li>
-                <li><input type="text" class="input-text" name=""></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
+                <li>
+                    <select class="input-text" name="cPurchaseConMFactoryGoodsNo" id="select5">
+                        <option value="" ></option>
+                        <c:forEach items="${Factorys}" var="Factorys">
+                            <option value="${Factorys.tFactorysFactoryGoodsNo}" <c:if test="${Factorys.tFactorysFactoryGoodsNo.equals(cPurchaseConM.cPurchaseConMFactoryGoodsNo)}">selected</c:if>>
+                                    ${Factorys.tFactorysFactoryGoodsNo}(${Factorys.tFactorysFactoryGoodsName})
+                            </option>
+                        </c:forEach>
+                    </select>
+                </li>
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
                 <li ><input type="text" class="input-text" name="cPurchaseConMNotes" id="cPurchaseConMNotes" style="width: 378px" value="${cPurchaseConM.cPurchaseConMNotes}"></li>
                 <li></li><li></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户业务员</li>
-                <li><input type="text" class="input-text" name="cPurchaseConMCustomerSalesman" id="cPurchaseConMCustomerSalesman" value="${cPurchaseConM.cPurchaseConMCustomerSalesmanName}"></li>
+                <li><input type="text" class="input-text" name="cPurchaseConMCustomerSalesmanName" id="cPurchaseConMCustomerSalesmanName" value="${cPurchaseConM.cPurchaseConMCustomerSalesmanName}"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有效期</li>
                 <li><input type="text" class="input-text" name="cPurchaseConMValidity" id="cPurchaseConMValidity" value="${cPurchaseConM.cPurchaseConMValidity}"></li>
             </ul><br>
+            <div class="cl pd-5 mt-20 bg-1 bk-gray" style="height:32px;">
+            <input class="btn btn-success radius" type="submit" name="submit" value="确定修改">
+            </div>
         </form:form>
     </div>
-    <br><br><br>
-    <div class="cl pd-5 mt-20 bg-1 bk-gray" style="height:32px;"> <span class="l"><a href="" class="btn btn-success radius">保存</a></span></div>
 </div>
 
 <!--_footer 作为公共模版分离出去-->
