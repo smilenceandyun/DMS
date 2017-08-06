@@ -18,7 +18,7 @@ http://www.springframework.org/schema/tx ">
         <!-- MySQL5 -->
         <property name="driverClass" value="${driverClassName}"></property>
         <property name="jdbcUrl" value="${url}"></property>
-        <property name="user" value="${username}"></property>
+        <property name="user" value="logisticsTest"></property>
         <property name="password" value="123123."></property>
         <property name="maxPoolSize" value="40"></property>
         <property name="minPoolSize" value="1"></property>

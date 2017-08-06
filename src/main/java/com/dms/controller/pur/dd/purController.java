@@ -1,10 +1,7 @@
 package com.dms.controller.pur.dd;
-import com.dms.model.BPurchaseOrdMEntity;
-import com.dms.model.BPurchaseOrdSEntity;
-import com.dms.model.TStaffEntity;
-import com.dms.repository.TStaffRepository;
-import com.dms.repository.dd.BPurchaseOrdMRepository;
-import com.dms.repository.dd.BPurchaseOrdSRepository;
+import com.dms.model.*;
+import com.dms.repository.*;
+import com.dms.repository.dd.*;
 //import com.dms.repository.T01Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -16,9 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Date;
+import java.util.Locale;
 
 import  com.dms.serviceImpl.GetOrderNumber;
 
@@ -40,19 +41,45 @@ public class purController {
     final
     BPurchaseOrdSRepository bPurchaseOrdSRepository;
 
-    final TStaffRepository tStaffRepository;
+    final
+    TStaffRepository tStaffRepository;
+
+    final
+    TClientRepository tClientRepository;
+
+    final
+    TFactorysRepository tFactorysRepository;
+
+    final
+    TGoodsRepository tGoodsRepository;
+
+    final
+    TRoomRepository tRoomRepository;
+
+    final
+    TPaymentRepository tPaymentRepository;
 
     @Autowired
-    public purController(BPurchaseOrdMRepository bPurchaseOrdMRepository, BPurchaseOrdSRepository bPurchaseOrdSRepository, TStaffRepository tStaffRepository) {
+    public purController(BPurchaseOrdMRepository bPurchaseOrdMRepository, BPurchaseOrdSRepository bPurchaseOrdSRepository, TStaffRepository tStaffRepository, TClientRepository tClientRepository, TFactorysRepository tFactorysRepository, TGoodsRepository tGoodsRepository, TRoomRepository tRoomRepository, TPaymentRepository tPaymentRepository) {
         this.bPurchaseOrdMRepository = bPurchaseOrdMRepository;
         this.bPurchaseOrdSRepository = bPurchaseOrdSRepository;
         this.tStaffRepository = tStaffRepository;
+        this.tClientRepository = tClientRepository;
+        this.tFactorysRepository = tFactorysRepository;
+        this.tGoodsRepository = tGoodsRepository;
+        this.tRoomRepository = tRoomRepository;
+        this.tPaymentRepository = tPaymentRepository;
         c = new GetOrderNumber("O");
     }
     //============================================================================================
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
+        return "login";
+    }
+
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String index2() {
         return "index";
     }
 
@@ -70,14 +97,51 @@ public class purController {
         // 返回pages目录下的pur_order.jsp页面
         return "pur_order";
     }
+    //====================================================================================
+    @RequestMapping(value = "/pur_order/login", method = RequestMethod.GET)
+    public String displaylog() {
+        return  "login";
+    }
+//====================================================================================
+    @RequestMapping(value = "/pur_order/loginP", method = RequestMethod.POST)
+    public void chkPSD(ModelMap modelMap,HttpServletRequest request,HttpServletResponse response) {
+        String user = request.getParameter("a_name");
+        String psd = request.getParameter("a_password");
+
+        boolean f1;
+        if(user.equals("superadmin")&&psd.equals("superadmin")) {
+            try {
+                f1 = true;
+                response.sendRedirect("/index");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        else {
+
+            try {
+                f1 = false;
+                response.sendRedirect("/?f1=0");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
     //============================================================================================
     // get请求，访问添加 页面
     @RequestMapping(value = "/pur_order/add", method = RequestMethod.GET)
     public String addBPurchaseOrdM(ModelMap modelMap) {
         List<TStaffEntity> Staff = tStaffRepository.findAll();
-
+        List<TClientEntity> Client = tClientRepository.findAll();
+        List<TFactorysEntity> TFactorys = tFactorysRepository.findAll();
 
         String UUID = c.getOrderNo();
+
+        modelMap.addAttribute("TFactorys", TFactorys);
+        modelMap.addAttribute("Client", Client);
         modelMap.addAttribute("Staff", Staff);
         modelMap.addAttribute("UUID", UUID);
 
@@ -104,8 +168,47 @@ public class purController {
 //        }
 //    }
     //============================================================================================
+    /**
+     *method 将字符串类型的日期转换为一个Date（java.sql.Date）
+     dateString 需要转换为Date的字符串
+     dataTime Date
+     */
+    public final static java.sql.Date string2Date(String dateString)
+            throws java.lang.Exception {
+        DateFormat dateFormat;
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        dateFormat.setLenient(false);
+        java.util.Date timeDate = dateFormat.parse(dateString);//util类型
+        java.sql.Date dateTime = new java.sql.Date(timeDate.getTime());//sql类型
+        return dateTime;
+    }
+
     @RequestMapping(value = "/pur_order/addP", method = RequestMethod.POST)
-    public String addBPurchaseOrdMPost(BPurchaseOrdMEntity bPurchaseOrdMEntity) {
+    public String addBPurchaseOrdMPost(HttpServletRequest request) {
+
+        BPurchaseOrdMEntity bPurchaseOrdMEntity = new BPurchaseOrdMEntity();
+
+        bPurchaseOrdMEntity.setbPurchaseOrdMOrdProcureNo(request.getParameter("bPurchaseOrdMOrdProcureNo"));
+        //bPurchaseOrdMEntity.setbPurchaseOrdMFactoryBillno(request.getParameter("bProcureMProcureNo"));
+        bPurchaseOrdMEntity.setbPurchaseOrdMSalesman(request.getParameter("bPurchaseOrdMSalesman"));
+        bPurchaseOrdMEntity.setbPurchaseOrdMAdPaymoney(new BigDecimal(request.getParameter("bPurchaseOrdMAdPaymoney")));
+        bPurchaseOrdMEntity.setbPurchaseOrdMCreateNo(request.getParameter("bPurchaseOrdMCreateNo"));
+        bPurchaseOrdMEntity.setbPurchaseOrdMHandbillNo(request.getParameter("bPurchaseOrdMHandbillNo"));
+        bPurchaseOrdMEntity.setbPurchaseOrdMPaymentAttributer(request.getParameter("bPurchaseOrdMServiceAttribute"));
+        try {
+            bPurchaseOrdMEntity.setbPurchaseOrdMOrdDate(new Timestamp(string2Date(request.getParameter("bPurchaseOrdMOrdDate")).getTime()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        bPurchaseOrdMEntity.setbPurchaseOrdMPaymentType(request.getParameter("bPurchaseOrdMPaymentType"));
+        bPurchaseOrdMEntity.setbPurchaseOrdMFactoryGoodsNo(request.getParameter("bPurchaseOrdMFactoryGoodsNo"));
+        bPurchaseOrdMEntity.setbPurchaseOrdMDeliveryDate(request.getParameter("bPurchaseOrdMDeliveryDate"));
+        bPurchaseOrdMEntity.setbPurchaseOrdMClientNo(request.getParameter("bPurchaseOrdMClientNo"));
+        bPurchaseOrdMEntity.setbPurchaseOrdMChecker(request.getParameter("bPurchaseOrdMChecker"));
+        bPurchaseOrdMEntity.setbPurchaseOrdMNotes(request.getParameter("bPurchaseOrdMNotes"));
+        //bPurchaseOrdMEntity.setbPurchaseOrdMManagerNo(request.getParameter("bPurchaseOrdMManagerNo"));
+        bPurchaseOrdMEntity.setbPurchaseOrdMIsPass(request.getParameter("bPurchaseOrdMIsPass"));
+        bPurchaseOrdMEntity.setbPurchaseOrdMState(request.getParameter("bPurchaseOrdMState"));
 
         // 注意此处，post请求传递过来的是一个UserEntity对象，里面包含了该用户的信息
         // 通过@ModelAttribute()注解可以获取传递过来的'user'，并创建这个对象
@@ -117,7 +220,7 @@ public class purController {
         bPurchaseOrdMRepository.saveAndFlush(bPurchaseOrdMEntity);
 
         // 重定向到用户管理页面，方法为 redirect:url
-        return "redirect:/pur_order";
+        return "redirect:/pur_order/detaileOrder/add/"+bPurchaseOrdMEntity.getbPurchaseOrdMOrdProcureNo();
     }
     //============================================================================================
     // 更新用户信息 页面
@@ -127,22 +230,40 @@ public class purController {
         // 找到userId所表示的用户
         BPurchaseOrdMEntity bPurchaseOrdMEntity = bPurchaseOrdMRepository.findOne(id);
 
+        List<TStaffEntity> Staff = tStaffRepository.findAll();
+        List<TClientEntity> Client = tClientRepository.findAll();
+        List<TFactorysEntity> TFactorys = tFactorysRepository.findAll();
+        List<TGoodsEntity> TGoods = tGoodsRepository.findAll();
+        List<TRoomEntity> TRoom = tRoomRepository.findAll();
+        List<TPaymentEntity> TPayment = tPaymentRepository.findAll();
+
         // 传递给请求页面
+        modelMap.addAttribute("TPayment", TPayment);
+        modelMap.addAttribute("TRoom", TRoom);
+        modelMap.addAttribute("TGoods", TGoods);
+        modelMap.addAttribute("TFactorys", TFactorys);
+        modelMap.addAttribute("Client", Client);
+        modelMap.addAttribute("Staff", Staff);
         modelMap.addAttribute("bPurchaseOrdM", bPurchaseOrdMEntity);
         return "/dd/updateOrder";
     }
     //============================================================================================
-//    // 更新用户信息 操作
-//    @RequestMapping(value = "/pur_order/updateP", method = RequestMethod.POST)
-//    public String updateOrderPost(PurorderEntity purorderEntity) {
-//
-//        // 更新用户信息
-//        myRepository.updatePurOrder(purorderEntity.getOrderNo(), purorderEntity.getClientName(),
-//                purorderEntity.getStorageNo(), purorderEntity.getAdvancedCharge(),purorderEntity.getPayWay(),purorderEntity.getSalesMan(),
-//                purorderEntity.getCreateMan(),purorderEntity.getPurDetail(),purorderEntity.getId());
-//        myRepository.flush(); // 刷新缓冲区
-//        return "redirect:/pur_order";
-//    }
+    // 更新用户信息 操作
+    @RequestMapping(value = "/pur_order/updateP", method = RequestMethod.POST)
+    public String updateOrder(BPurchaseOrdMEntity bPurchaseOrdMEntity) {
+
+        try {
+            bPurchaseOrdMEntity.setbPurchaseOrdMOrdDate(new Timestamp(string2Date(bPurchaseOrdMEntity.getbPurchaseOrdMOrdDate().toString()).getTime()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // 更新用户信息
+        bPurchaseOrdMRepository.updateOrder(bPurchaseOrdMEntity.getbPurchaseOrdMSalesman(), bPurchaseOrdMEntity.getbPurchaseOrdMAdPaymoney(),bPurchaseOrdMEntity.getbPurchaseOrdMCreateNo(),bPurchaseOrdMEntity.getbPurchaseOrdMHandbillNo(),
+                bPurchaseOrdMEntity.getbPurchaseOrdMServiceAttribute(),bPurchaseOrdMEntity.getbPurchaseOrdMOrdDate(),bPurchaseOrdMEntity.getbPurchaseOrdMPaymentType(),bPurchaseOrdMEntity.getbPurchaseOrdMFactoryGoodsNo(),
+                bPurchaseOrdMEntity.getbPurchaseOrdMDeliveryDate(),bPurchaseOrdMEntity.getbPurchaseOrdMClientNo(),bPurchaseOrdMEntity.getbPurchaseOrdMNotes(),bPurchaseOrdMEntity.getbPurchaseOrdMOrdProcureNo());
+        bPurchaseOrdMRepository.flush(); // 刷新缓冲区
+        return "redirect:/pur_order";
+    }
     //============================================================================================
     // 删除用户
     @RequestMapping(value = "/pur_order/delete/{id}", method = RequestMethod.GET)
@@ -203,6 +324,22 @@ public class purController {
             detailId += 1;
         }
 
+
+        List<TStaffEntity> Staff = tStaffRepository.findAll();
+        List<TClientEntity> Client = tClientRepository.findAll();
+        List<TFactorysEntity> TFactorys = tFactorysRepository.findAll();
+        List<TGoodsEntity> TGoods = tGoodsRepository.findAll();
+        List<TRoomEntity> TRoom = tRoomRepository.findAll();
+        List<TPaymentEntity> TPayment = tPaymentRepository.findAll();
+        String UUID = c.getOrderNo();
+
+        modelMap.addAttribute("TPayment", TPayment);
+        modelMap.addAttribute("TRoom", TRoom);
+        modelMap.addAttribute("TGoods", TGoods);
+        modelMap.addAttribute("TFactorys", TFactorys);
+        modelMap.addAttribute("Client", Client);
+        modelMap.addAttribute("Staff", Staff);
+        modelMap.addAttribute("UUID", UUID);
         modelMap.addAttribute("detailId", detailId);
         modelMap.addAttribute("ordProcureNo", Id);
         // 转到addOrder.jsp页面
@@ -223,33 +360,50 @@ public class purController {
         bPurchaseOrdSRepository.saveAndFlush(bPurchaseOrdSEntity);
 
         // 重定向到用户管理页面，方法为 redirect:url
-        return "redirect:/pur_order";
+        return "redirect:/pur_order/detaileOrder/" + bPurchaseOrdSEntity.getbPurchaseOrdSOrdProcureNo();
     }
 
     // 更新明细信息 页面
-    @RequestMapping(value = "/pur_order/detaileOrder/update/{id}", method = RequestMethod.GET)
-    public String updateBPurchaseOrdSEntity(@PathVariable("id") String id, ModelMap modelMap) {
+    @RequestMapping(value = "/pur_order/detaileOrder/update/{detailID}&{id}", method = RequestMethod.GET)
+    public String updateBPurchaseOrdSEntity(@PathVariable("detailID") Integer detailID,@PathVariable("id") String id, ModelMap modelMap) {
 
         // 找到userId所表示的用户
-        BPurchaseOrdSEntity bPurchaseOrdSEntity = bPurchaseOrdSRepository.findOne(id);
+        BPurchaseOrdSEntity bPurchaseOrdSEntity = bPurchaseOrdSRepository.findBPurchaseOrdSEntitiesByBPurchaseOrdSOrdProcureNoAndBPurchaseOrdSDetailIdEquals(id,detailID);
+
+        List<TStaffEntity> Staff = tStaffRepository.findAll();
+        List<TClientEntity> Client = tClientRepository.findAll();
+        List<TFactorysEntity> TFactorys = tFactorysRepository.findAll();
+        List<TGoodsEntity> TGoods = tGoodsRepository.findAll();
+        List<TRoomEntity> TRoom = tRoomRepository.findAll();
+        List<TPaymentEntity> TPayment = tPaymentRepository.findAll();
 
         // 传递给请求页面
+        modelMap.addAttribute("TPayment", TPayment);
+        modelMap.addAttribute("TRoom", TRoom);
+        modelMap.addAttribute("TGoods", TGoods);
+        modelMap.addAttribute("TFactorys", TFactorys);
+        modelMap.addAttribute("Client", Client);
+        modelMap.addAttribute("Staff", Staff);
+        modelMap.addAttribute("detailID", detailID);
         modelMap.addAttribute("bPurchaseOrdS", bPurchaseOrdSEntity);
         return "/dd/updateDetaileOrder";
     }
 
     //==============================================================================================
 
-//    // 更新明细信息 操作
-//    @RequestMapping(value = "/pur_order/detaileOrder/updateP", method = RequestMethod.POST)
-//    public String updateBPurchaseOrdSEntityPost(DetaileEntity detaileEntity) {
-//
-//        // 更新用户信息
-//        detaileRepository.updatePurOrder(detaileEntity.getDetaile1(), detaileEntity.getDetaile2(),
-//                detaileEntity.getDetaile3(), detaileEntity.getDetaile4(),detaileEntity.getDetaileId());
-//        detaileRepository.flush(); // 刷新缓冲区
-//        return "redirect:/pur_order";
-//    }
+    // 更新明细信息 操作
+    @RequestMapping(value = "/pur_order/detaileOrder/updateP", method = RequestMethod.POST)
+    public String updateBPurchaseOrdSEntityPost(BPurchaseOrdSEntity bPurchaseOrdSEntity) {
+
+        // 更新用户信息
+        bPurchaseOrdSRepository.updateDetailOrder(bPurchaseOrdSEntity.getbPurchaseOrdSFactoryGoodsNo(), bPurchaseOrdSEntity.getbPurchaseOrdSPresentationProperty(),
+                bPurchaseOrdSEntity.getbPurchaseOrdSGoodsNo(), bPurchaseOrdSEntity.getbPurchaseOrdSOriginalPrice(),bPurchaseOrdSEntity.getbPurchaseOrdSTaxRate(),bPurchaseOrdSEntity.getbPurchaseOrdSRoomNo(),
+                bPurchaseOrdSEntity.getbPurchaseOrdSPrice(),bPurchaseOrdSEntity.getbPurchaseOrdSQuantity(),bPurchaseOrdSEntity.getbPurchaseOrdSDetailMoney(),bPurchaseOrdSEntity.getbPurchaseOrdSBoxQuantity(),
+                bPurchaseOrdSEntity.getbPurchaseOrdSBoxPrice(),bPurchaseOrdSEntity.getbPurchaseOrdSPaymentNo(),bPurchaseOrdSEntity.getbPurchaseOrdSMfg(),bPurchaseOrdSEntity.getbPurchaseOrdSExp(),bPurchaseOrdSEntity.getbPurchaseOrdSDetailId(),
+                bPurchaseOrdSEntity.getbPurchaseOrdSOrdProcureNo());
+        bPurchaseOrdSRepository.flush(); // 刷新缓冲区
+        return "redirect:/pur_order/detaileOrder/" + bPurchaseOrdSEntity.getbPurchaseOrdSOrdProcureNo();
+    }
 
     //================================================================================================
 
@@ -280,7 +434,7 @@ public class purController {
         bPurchaseOrdSRepository.deleteALLBPurchaseOrdSEntity(Id);
         // 立即刷新
         bPurchaseOrdSRepository.flush();
-        return "/dd/detaileOrder";
+        return "redirect:/pur_order/detaileOrder/" + Id;
     }
 
 
