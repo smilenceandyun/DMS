@@ -116,7 +116,8 @@
     </ul>
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <c:if test="${mpur.bProcureMState == null}">
-        <span class="l"><a href="javascript:;" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 保存</a></span>&nbsp;&nbsp; <span class="l" style="margin-left: 10px"><a href="/procure/addDetail/${mpur.bProcureMProcureNo}" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 新增明细</a></span>
+        <%--<span class="l"><a href="javascript:;" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 保存</a></span>&nbsp;&nbsp; --%>
+            <span class="l" style="margin-left: 10px"><a href="/procure/addDetail/${mpur.bProcureMProcureNo}" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 新增明细</a></span>
         </c:if>
             <span class="r">共有数据：<strong>${procures.size() != 0 ? procures.size() : 0}</strong> 条</span> </div>
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>--%>
@@ -134,7 +135,7 @@
                     <th width="80">单位</th>
                     <th width="80">单价</th>
                     <th width="80">数量</th>
-                    <th width="80">保质期/月</th>
+                    <th width="80">保质期/天</th>
                     <th width="80">批次</th>
                     <c:if test="${mpur.bProcureMState == null}"><th width="100">操作</th></c:if>
                 </tr>

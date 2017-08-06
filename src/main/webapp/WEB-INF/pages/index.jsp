@@ -91,8 +91,8 @@
                     <li><a data-href="pur_order" data-title="采购订单" href="javascript:void(0)">采购订单</a></li>
                     <li><a data-href="CPurCon_order" data-title="采购合同" href="javascript:void(0)">采购合同</a></li>
                     <li><a data-href="procure" data-title="采购入库" href="javascript:void(0)">采购入库</a></li>
-                    <li><a data-href="BRProM_order" data-title="采购退货" href="javascript:void(0)">采购退货</a></li>
-                    <li><a data-href="pur_order" data-title="采购协议" href="javascript:void(0)">采购协议</a></li>
+                    <li><a data-href="pur_order" data-title="采购退货" href="javascript:void(0)">采购退货</a></li>
+                    <li><a data-href="promotion" data-title="采购协议" href="javascript:void(0)">采购协议</a></li>
                 </ul>
             </dd>
         </dl>

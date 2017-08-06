@@ -92,7 +92,7 @@
           <%--<button type="button" class="btn btn-success" id="" name="" onClick="picture_colume_add(this);"><i class="Hui-iconfont">&#xe600;</i> 添加</button>--%>
         </form>
     </div>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel1()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span style="margin-left: 10px"><a href="/procure/add" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 新增单据</a></span> <span class="r">共有数据：<strong>${list.size()}</strong> 条</span> </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel1()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span style="margin-left: 10px"><a href="/promotion/add" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 新增协议</a></span> <span class="r">共有数据：<strong>${list.size()}</strong> 条</span> </div>
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>--%>
     <div class="mt-20">
 <form:form action="/index3" method="post" commondName="p">
@@ -103,13 +103,13 @@
                 <th width="25"><input type="checkbox" name="id" value=""></th>
                 <th width="70">ID</th>
                 <%--<th width="80">排序</th>--%>
-                <th width="80">入库单号</th>
+                <th width="80">协议编号</th>
                 <th width="80">客户名称</th>
-                <th width="80">订单号</th>
-                <th width="80">业务员</th>
+                <th width="80">开始日期</th>
+                <th width="80">结束日期</th>
+                <th width="80">结算方式</th>
+                <th width="100">业务员</th>
                 <th width="80">制单人</th>
-                <th width="100">审核日期</th>
-                <th width="80">审核状态</th>
                 <th width="100">操作</th>
             </tr>
             </thead>
@@ -117,16 +117,16 @@
             <% int i = 0; %>
             <c:forEach items="${list}" var="item">
             <tr class="text-c">
-                <td><input name="id" type="checkbox"  value="${item.bProcureMProcureNo}"></td>
+                <td><input name="id" type="checkbox"  value="${item.promotionMPromotionNo}"></td>
                 <td><%=i %><% i++; %></td>
-                <td><a href="/procure/detail/${item.bProcureMProcureNo}">${item.bProcureMProcureNo}</a></td>
-                <td>${item.bPurchaseOrdMByBProcureMOrdProcureNo.tClientByBPurchaseOrdMClientNo.tClientClientShortname}</td>
-                <td>${item.bProcureMOrdProcureNo}</td>
-                <td >${item.bPurchaseOrdMByBProcureMOrdProcureNo.tStaffByBPurchaseOrdMSalesman.tStaffStaffName}</td>
-                <td >${item.tStaffByBProcureMCreateNo.tStaffStaffName}</td>
-                <td >${item.bProcureMCheckDate}</td>
-                <td >${item.bProcureMState != null ? (item.bProcureMState == 0 ? "不通过" : "通过") : "未审核"}</td>
-                <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick='window.location.href="/procure/update/${item.bProcureMProcureNo}";' title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" href="/procure/detele/${item.bProcureMProcureNo}" onclick="if(!confirm('确定删除？')) return false;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                <td><a href="/promotion/detail/${item.promotionMPromotionNo}">${item.promotionMPromotionNo}</a></td>
+                <td>${item.promotionMFactPromotionNo}</td>
+                <td>${item.promotionMStartDate}</td>
+                <td >${item.promotionMEndDate}</td>
+                <td >整单结算</td>
+                <td >${item.tStaffByPromotionMSalesman.tStaffStaffName}</td>
+                <td >${item.tStaffByPromotionMCreateNo.tStaffStaffName}</td>
+                <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick='window.location.href="/promotion/update/${item.promotionMPromotionNo}";' title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" href="/promotion/detele/${item.promotionMPromotionNo}" onclick="if(!confirm('确定删除？')) return false;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
             </tr>
             </c:forEach>
             </tbody>
