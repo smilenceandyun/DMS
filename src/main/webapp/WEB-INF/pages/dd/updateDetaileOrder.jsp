@@ -61,6 +61,47 @@
             $.post('/pur_order/pur_search',{'search':search});
             window.location='pur_order';
         }
+        function goodsChange(id) {
+            switch (id){
+                case  "":
+                    document.getElementById("guige").value = "";
+                    document.getElementById("tiaoma").value = "";
+                    document.getElementById("kucun").value = "";
+                    document.getElementById("mingcheng").value = "";
+                    document.getElementById("dangwei").value = "";
+                    document.getElementById("baozjiqi").value = "";
+                    document.getElementById("suilv").value = "";
+                    document.getElementById("danjia").value = "";
+                    document.getElementById("shuliang").value = "";
+                    document.getElementById("bPurchaseOrdSBoxPrice").value = "";
+
+                    break;
+                <c:forEach items="${TGoods}" var="TGoods">
+                case "${TGoods.tGoodsGoodsNo}":
+                    document.getElementById("guige").value = "${TGoods.tGoodsGoodsSpce}";
+                    document.getElementById("tiaoma").value = "${TGoods.tGoodsBarcode}";
+                    document.getElementById("kucun").value = "${TGoods.tGoodsPackQuantity}";
+                    document.getElementById("mingcheng").value = "${TGoods.tGoodsGoodsName}";
+                    document.getElementById("dangwei").value = "${TGoods.tGoodsUnit}";
+                    document.getElementById("baozjiqi").value = "${TGoods.tGoodsExDay/30}";
+                    document.getElementById("suilv").value = "${TGoods.tGoodsInTax}";
+                    document.getElementById("danjia").value = "${TGoods.tGoodsSPrice}";
+                    document.getElementById("shuliang").value = "${TGoods.tGoodsPackQuantity}";
+                    document.getElementById("bPurchaseOrdSBoxPrice").value = "${TGoods.tGoodsPackQuantity * TGoods.tGoodsInTaxprice}";
+                    break;
+                </c:forEach>
+            }
+        }
+
+        function price(id) {
+
+            document.getElementById("hansui").value =document.getElementById("bPurchaseOrdSBoxPrice").value * document.getElementById("bPurchaseOrdSBoxQuantity").value;
+            document.getElementById("weihansui").value = (document.getElementById("bPurchaseOrdSBoxPrice").value * document.getElementById("bPurchaseOrdSBoxQuantity").value) / (( 1 + document.getElementById("suilv").value)/10);
+            document.getElementById("jinger").value = document.getElementById("bPurchaseOrdSBoxPrice").value * document.getElementById("bPurchaseOrdSBoxQuantity").value;
+
+        }
+
+
     </script>
 
     <title>采购管理</title>
@@ -69,6 +110,10 @@
     .display-none {
         display:none;
     }
+</style>
+<style type="text/css">
+    ul{width:900px; height:20px;  size: 20px; color: rgba(0,0,0,0.5); font-weight: 600; font-size: inherit;}
+    li{width:150px; height:20px; float:left;}
 </style>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 更新明细 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
@@ -96,31 +141,115 @@
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>--%>
     <div class="mt-20">
         <form:form action="/pur_order/detaileOrder/updateP" method="post" role="form">
+                <ul>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单货号</li>
+                    <li><input type="text" class="input-text" id="bPurchaseOrdSOrdProcureNo" name="bPurchaseOrdSOrdProcureNo" value="${bPurchaseOrdS.bPurchaseOrdSOrdProcureNo}" readonly="readonly"></li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
+                        <%--<li><input type="text" class="input-text" id="bPurchaseOrdSFactoryGoodsNo"  name="bPurchaseOrdSFactoryGoodsNo" ></li>--%>
+                    <li>
+                        <select class="input-text" name="bPurchaseOrdSFactoryGoodsNo" id="bPurchaseOrdSFactoryGoodsNo" required>
+                            <option value="${bPurchaseOrdS.bPurchaseOrdSFactoryGoodsNo}" selected>${bPurchaseOrdS.bPurchaseOrdSFactoryGoodsNo}(修改前)</option>
+                            <c:forEach items="${TFactorys}" var="TFactorys">
+                                <option value="${TFactorys.tFactorysFactoryGoodsNo}">${TFactorys.tFactorysFactoryGoodsNo}(${TFactorys.tFactorysFactoryGoodsName})</option>
+                            </c:forEach>
 
-            <table class="table table-border table-bordered table-bg table-sort">
-                <thead>
-                <tr class="text-c">
-                    <th width="80">订单明细编号</th>
-                    <th width="80">明细1</th>
-                    <th width="80">明细2</th>
-                    <th width="80">明细3</th>
-                    <th width="80">明细4</th>
-                        <%--<th width="100">操作</th>--%>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="text-c">
-                    <td><input type="text" class="text-c" id="detaileId" name="detaileId" placeholder="请输入detaileId:" value="${detaileEntity.detaileId}"/></td>
-                    <td><input type="text" class="text-c" id="detaile1" name="detaile1" placeholder="请输入detaile1:" value="${detaileEntity.detaile1}"/></td>
-                    <td><input type="text" class="text-c" id="detaile2" name="detaile2" placeholder="请输入detaile2:" value="${detaileEntity.detaile2}"/></td>
-                    <td><input type="text" class="text-c" id="detaile3" name="detaile3" placeholder="请输入detaile3:" value="${detaileEntity.detaile3}"/></td>
-                    <td><input type="text" class="text-c" id="detaile4" name="detaile4" placeholder="请输入detaile4:" value="${detaileEntity.detaile4}"/></td>
-                        <%--<td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>--%>
-                </tr>
-                </tbody>
-            </table>
-            <input class="btn btn-primary upload-btn" type="submit" name="submit" value="确定修改">
-        </form:form>
+                        </select>
+                    </li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;赠送性质</li>
+                    <li><input type="text" class="input-text" id="bPurchaseOrdSPresentationProperty" name="bPurchaseOrdSPresentationProperty" value="${bPurchaseOrdS.bPurchaseOrdSPresentationProperty}"></li>
+                </ul><br>
+                <ul>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编码</li>
+                        <%--<li><input type="text" class="input-text" readonly="readonly" name="" ></li>--%>
+                    <li>
+
+                        <select id="good1" class="input-text" required onchange="goodsChange(this.value);" name="bPurchaseOrdSGoodsNo" required>
+                            <option value="${bPurchaseOrdS.bPurchaseOrdSGoodsNo}" selected>${bPurchaseOrdS.bPurchaseOrdSGoodsNo}(修改前)</option>
+                            <c:forEach items="${TGoods}" var="TGoods">
+                                <option value="${TGoods.tGoodsGoodsNo}">${TGoods.tGoodsGoodsNo}(${TGoods.tGoodsGoodsName})</option>
+                            </c:forEach>
+                        </select>
+                    </li>
+
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;规格型号</li>
+                    <li><input type="text" class="input-text" required id="guige" readonly="readonly" ></li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交易原价</li>
+                    <li><input type="text" class="input-text" id="bPurchaseOrdSOriginalPrice" name="bPurchaseOrdSOriginalPrice" value="${bPurchaseOrdS.bPurchaseOrdSOriginalPrice}" ></li>
+                </ul><br>
+                <ul>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品条码</li>
+                    <li><input type="text" class="input-text" required id="tiaoma" readonly="readonly"></li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库存</li>
+                    <li><input type="text" class="input-text" required id="kucun" readonly="readonly"></li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;含税金额</li>
+                    <li><input type="text" class="input-text" readonly="readonly"  required id="hansui" ></li>
+                </ul><br>
+                <ul>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
+                    <li><input type="text" class="input-text" required id="mingcheng" readonly="readonly"></li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税率</li>
+                    <li><input type="text" class="input-text" id="suilv" name="bPurchaseOrdSTaxRate" readonly="readonly"></li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未含税金额</li>
+                    <li><input type="text" class="input-text" readonly="readonly" id="weihansui" ></li>
+                </ul><br>
+                <ul>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓库</li>
+                    <li>
+                        <select class="input-text" name="bPurchaseOrdSRoomNo" id="bPurchaseOrdSRoomNo" required>
+                            <option value="${bPurchaseOrdS.bPurchaseOrdSRoomNo}" selected>${bPurchaseOrdS.bPurchaseOrdSRoomNo}(修改前)</option>
+                            <c:forEach items="${TRoom}" var="TRoom">
+                                <option value="${TRoom.tRoomRoomNo}">${TRoom.tRoomRoomNo}(${TRoom.tRoomRoomName})</option>
+                            </c:forEach>
+
+                        </select>
+                    </li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位</li>
+                    <li><input type="text" class="input-text" required id="dangwei" readonly="readonly"></li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单价</li>
+                    <li><input type="text" class="input-text" id="danjia" name="bPurchaseOrdSPrice" readonly="readonly" required></li>
+
+                </ul><br>
+                <ul>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数量/箱</li>
+                    <li><input type="text" class="input-text" id="shuliang" name="bPurchaseOrdSQuantity" readonly="readonly" required></li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保质期/月</li>
+                    <li><input type="text" class="input-text" required id="baozjiqi" readonly="readonly"></li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额</li>
+                    <li><input  type="text" class="input-text" id="jinger" name="bPurchaseOrdSDetailMoney"  readonly="readonly" required></li>
+                </ul><br>
+                <ul>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱数</li>
+                    <li><input type="text" class="input-text" required onchange="price(this.value);" id="bPurchaseOrdSBoxQuantity" name="bPurchaseOrdSBoxQuantity" required></li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱价</li>
+                    <li><input type="text" class="input-text"  id="bPurchaseOrdSBoxPrice" name="bPurchaseOrdSBoxPrice" readonly="readonly" required></li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结算方式</li>
+                    <li>
+                        <select class="input-text" name="bPurchaseOrdSPaymentNo" id="bPurchaseOrdSPaymentNo" required>
+                            <option value="${bPurchaseOrdS.bPurchaseOrdSPaymentNo}" selected>${bPurchaseOrdS.bPurchaseOrdSPaymentNo}(修改前结算方式编号)</option>
+                            <c:forEach items="${TPayment}" var="TPayment">
+                                <option value="${TPayment.tPaymentPaymentNo}">${TPayment.tPaymentPaymentName}</option>
+                            </c:forEach>
+
+                        </select>
+                    </li>
+                </ul><br>
+                <ul>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;生产日期</li>
+                    <li><input type="date" class="input-text"  id="bPurchaseOrdSMfg" name="bPurchaseOrdSMfg" value="${bPurchaseOrdS.bPurchaseOrdSMfg}" required></li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;过期日期</li>
+                    <li><input type="date" class="input-text" id="bPurchaseOrdSExp" name="bPurchaseOrdSExp" value="${bPurchaseOrdS.bPurchaseOrdSExp}" required></li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;明细ID</li>
+                    <li><input type="text" class="input-text" readonly="readonly" name="bPurchaseOrdSDetailId" value="${detailID}"></li>
+                        <%--<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>--%>
+                        <%--<li style="float: left;width: 650px;"><input type="text" class="input-text" readonly="readonly" name="" value="${detail.}"></li>--%>
+                </ul><br>
+
+                <br>
+                <center>
+                    <input class="btn btn-primary upload-btn" type="submit" name="submit" value="确定修改">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="/pur_order"  class="btn btn radius">取消</a>
+                </center>
+            </form:form>
     </div>
 </div>
 

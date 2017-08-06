@@ -2,10 +2,10 @@ package com.dms.controller.pur.rk;
 
 import com.dms.model.*;
 import com.dms.repository.StoreLocationRepository;
+import com.dms.repository.dd.BPurchaseOrdMRepository;
 import com.dms.repository.TGoodsRepository;
 import com.dms.repository.TRoomRepository;
 import com.dms.repository.TStaffRepository;
-import com.dms.repository.dd.BPurchaseOrdMRepository;
 import com.dms.repository.rk.BProcureMRepository;
 import com.dms.repository.rk.BProcureSRepository;
 import com.dms.serviceImpl.GetOrderNumber;

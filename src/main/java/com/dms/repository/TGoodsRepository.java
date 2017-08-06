@@ -1,7 +1,6 @@
 package com.dms.repository;
 
 import com.dms.model.TGoodsEntity;
-import com.dms.model.TStaffEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -2,7 +2,6 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -64,70 +63,63 @@
         display:none;
     }
 </style>
+<style type="text/css">
+    ul{width:900px; height:20px;  size: 20px; color: rgba(0,0,0,0.5); font-weight: 600; font-size: inherit;}
+    li{width:150px; height:20px; float:left;}
+</style>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购退货 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购明细 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    <div class="text-c">
-        <form class="Huiform" method="post" action="" target="_self">
-            <input type="text" placeholder="请输入订单号" name="search" id="search" value="" class="input-text" style="width:120px">
-            <span class="select-box" style="width:150px">
-			<select class="select"  name="brandclass" size="1">
-                <option value="" disabled selected  class="display-none">选择厂家</option>
-				<option value="1" selected>厂家名称 </option>
-				<option value="0">厂家2</option>
-			</select>
-			</span>
-            </span><button type="button" class="btn btn-success" id="" name="" onClick="purSearch()"><i class="Hui-iconfont">&#xe600;</i> 查询</button>
-            <span class="btn-upload form-group">
-			<input class="input-text upload-url" type="text" name="uploadfile-2" id="uploadfile-2" readonly style="width:200px">
-			<a href="javascript:void(0);" class="btn btn-primary upload-btn"><i class="Hui-iconfont">&#xe642;</i> 上传文件</a>
-			<input type="file" multiple name="file-2" class="input-file">
-			</span>
-            <%--<button type="button" class="btn btn-success" id="" name="" onClick="picture_colume_add(this);"><i class="Hui-iconfont">&#xe600;</i> 添加</button>--%>
-        </form>
-    </div>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel1()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span><span class="l">&nbsp;&nbsp;&nbsp;<a href="/addR" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 添加订单</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"><span><a href="/pur_order/detaileOrder/deleteall/${ordProcureNo}" class="btn btn-danger radius radius">删除所有明细</a></span>&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="/pur_order/detaileOrder/add/${ordProcureNo}" class="btn btn-success radius">新增明细</a></span></div>
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>--%>
     <div class="mt-20">
 
-        <form:form action="/index3" method="post" commondName="p">
+    <ul>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="ordProcureNo" ></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品条码</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编码</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+    </ul><br>
+    <ul>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;规格型号</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓库</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+    </ul><br>
+    <ul>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基本数量/单位</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;包装数量/单位</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;遂率</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+    </ul><br>
+    <ul>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退货单号</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库位编号</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="taxRate" ></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保质期</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+    </ul><br>
+    <ul>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;生产日期</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交易原价</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;批次号</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="price"></li>
 
-            <table class="table table-border table-bordered table-bg table-sort">
-                <thead>
-                <tr class="text-c">
-                    <th width="25"><input type="checkbox" name="id" value=""></th>
-                    <th width="30">ID</th>
-                    <th width="80">退货单号</th>
-                    <th width="80">客户名称</th>
-                    <th width="80">结算方式</th>
-                    <th width="80">业务日期</th>
-                    <th width="80">制单日期</th>
-                    <th width="80">审核日期</th>
-                    <th width="80">审核状态</th>
-                    <th width="40">操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <%
-                    int i = 1;
-                %>
-                <c:forEach items="${brProcureM}" var="brProcureM">
-                    <tr class="text-c">
-                        <td><input name="id" type="checkbox" value="${brProcureM.bRProcureMRProcureNo}"></td>
-                        <td><%=i %><% i++; %></td>
-                        <td>${brProcureM.bRProcureMRProcureNo}</td>
-                        <td>广州合生元生物制品有限公司</td>
-                        <td>${brProcureM.bRProcureMPaymentAttributer}</td>
-                        <td>${brProcureM.bRProcureMModifiTime}</td>
-                        <td>${brProcureM.bRProcureMCreateDate}</td>
-                        <td>${brProcureM.bRProcureMCheckDate}</td>
-                        <td>${brProcureM.bRProcureMState == 0? "未审核" : "已审核"}</td>
-                        <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/updateM/${brProcureM.bRProcureMRProcureNo}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="/delete/${brProcureM.bRProcureMRProcureNo}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </form:form>
+    </ul><br>
+    <ul>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
+        <li style="float: left;width: 390px;"><input type="text" class="input-text" id="bPurchaseOrdMNotes" name="bPurchaseOrdMNotes"></li>
+    </ul><br>
+
     </div>
 </div>
 

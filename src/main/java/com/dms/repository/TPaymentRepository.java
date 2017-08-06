@@ -1,11 +1,11 @@
 package com.dms.repository;
 
-import com.dms.model.TRoomEntity;
+import com.dms.model.TPaymentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TRoomRepository extends JpaRepository<TRoomEntity, String> {
+public interface TPaymentRepository extends JpaRepository<TPaymentEntity, String> {
 
 
 //    @Modifying      // 说明该方法是修改操作

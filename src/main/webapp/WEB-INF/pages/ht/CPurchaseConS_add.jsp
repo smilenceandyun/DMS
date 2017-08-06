@@ -54,6 +54,29 @@
             $.post('/pur_order/pur_search',{'search':search});
             window.location='pur_order';
         }
+
+        function goodsChange(id) {
+            switch (id){
+                case  "":
+                    document.getElementById("d1").value = "";
+                    document.getElementById("d2").value = "";
+                    document.getElementById("d3").value = "";
+                    document.getElementById("d4").value = "";
+                    document.getElementById("d5").value = "";
+                    document.getElementById("d6").value = "";
+                    break;
+                <c:forEach items="${Goods}" var="Goods">
+                case "${Goods.tGoodsGoodsNo}":
+                    document.getElementById("d1").value = "${Goods.tGoodsBoxBarcode}";
+                    document.getElementById("d2").value = "${Goods.tGoodsPackQuantity * Goods.tGoodsSPrice}";
+                    document.getElementById("d3").value = "${Goods.tGoodsSPrice}";
+                    document.getElementById("d4").value = "${Goods.tGoodsGoodsNo}";
+                    document.getElementById("d5").value = "${Goods.tGoodsUnit}";
+                    document.getElementById("d6").value = "${Goods.tGoodsGoodsSpce}";
+                    break;
+                </c:forEach>
+            }
+        }
     </script>
 
     <title>采购管理</title>
@@ -65,106 +88,97 @@
 </style>
 <style type="text/css">
     ul {
-        width:900px; height:20px; size: 20px;
+        width:1300px; height:20px; size: 20px;
     }
     li {
-        width:120px; height:20px; float:left;
+        width:125px; height:20px; float:left;
     }
 </style>
-<body>
+<body onload="goodsChange(document.getElementById('good1').value)">
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购订单 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
     <div class="mt-20">
-        <%--<c:if test="${empty cPurchaseConS}">--%>
-        <%--<table class="table table-border table-bordered table-bg table-sort">--%>
-        <%--<thead>--%>
-        <%--<tr class="text-c">--%>
-        <%--<th width="80">提示</th>--%>
-        <%--</tr>--%>
-        <%--</thead>--%>
-        <%--<tbody>--%>
-
-        <%--<tr class="text-c">--%>
-        <%--<td >没有添加明细，请添加</td>--%>
-        <%--&lt;%&ndash;<td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('明细编辑','index2.html','1')" href="/pur_order/detaileOrder/update/${detail.detaileId}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> </td>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="/pur_order/detaileOrder/delete/${detail.detaileId}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>&ndash;%&gt;--%>
-        <%--</tr>--%>
-        <%--</tbody>--%>
-        <%--</table>--%>
-        <%--</c:if>--%>
-        <%--<c:if test="${!empty cPurchaseConS}">--%>
-        <form:form name="ht" id="ht" action="/addS" method="post" role="form" onsubmit="return checkinput(this)">
+        <form:form name="ht" id="ht" action="/addSS" method="post" role="form">
+            <%--单据头--%>
+            <ul>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同编号</li>
+                <li><input type="text" class="input-text" name="cPurchaseConMPurchasConNo" id="cPurchaseConMPurchasConNo" value="${cPurchaseConM.cPurchaseConMPurchasConNo}" readonly="readonly"></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户名称</li>
+                <li><input type="text" class="input-text" name="cPurchaseConMClientNo" id="cPurchaseConMClientNo" value="${cPurchaseConM.tClientByCPurchaseConMClientNo.tClientClientName}" readonly="readonly">
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同日期</li>
+                <li><input type="text" class="input-text" name="cPurchaseConMConDate" id="cPurchaseConMConDate" readonly="readonly" value="${cPurchaseConM.cPurchaseConMConDate}"></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核人</li>
+                <li><input type="text" class="input-text" name="cPurchaseConMChecker" id="cPurchaseConMChecker" readonly="readonly" value="${cPurchaseConM.tStaffByCPurchaseConMChecker.tStaffStaffName}"></li>
+            </ul><br>
+            <ul>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单人</li>
+                <li><input type="text" class="input-text" name="cPurchaseConMCreateNo" id="cPurchaseConMCreateNo" readonly="readonly" value="${cPurchaseConM.tStaffByCPurchaseConMCreateNo.tStaffStaffName}"></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结算方式</li>
+                <li><input type="text" class="input-text" name="cPurchaseConMGrossMode" id="cPurchaseConMGrossMode" readonly="readonly" value="${cPurchaseConM.cPurchaseConMGrossMode}"></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务员</li>
+                <li><input type="text" class="input-text" name="cPurchaseConMSalesman" id="cPurchaseConMSalesman" readonly="readonly" value="${cPurchaseConM.tStaffByCPurchaseConMSalesman.tStaffStaffName}"></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
+                <li><input type="text" class="input-text" name="cPurchaseConMFactoryGoodsNo" id="cPurchaseConMFactoryGoodsNo" readonly="readonly" value="${cPurchaseConM.tFactorysByCPurchaseConMFactoryGoodsNo.tFactorysFactoryGoodsNo}(${cPurchaseConM.tFactorysByCPurchaseConMFactoryGoodsNo.tFactorysFactoryGoodsName})"></li>
+            </ul><br>
+            <ul>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
+                <li ><input type="text" class="input-text" name="cPurchaseConMNotes" id="cPurchaseConMNotes" style="width: 378px" readonly="readonly" value="${cPurchaseConM.cPurchaseConMNotes}"></li>
+                <li></li><li></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户业务员</li>
+                <li><input type="text" class="input-text" name="cPurchaseConMCustomerSalesmanName" id="cPurchaseConMCustomerSalesmanName" readonly="readonly" value="${cPurchaseConM.cPurchaseConMCustomerSalesmanName}"></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有效期</li>
+                <li><input type="text" class="input-text" name="cPurchaseConMValidity" id="cPurchaseConMValidity" readonly="readonly" value="${cPurchaseConM.cPurchaseConMValidity}"></li>
+            </ul>
+            <br><br><hr><br><br>
+            <%--明细--%>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
             <li>
-                <select class="input-text" name="" id="select0" onchange="">
+                <select class="input-text" name="" id="good1" onchange="goodsChange(this.value);" required>
                     <option value=""></option>
                     <c:forEach items="${Goods}" var="Goods">
-                        <option value="${Goods.tGoodsGoodsName}">${Goods.tGoodsGoodsName}</option>
+                        <option value="${Goods.tGoodsGoodsNo}">${Goods.tGoodsGoodsName}</option>
                     </c:forEach>
                 </select>
             </li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
-            <li><input type="text" class="input-text" name=""></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总经理</li>
+            <li>
+                <select class="input-text" name="cPurchaseConSManagerNo" id="cPurchaseConSManagerNo" required>
+                    <option value=""></option>
+                    <c:forEach items="${Staff}" var="Staff">
+                        <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                    </c:forEach>
+                </select>
+            </li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税率</li>
-            <li><input type="text" class="input-text" name=""></li>
+            <li><input type="text" class="input-text" name="cPurchaseConSTaxRate" id="cPurchaseConSTaxRate" required></li>
         </ul><br>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品条码</li>
-            <li><input type="text" class="input-text" name=""></li>
+            <li><input type="text" class="input-text" name="" id="d1" required></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱价</li>
-            <li><input type="text" class="input-text" name=""></li>
+            <li><input type="text" class="input-text" name="cPurchaseConSBoxPrice" id="d2" required></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单价</li>
-            <li><input type="text" class="input-text" name=""></li>
+            <li><input type="text" class="input-text" name="cPurchaseConSPrice" id="d3" required></li>
         </ul><br>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编码</li>
-            <li><input type="text" class="input-text" name=""></li>
+            <li><input type="text" class="input-text" name="cPurchaseConSGoodsNo" id="d4" required></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位</li>
-            <li><input type="text" class="input-text" name=""></li>
+            <li><input type="text" class="input-text" name="" id="d5" required></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;规格型号</li>
-            <li><input type="text" class="input-text" name="" ></li>
+            <li><input type="text" class="input-text" name="" id="d6" required></li>
         </ul><br>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同编号</li>
-            <li><input type="text" class="input-text" name="" readonly ="readonly"  value="${PurchasConNo}"></li>
+            <li><input type="text" class="input-text" name="cPurchaseConSPurchasConNo" readonly ="readonly"  value="${PurchasConNo}"></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;明细ID</li>
-            <li><input type="text" class="input-text" name="" value="${detailId}" readonly ="readonly"></li>
+            <li><input type="text" class="input-text" name="cPurchaseConSDetailId" value="${detailId}" readonly ="readonly"></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同数量</li>
+            <li><input type="text" class="input-text" name="cPurchaseConSConQuantity" id="cPurchaseConSConQuantity" required></li>
         </ul><br>
-        <div class="cl pd-5 mt-20 bg-1 bk-gray" style="height:32px;"> <span class="l"><a href="" class="btn btn-success radius">保存</a></span><span class="l">&nbsp;&nbsp;&nbsp;<a href="" class="btn btn-success radius">新增明细</a></span></div>
+        <div class="cl pd-5 mt-20 bg-1 bk-gray" style="height:32px;"><button type="submit" onclick="" class="btn btn-success radius">保存</button></div>
         <br>
-        <table class="table table-border table-bordered table-bg table-sort">
-            <thead>
-            <tr class="text-c">
-                <th width="30">ID</th>
-                <th width="80">商品名称</th>
-                <th width="80">规格型号</th>
-                <th width="80">税率</th>
-                <th width="80">单位</th>
-                <th width="80">单价</th>
-                <th width="80">箱价</th>
-                <th width="40">操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <%
-                int i = 1;
-            %>
-            <c:forEach items="${cPurchaseConS}" var="cPurchaseConS">
-                <tr class="text-c">
-                    <td><%=i %><% i++; %></td>
-                    <td><a href="/detail2/${cPurchaseConS.cPurchaseConSPurchasConNo} & ${cPurchaseConS.cPurchaseConSDetailId}">${cPurchaseConS.tGoodsByCPurchaseConSGoodsNo.tGoodsGoodsName}</a></td>
-                    <td>${cPurchaseConS.tGoodsByCPurchaseConSGoodsNo.tGoodsSSpec}</td>
-                    <td>${cPurchaseConS.cPurchaseConSTaxRate}</td>
-                    <td>${cPurchaseConS.tGoodsByCPurchaseConSGoodsNo.tGoodsUnit}</td>
-                    <td>${cPurchaseConS.cPurchaseConSPrice}</td>
-                    <td>${cPurchaseConS.cPurchaseConSBoxPrice}</td>
-                    <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/updateS/${cPurchaseConS.cPurchaseConSPurchasConNo} & ${cPurchaseConS.cPurchaseConSDetailId}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="deleteS/${cPurchaseConS.cPurchaseConSPurchasConNo} & ${cPurchaseConS.cPurchaseConSDetailId}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-        <%--</c:if>--%>
         </form:form>
     </div>
 </div>

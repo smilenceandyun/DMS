@@ -90,13 +90,13 @@
                 </tr>
                 </tbody>
             </table>
-            <div class="cl pd-5 bg-1 bk-gray mt-20">&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="/addSS/${cPurchaseConSPurchasConNo}" class="btn btn-success radius">新增明细</a></span></div>
+            <div class="cl pd-5 bg-1 bk-gray mt-20">&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="/addS/${cPurchaseConSPurchasConNo}" class="btn btn-success radius">新增明细</a></span></div>
         </c:if>
         <c:if test="${!empty cPurchaseConS}">
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
                 <li><input type="text" class="input-text" style="background-color: #F5F5F5"  name=""></li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总经理</li>
                 <li><input type="text" class="input-text" style="background-color: #F5F5F5"  name=""></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税率</li>
                 <li><input type="text" class="input-text" style="background-color: #F5F5F5"  name=""></li>
@@ -120,8 +120,10 @@
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同编号</li>
                 <li><input type="text" class="input-text" style="background-color: #F5F5F5" name="" readonly ="readonly" value="${cPurchaseConSPurchasConNo}"></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同数量</li>
+                <li><input type="text" class="input-text" style="background-color: #F5F5F5" name=""></li>
             </ul><br>
-            <div class="cl pd-5 mt-20 bg-1 bk-gray" style="height:32px;"> <span class="l"><a href="" class="btn btn-success radius">保存</a></span><span class="l">&nbsp;&nbsp;&nbsp;<a href="/addSS/${cPurchaseConSPurchasConNo}" class="btn btn-success radius">新增明细</a></span></div>
+            <div class="cl pd-5 mt-20 bg-1 bk-gray" style="height:32px;"> <c:if test="${cPurchaseConM.cPurchaseConMState == \"0\"}"><span class="l"><a href="" class="btn btn-success radius">保存</a></span><span class="l">&nbsp;&nbsp;&nbsp;<a href="/addS/${cPurchaseConSPurchasConNo}" class="btn btn-success radius">新增明细</a></span></c:if></div>
             <br>
             <table class="table table-border table-bordered table-bg table-sort">
                 <thead>
@@ -133,7 +135,7 @@
                     <th width="80">税率</th>
                     <th width="80">单价</th>
                     <th width="80">箱价</th>
-                    <th width="40">操作</th>
+                    <c:if test="${cPurchaseConM.cPurchaseConMState == \"0\"}"><th width="40">操作</th></c:if>
                 </tr>
                 </thead>
                 <tbody>
@@ -149,7 +151,7 @@
                         <td>${cPurchaseConS.tGoodsByCPurchaseConSGoodsNo.tGoodsUnit}</td>
                         <td>${cPurchaseConS.cPurchaseConSPrice}</td>
                         <td>${cPurchaseConS.cPurchaseConSBoxPrice}</td>
-                        <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/updateS/${cPurchaseConS.cPurchaseConSPurchasConNo} & ${cPurchaseConS.cPurchaseConSDetailId}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="/pur_order/deleteS/${cPurchaseConS.cPurchaseConSPurchasConNo} & ${cPurchaseConS.cPurchaseConSDetailId}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                        <c:if test="${cPurchaseConM.cPurchaseConMState == \"0\"}"><td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/updateS/${cPurchaseConS.cPurchaseConSPurchasConNo} & ${cPurchaseConS.cPurchaseConSDetailId}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="/deleteS/${cPurchaseConS.cPurchaseConSPurchasConNo} & ${cPurchaseConS.cPurchaseConSDetailId}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td></c:if>
                     </tr>
                 </c:forEach>
                 </tbody>
