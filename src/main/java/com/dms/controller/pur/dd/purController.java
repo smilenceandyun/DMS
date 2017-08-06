@@ -1,5 +1,6 @@
 package com.dms.controller.pur.dd;
 import com.dms.model.*;
+import com.dms.repository.*;
 import com.dms.repository.dd.*;
 //import com.dms.repository.T01Repository;
 import org.springframework.beans.factory.annotation.Autowired;

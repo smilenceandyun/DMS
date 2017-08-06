@@ -1,4 +1,4 @@
-package com.dms.repository.dd;
+package com.dms.repository;
 
 import com.dms.model.TFactorysEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

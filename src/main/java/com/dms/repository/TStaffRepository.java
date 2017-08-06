@@ -1,11 +1,11 @@
-package com.dms.repository.dd;
+package com.dms.repository;
 
-import com.dms.model.TRoomEntity;
+import com.dms.model.TStaffEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface TRoomRepository extends JpaRepository<TRoomEntity, String> {
+    @Repository
+    public interface TStaffRepository extends JpaRepository<TStaffEntity, String> {
 
 
 //    @Modifying      // 说明该方法是修改操作
@@ -22,5 +22,5 @@ public interface TRoomRepository extends JpaRepository<TRoomEntity, String> {
 //    public void updatePurOrder(@Param("qDetaile1") String detaile1, @Param("qDetaile2") String detaile2,
 //                               @Param("qDetaile3") String detaile3, @Param("qDetaile4") String detaile4, @Param("qId") int detaileId);
 
-}
+    }
 
