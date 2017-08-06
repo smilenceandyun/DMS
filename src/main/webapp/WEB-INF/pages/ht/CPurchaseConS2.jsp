@@ -95,7 +95,7 @@
         <%--<c:if test="${!empty cPurchaseConS}">--%>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
-                <li><input type="text" class="input-text" name="" style="background-color: #F5F5F5"  readonly="readonly" value="#商品名称${detail.cPurchaseConSDetailId}"></li>
+                <li><input type="text" class="input-text" name="" style="background-color: #F5F5F5"  readonly="readonly" value="${detail.tGoodsByCPurchaseConSGoodsNo.tGoodsGoodsName}"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
                 <li><input type="text" class="input-text" name="" style="background-color: #F5F5F5"  readonly="readonly" value="#厂家编码${detail.cPurchaseConSDetailId}"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税率</li>
@@ -103,7 +103,7 @@
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品条码</li>
-                <li><input type="text" class="input-text" name="" style="background-color: #F5F5F5"  readonly="readonly" value="#商品条码${detail.cPurchaseConSDetailId}"></li>
+                <li><input type="text" class="input-text" name="" style="background-color: #F5F5F5"  readonly="readonly" value="${detail.tGoodsByCPurchaseConSGoodsNo.tGoodsBoxBarcode}"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱价</li>
                 <li><input type="text" class="input-text" name="" style="background-color: #F5F5F5"  readonly="readonly" value="${detail.cPurchaseConSBoxPrice}"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单价</li>
@@ -111,17 +111,19 @@
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编码</li>
-                <li><input type="text" class="input-text" name="" style="background-color: #F5F5F5"  readonly="readonly" value="#商品编码${detail.cPurchaseConSDetailId}" ></li>
+                <li><input type="text" class="input-text" name="" style="background-color: #F5F5F5"  readonly="readonly" value="${detail.tGoodsByCPurchaseConSGoodsNo.tGoodsGoodsNo}" ></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位</li>
-                <li><input type="text" class="input-text" name="" style="background-color: #F5F5F5"  readonly="readonly" value="#单位${detail.cPurchaseConSDetailId}"></li>
+                <li><input type="text" class="input-text" name="" style="background-color: #F5F5F5"  readonly="readonly" value="${detail.tGoodsByCPurchaseConSGoodsNo.tGoodsUnit}"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;规格型号</li>
-                <li><input type="text" class="input-text" name="" style="background-color: #F5F5F5"  readonly="readonly" value="#规格型号${detail.cPurchaseConSDetailId}"></li>
+                <li><input type="text" class="input-text" name="" style="background-color: #F5F5F5"  readonly="readonly" value="${detail.tGoodsByCPurchaseConSGoodsNo.tGoodsGoodsSpce}"></li>
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同编号</li>
                 <li><input type="text" class="input-text" name="" style="background-color: #F5F5F5"  readonly ="readonly" value="${detail.cPurchaseConSPurchasConNo}"></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;明细ID</li>
+                <li><input type="text" class="input-text" name="" style="background-color: #F5F5F5"  readonly ="readonly" value="${detail.cPurchaseConSDetailId}"></li>
             </ul><br>
-            <div class="cl pd-5 mt-20 bg-1 bk-gray" style="height:32px;"> <span class="l"><a href="" class="btn btn-success radius">保存</a></span><span class="l">&nbsp;&nbsp;&nbsp;<a href="" class="btn btn-success radius">新增明细</a></span></div>
+            <div class="cl pd-5 mt-20 bg-1 bk-gray" style="height:32px;"> <span class="l"><a href="" class="btn btn-success radius">保存</a></span><span class="l">&nbsp;&nbsp;&nbsp;<a href="/addSS/${detail.cPurchaseConSPurchasConNo}" class="btn btn-success radius">新增明细</a></span></div>
             <br>
             <table class="table table-border table-bordered table-bg table-sort">
                 <thead>
@@ -143,13 +145,13 @@
                 <c:forEach items="${cPurchaseConS}" var="cPurchaseConS">
                     <tr class="text-c">
                         <td><%=i %><% i++; %></td>
-                        <td><a href="/detail2/${cPurchaseConS.cPurchaseConSPurchasConNo} & ${cPurchaseConS.cPurchaseConSDetailId}">#商品名称</a></td>
-                        <td>#规格型号</td>
+                        <td><a href="/detail2/${cPurchaseConS.cPurchaseConSPurchasConNo} & ${cPurchaseConS.cPurchaseConSDetailId}">${cPurchaseConS.tGoodsByCPurchaseConSGoodsNo.tGoodsGoodsName}</a></td>
+                        <td>${cPurchaseConS.tGoodsByCPurchaseConSGoodsNo.tGoodsGoodsSpce}</td>
                         <td>${cPurchaseConS.cPurchaseConSTaxRate}</td>
-                        <td>#单位</td>
+                        <td>${cPurchaseConS.tGoodsByCPurchaseConSGoodsNo.tGoodsUnit}</td>
                         <td>${cPurchaseConS.cPurchaseConSPrice}</td>
                         <td>${cPurchaseConS.cPurchaseConSBoxPrice}</td>
-                        <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/updateS/${cPurchaseConS.cPurchaseConSPurchasConNo} & ${cPurchaseConS.cPurchaseConSDetailId}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="deleteS/${cPurchaseConS.cPurchaseConSPurchasConNo} & ${cPurchaseConS.cPurchaseConSDetailId}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                        <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/updateS/${cPurchaseConS.cPurchaseConSPurchasConNo} & ${cPurchaseConS.cPurchaseConSDetailId}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="/pur_order/deleteS/${cPurchaseConS.cPurchaseConSPurchasConNo} & ${cPurchaseConS.cPurchaseConSDetailId}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

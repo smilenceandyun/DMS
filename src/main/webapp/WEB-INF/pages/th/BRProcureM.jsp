@@ -12,16 +12,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="../../../statics/lib/html5shiv.js"></script>
-    <script type="text/javascript" src="../../../statics/lib/respond.min.js
+    <script type="text/javascript" src="../../statics/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="../../statics/lib/respond.min.js
     <![endif]-->
-    <link rel="stylesheet" type="text/css" href="../../../statics/css/H-ui.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../statics/css/admin/H-ui.admin.css" />
-    <link rel="stylesheet" type="text/css" href="../../../statics/lib/Hui-iconfont/1.0.8/iconfont.css" />
-    <link rel="stylesheet" type="text/css" href="../../../statics/skin/green/skin.css" id="skin" />
-    <link rel="stylesheet" type="text/css" href="../../../statics/css/admin/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../statics/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../statics/css/admin/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../../statics/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../statics/skin/green/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../../statics/css/admin/style.css" />
     <!--[if IE 6]>
-    <script type="text/javascript" src="../../../statics/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script type="text/javascript" src="../../statics/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
     <script type="text/javascript">
@@ -65,7 +65,7 @@
     }
 </style>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购合同 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购退货 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
     <div class="text-c">
         <form class="Huiform" method="post" action="" target="_self">
@@ -86,7 +86,7 @@
             <%--<button type="button" class="btn btn-success" id="" name="" onClick="picture_colume_add(this);"><i class="Hui-iconfont">&#xe600;</i> 添加</button>--%>
         </form>
     </div>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel1()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span><span class="l">&nbsp;&nbsp;&nbsp;<a href="/add" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 添加订单</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel1()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span><span class="l">&nbsp;&nbsp;&nbsp;<a href="/addR" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 添加订单</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>--%>
     <div class="mt-20">
 
@@ -97,10 +97,13 @@
                 <tr class="text-c">
                     <th width="25"><input type="checkbox" name="id" value=""></th>
                     <th width="30">ID</th>
-                    <th width="80">合同编号</th>
-                    <th width="80">客户编号</th>
-                    <th width="80">合同日期</th>
-                    <th width="80">审核状态</th>
+                    <th width="80">退货单号</th>
+                    <th width="80">客户名称</th>
+                    <th width="80">结算方式</th>
+                    <th width="80">业务日期</th>
+                    <th width="80">制单日期</th>
+                    <th width="80">审核日期</th>
+                    <th width="80">审核人</th>
                     <th width="40">操作</th>
                 </tr>
                 </thead>
@@ -108,15 +111,19 @@
                 <%
                     int i = 1;
                 %>
-                <c:forEach items="${cPurchaseConM}" var="cPurchaseConM">
+                <c:forEach items="${brProcureM}" var="brProcureM">
                     <tr class="text-c">
-                        <td><input name="id" type="checkbox" value="${cPurchaseConM.cPurchaseConMPurchasConNo}"></td>
+                        <td><input name="id" type="checkbox" value="${brProcureM.bRProcureMRProcureNo}"></td>
                         <td><%=i %><% i++; %></td>
-                        <td><a href="/detail/${cPurchaseConM.cPurchaseConMPurchasConNo}">${cPurchaseConM.cPurchaseConMPurchasConNo}</a></td>
-                        <td>${cPurchaseConM.tClientByCPurchaseConMClientNo.tClientClientNo}</td>
-                        <td>${cPurchaseConM.cPurchaseConMConDate}</td>
-                        <td>${cPurchaseConM.cPurchaseConMState}</td>
-                        <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/updateM/${cPurchaseConM.cPurchaseConMPurchasConNo}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="/delete/${cPurchaseConM.cPurchaseConMPurchasConNo}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                        <%--******退货单号******<td><a href="/detail/${cPurchaseConM.cPurchaseConMPurchasConNo}">${cPurchaseConM.cPurchaseConMPurchasConNo}</a></td>--%>
+                        <td>#退货单号</td>
+                        <td>#客户名称</td>
+                        <td>#结算方式</td>
+                        <td>#业务日期</td>
+                        <td>#制单日期</td>
+                        <td>#审核日期</td>
+                        <td>#审核人</td>
+                        <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/updateM/${brProcureM.bRProcureMRProcureNo}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="/delete/${brProcureM.bRProcureMRProcureNo}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -126,16 +133,15 @@
 </div>
 
 <!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="../../../statics/lib/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="../../../statics/lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="../../../statics/jss/H-ui.min.js"></script>
-<script type="text/javascript" src="../../../statics/jss/admin/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../../statics/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../../statics/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../../statics/jss/H-ui.min.js"></script>
+<script type="text/javascript" src="../../statics/jss/admin/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="../../../statics/lib/My97DatePicker/4.8/WdatePicker.js"></script>
-<script type="text/javascript" src="../../../statics/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="../../../statics/lib/laypage/1.2/laypage.js"></script>
-<script type="text/javascript" src="../../../statics/jss/CPurchaseCon.js"></script>
+<script type="text/javascript" src="../../statics/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="../../statics/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../statics/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
     $('.table-sort').dataTable({
         "aaSorting": [[ 1, "desc" ]],//默认第几个排序
