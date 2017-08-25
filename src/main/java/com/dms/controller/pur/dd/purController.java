@@ -287,7 +287,34 @@ public class purController {
         // int id2=Integer.parseInt(Id);
         //BPurchaseOrdSEntity bPurchaseOrdSEntity = bPurchaseOrdSRepository.findOne("01");
         List<BPurchaseOrdSEntity> bPurchaseOrdSEntity = bPurchaseOrdSRepository.findBPurchaseOrdSEntitiesByBPurchaseOrdSOrdProcureNoEquals(Id);
+        Integer detailId = (bPurchaseOrdSRepository.findMaxDetailId(Id));
+
+        if(detailId == null){
+            detailId = 1;
+        }
+        else {
+            detailId += 1;
+        }
+        BPurchaseOrdMEntity bPurchaseOrdMEntity = bPurchaseOrdMRepository.findBPurchaseOrdMEntityByBPurchaseOrdMOrdProcureNoEquals(Id);
+        //List<BPurchaseOrdSEntity> bPurchaseOrdSEntity = bPurchaseOrdSRepository.findBPurchaseOrdSEntitiesByBPurchaseOrdSOrdProcureNoEquals(Id);
+        List<TStaffEntity> Staff = tStaffRepository.findAll();
+        List<TClientEntity> Client = tClientRepository.findAll();
+        List<TFactorysEntity> TFactorys = tFactorysRepository.findAll();
+        List<TGoodsEntity> TGoods = tGoodsRepository.findAll();
+        List<TRoomEntity> TRoom = tRoomRepository.findAll();
+        List<TPaymentEntity> TPayment = tPaymentRepository.findAll();
+        String UUID = c.getOrderNo();
+
         // 传递给请求页面
+        modelMap.addAttribute("bPurchaseOrdM", bPurchaseOrdMEntity);
+        modelMap.addAttribute("TPayment", TPayment);
+        modelMap.addAttribute("TRoom", TRoom);
+        modelMap.addAttribute("TGoods", TGoods);
+        modelMap.addAttribute("TFactorys", TFactorys);
+        modelMap.addAttribute("Client", Client);
+        modelMap.addAttribute("Staff", Staff);
+        modelMap.addAttribute("UUID", UUID);
+        modelMap.addAttribute("detailId", detailId);
         modelMap.addAttribute("bPurchaseOrdS", bPurchaseOrdSEntity);
         modelMap.addAttribute("ordProcureNo", Id);
 
@@ -323,8 +350,8 @@ public class purController {
         else {
             detailId += 1;
         }
-
-
+        BPurchaseOrdMEntity bPurchaseOrdMEntity = bPurchaseOrdMRepository.findBPurchaseOrdMEntityByBPurchaseOrdMOrdProcureNoEquals(Id);
+        //List<BPurchaseOrdSEntity> bPurchaseOrdSEntity = bPurchaseOrdSRepository.findBPurchaseOrdSEntitiesByBPurchaseOrdSOrdProcureNoEquals(Id);
         List<TStaffEntity> Staff = tStaffRepository.findAll();
         List<TClientEntity> Client = tClientRepository.findAll();
         List<TFactorysEntity> TFactorys = tFactorysRepository.findAll();
@@ -333,6 +360,7 @@ public class purController {
         List<TPaymentEntity> TPayment = tPaymentRepository.findAll();
         String UUID = c.getOrderNo();
 
+        modelMap.addAttribute("bPurchaseOrdM", bPurchaseOrdMEntity);
         modelMap.addAttribute("TPayment", TPayment);
         modelMap.addAttribute("TRoom", TRoom);
         modelMap.addAttribute("TGoods", TGoods);

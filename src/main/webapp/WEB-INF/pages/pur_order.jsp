@@ -94,7 +94,7 @@
     <%--</div>--%>
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel1()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>--%>
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>--%>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel1()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span><span class="l">&nbsp;&nbsp;&nbsp;<a href="/pur_order/add" class="btn btn-success radius"><i class="Hui-iconfont">&#xe6e2;</i> 添加</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l">&nbsp;&nbsp;&nbsp;<a href="/pur_order/add" class="btn btn-success radius"><i class="Hui-iconfont">&#xe6e2;</i> 添加</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>--%>
     <div class="mt-20">
 
@@ -140,7 +140,7 @@
                         <td >${purOrder.tStaffByBPurchaseOrdMSalesman.tStaffStaffName}</td>
                         <td >${purOrder.tStaffByBPurchaseOrdMCreateNo.tStaffStaffName}</td>
                         <td >${purOrder.bPurchaseOrdMCheckDate}</td>
-                        <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/pur_order/update/${purOrder.bPurchaseOrdMOrdProcureNo}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="/pur_order/delete/${purOrder.bPurchaseOrdMOrdProcureNo}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                        <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/pur_order/update/${purOrder.bPurchaseOrdMOrdProcureNo}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onclick="if(!confirm('确定删除？')) return false;" href="/pur_order/delete/${purOrder.bPurchaseOrdMOrdProcureNo}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

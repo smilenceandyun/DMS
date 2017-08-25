@@ -2,6 +2,8 @@ package com.dms.controller.pur.th;
 
 import com.dms.model.*;
 import com.dms.repository.*;
+import com.dms.repository.dd.BPurchaseOrdMRepository;
+import com.dms.repository.dd.BPurchaseOrdSRepository;
 import com.dms.repository.th.BRProcureMRepository;
 import com.dms.repository.th.BRProcureSRepository;
 import com.dms.serviceImpl.GetOrderNumber;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -42,13 +46,25 @@ public class ReturnController {
 
     final TRoomRepository tRoomRepository;//仓库
 
-    public ReturnController(BRProcureMRepository brProcureMRepository, BRProcureSRepository brProcureSRepository, TStaffRepository tStaffRepository, TGoodsRepository tGoodsRepository, TFactorysRepository tFactorysRepository, TRoomRepository tRoomRepository) {
+    final BPurchaseOrdMRepository bPurchaseOrdMRepository;//采购订单
+
+    final TClientRepository tClientRepository;
+
+    final TPaymentRepository tPaymentRepository;
+
+    final BPurchaseOrdSRepository bPurchaseOrdSRepository;
+
+    public ReturnController(BRProcureMRepository brProcureMRepository, BRProcureSRepository brProcureSRepository, TStaffRepository tStaffRepository, TGoodsRepository tGoodsRepository, TFactorysRepository tFactorysRepository, TRoomRepository tRoomRepository, BPurchaseOrdMRepository bPurchaseOrdMRepository, TClientRepository tClientRepository, TPaymentRepository tPaymentRepository, BPurchaseOrdSRepository bPurchaseOrdSRepository) {
         this.brProcureMRepository = brProcureMRepository;
         this.brProcureSRepository = brProcureSRepository;
         this.tStaffRepository = tStaffRepository;
         this.tGoodsRepository = tGoodsRepository;
         this.tFactorysRepository = tFactorysRepository;
         this.tRoomRepository = tRoomRepository;
+        this.bPurchaseOrdMRepository = bPurchaseOrdMRepository;
+        this.tClientRepository = tClientRepository;
+        this.tPaymentRepository = tPaymentRepository;
+        this.bPurchaseOrdSRepository = bPurchaseOrdSRepository;
         t = new GetOrderNumber("t");
     }
 
@@ -74,9 +90,11 @@ public class ReturnController {
 
         List<TStaffEntity> Staff = tStaffRepository.findAll();//获取员工信息
         List<TFactorysEntity> Factorys = tFactorysRepository.findAll();//获取厂家信息
+        List<BPurchaseOrdMEntity> bPurchaseOrdMEntities = bPurchaseOrdMRepository.findAll();
         String UUID = t.getOrderNo();//获取UUID
 
         // 传递给请求页面
+        modelMap.addAttribute("bPurchaseOrdMEntities", bPurchaseOrdMEntities);
         modelMap.addAttribute("Staff", Staff);
         modelMap.addAttribute("Factorys", Factorys);
         modelMap.addAttribute("UUID", UUID);
@@ -172,4 +190,173 @@ public class ReturnController {
 
         return "redirect:/BRProM_order";
     }
+
+
+
+    //明细
+    //******************************************************************************************
+
+    @RequestMapping(value = "/detail/th/{id}", method = RequestMethod.GET)
+    public String showBPurchaseOrdSEntity(@PathVariable("id") String Id, ModelMap modelMap) {
+
+        // 找到detaileId所表示的订单明细
+        // int id2=Integer.parseInt(Id);
+        //BPurchaseOrdSEntity bPurchaseOrdSEntity = bPurchaseOrdSRepository.findOne("01");
+        List<BRProcureSEntity> brProcureSEntitie = brProcureSRepository.findBRProcureSEntitiesBybRProcureSRProcureNoEquals(Id);
+        // 传递给请求页面
+        modelMap.addAttribute("brProcureS", brProcureSEntitie);
+        modelMap.addAttribute("brProcureNo", Id);
+
+        return "/th/detaileProcureS";
+    }
+
+    @RequestMapping(value = "/detail/th2/{detailID}&{id}", method = RequestMethod.GET)
+    public String showBrprocureSDetail(@PathVariable("detailID") Integer detailID,@PathVariable("id") String Id, ModelMap modelMap) {
+
+        // 找到detaileId所表示的订单明细
+        // int id2=Integer.parseInt(Id);
+        //BPurchaseOrdSEntity bPurchaseOrdSEntity = bPurchaseOrdSRepository.findOne("01");
+        List<BRProcureSEntity> brProcureSEntitie = brProcureSRepository.findBRProcureSEntitiesBybRProcureSRProcureNoEquals(Id);
+        BRProcureSEntity detail = brProcureSRepository.findBRProcureSEntitiesBybRProcureSRProcureNoAndBRProcureSDetailIdEquals(Id,detailID);
+        // 传递给请求页面
+        modelMap.addAttribute("brProcureS", brProcureSEntitie);
+        modelMap.addAttribute("detail", detail);
+        modelMap.addAttribute("brProcureNo", Id);
+
+        return "/th/detaileProcureS2";
+    }
+//
+    // get请求，访问添加 页面
+
+    @RequestMapping(value = "/th/detail/add/{id}", method = RequestMethod.GET)
+    public String add_detail(@PathVariable("id") String Id, ModelMap modelMap) {
+
+        Integer detailId = (brProcureSRepository.findMaxDetailId(Id));
+
+        if(detailId == null){
+            detailId = 1;
+        }
+        else {
+            detailId += 1;
+        }
+
+
+        List<TStaffEntity> Staff = tStaffRepository.findAll();
+        List<TClientEntity> Client = tClientRepository.findAll();
+        List<TFactorysEntity> TFactorys = tFactorysRepository.findAll();
+        List<TGoodsEntity> TGoods = tGoodsRepository.findAll();
+        List<TRoomEntity> TRoom = tRoomRepository.findAll();
+        List<TPaymentEntity> TPayment = tPaymentRepository.findAll();
+        List<BPurchaseOrdSEntity> bPurchaseOrdSEntities = bPurchaseOrdSRepository.findAll();
+        List<BPurchaseOrdMEntity> bPurchaseOrdMEntities = bPurchaseOrdMRepository.findAll();
+
+        modelMap.addAttribute("bPurchaseOrdMEntities", bPurchaseOrdMEntities);
+        modelMap.addAttribute("bPurchaseOrdSEntities", bPurchaseOrdSEntities);
+        modelMap.addAttribute("TPayment", TPayment);
+        modelMap.addAttribute("TRoom", TRoom);
+        modelMap.addAttribute("TGoods", TGoods);
+        modelMap.addAttribute("TFactorys", TFactorys);
+        modelMap.addAttribute("Client", Client);
+        modelMap.addAttribute("Staff", Staff);
+        modelMap.addAttribute("detailId", detailId);
+        modelMap.addAttribute("ordProcureNo", Id);
+        // 转到addOrder.jsp页面
+        return "/th/adddetaileProcureS";
+    }
+
+
+    @RequestMapping(value = "/th/detail/addP", method = RequestMethod.POST)
+    public String addBPurchaseOrdSEntityPost(BRProcureSEntity brProcureSEntity) {
+
+        // 注意此处，post请求传递过来的是一个UserEntity对象，里面包含了该用户的信息
+        // 通过@ModelAttribute()注解可以获取传递过来的'user'，并创建这个对象
+
+        // 数据库中添加一个用户，该步暂时不会刷新缓存
+        //userRepository.save(userEntity);
+
+        // 数据库中添加一个用户，并立即刷新缓存
+        brProcureSRepository.saveAndFlush(brProcureSEntity);
+
+        // 重定向到用户管理页面，方法为 redirect:url
+        return "redirect:/detail/th/"+ brProcureSEntity.getbRProcureSRProcureNo();
+    }
+
+    // 更新明细信息 页面
+    @RequestMapping(value = "/th/detaileOrder/update/{detailID}&{id}", method = RequestMethod.GET)
+    public String updateBPurchaseOrdSEntity(@PathVariable("detailID") Integer detailID,@PathVariable("id") String id, ModelMap modelMap) {
+
+        // 找到userId所表示的用户
+        BRProcureSEntity brProcureSEntity = brProcureSRepository.findBRProcureSEntitiesBybRProcureSRProcureNoAndBRProcureSDetailIdEquals(id,detailID);
+        List<BPurchaseOrdMEntity> bPurchaseOrdMEntities = bPurchaseOrdMRepository.findAll();
+        List<BPurchaseOrdSEntity> bPurchaseOrdSEntities = bPurchaseOrdSRepository.findAll();
+        List<TStaffEntity> Staff = tStaffRepository.findAll();
+        List<TClientEntity> Client = tClientRepository.findAll();
+        List<TFactorysEntity> TFactorys = tFactorysRepository.findAll();
+        List<TGoodsEntity> TGoods = tGoodsRepository.findAll();
+        List<TRoomEntity> TRoom = tRoomRepository.findAll();
+
+        // 传递给请求页面
+        modelMap.addAttribute("bPurchaseOrdMEntities", bPurchaseOrdMEntities);
+        modelMap.addAttribute("bPurchaseOrdSEntities", bPurchaseOrdSEntities);
+        modelMap.addAttribute("TRoom", TRoom);
+        modelMap.addAttribute("TGoods", TGoods);
+        modelMap.addAttribute("TFactorys", TFactorys);
+        modelMap.addAttribute("Client", Client);
+        modelMap.addAttribute("Staff", Staff);
+        modelMap.addAttribute("detailID", detailID);
+        modelMap.addAttribute("brProcureSEntity", brProcureSEntity);
+        modelMap.addAttribute("ordProcureNo", id);
+        return "/th/updatedetaileProcureS";
+    }
+//
+//    //==============================================================================================
+//
+//    // 更新明细信息 操作
+//    @RequestMapping(value = "/pur_order/detaileOrder/updateP", method = RequestMethod.POST)
+//    public String updateBPurchaseOrdSEntityPost(BPurchaseOrdSEntity bPurchaseOrdSEntity) {
+//
+//        // 更新用户信息
+//        bPurchaseOrdSRepository.updateDetailOrder(bPurchaseOrdSEntity.getbPurchaseOrdSFactoryGoodsNo(), bPurchaseOrdSEntity.getbPurchaseOrdSPresentationProperty(),
+//                bPurchaseOrdSEntity.getbPurchaseOrdSGoodsNo(), bPurchaseOrdSEntity.getbPurchaseOrdSOriginalPrice(),bPurchaseOrdSEntity.getbPurchaseOrdSTaxRate(),bPurchaseOrdSEntity.getbPurchaseOrdSRoomNo(),
+//                bPurchaseOrdSEntity.getbPurchaseOrdSPrice(),bPurchaseOrdSEntity.getbPurchaseOrdSQuantity(),bPurchaseOrdSEntity.getbPurchaseOrdSDetailMoney(),bPurchaseOrdSEntity.getbPurchaseOrdSBoxQuantity(),
+//                bPurchaseOrdSEntity.getbPurchaseOrdSBoxPrice(),bPurchaseOrdSEntity.getbPurchaseOrdSPaymentNo(),bPurchaseOrdSEntity.getbPurchaseOrdSMfg(),bPurchaseOrdSEntity.getbPurchaseOrdSExp(),bPurchaseOrdSEntity.getbPurchaseOrdSDetailId(),
+//                bPurchaseOrdSEntity.getbPurchaseOrdSOrdProcureNo());
+//        bPurchaseOrdSRepository.flush(); // 刷新缓冲区
+//        return "redirect:/pur_order/detaileOrder/" + bPurchaseOrdSEntity.getbPurchaseOrdSOrdProcureNo();
+//    }
+//
+//    //================================================================================================
+//
+    // 删除一条明细
+    @RequestMapping(value = "/th/delete/{detailID}&{id}", method = RequestMethod.GET)
+    public void deleteBPurchaseOrdSEntity(@PathVariable("detailID") Integer detailID, @PathVariable("id") String Id , HttpServletResponse response) {
+
+        // 删除id为Id的用户
+        brProcureSRepository.deleteBRProcureSEntity(Id,detailID);
+        // 立即刷新
+        brProcureSRepository.flush();
+
+        try {
+            response.sendRedirect("/detail/th/"+Id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        return "/dd/detaileOrder";
+    }
+//
+//    //================================================================================================
+//
+//    // 删除所有明细
+//    @RequestMapping(value = "/pur_order/detaileOrder/deleteall/{id}", method = RequestMethod.GET)
+//    public String deleteALLBPurchaseOrdSEntity(@PathVariable("id") String Id) {
+//
+//        // 删除id为Id的用户
+//        bPurchaseOrdSRepository.deleteALLBPurchaseOrdSEntity(Id);
+//        // 立即刷新
+//        bPurchaseOrdSRepository.flush();
+//        return "redirect:/pur_order/detaileOrder/" + Id;
+//    }
+
+
+    //-------------------------------------------------------------------------------------------------
 }

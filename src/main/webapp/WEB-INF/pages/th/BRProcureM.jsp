@@ -67,26 +67,26 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购退货 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    <div class="text-c">
-        <form class="Huiform" method="post" action="" target="_self">
-            <input type="text" placeholder="请输入订单号" name="search" id="search" value="" class="input-text" style="width:120px">
-            <span class="select-box" style="width:150px">
-			<select class="select"  name="brandclass" size="1">
-                <option value="" disabled selected  class="display-none">选择厂家</option>
-				<option value="1" selected>厂家名称 </option>
-				<option value="0">厂家2</option>
-			</select>
-			</span>
-            </span><button type="button" class="btn btn-success" id="" name="" onClick="purSearch()"><i class="Hui-iconfont">&#xe600;</i> 查询</button>
-            <span class="btn-upload form-group">
-			<input class="input-text upload-url" type="text" name="uploadfile-2" id="uploadfile-2" readonly style="width:200px">
-			<a href="javascript:void(0);" class="btn btn-primary upload-btn"><i class="Hui-iconfont">&#xe642;</i> 上传文件</a>
-			<input type="file" multiple name="file-2" class="input-file">
-			</span>
-            <%--<button type="button" class="btn btn-success" id="" name="" onClick="picture_colume_add(this);"><i class="Hui-iconfont">&#xe600;</i> 添加</button>--%>
-        </form>
-    </div>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel1()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span><span class="l">&nbsp;&nbsp;&nbsp;<a href="/addR" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 添加订单</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>
+    <%--<div class="text-c">--%>
+        <%--<form class="Huiform" method="post" action="" target="_self">--%>
+            <%--<input type="text" placeholder="请输入订单号" name="search" id="search" value="" class="input-text" style="width:120px">--%>
+            <%--<span class="select-box" style="width:150px">--%>
+			<%--<select class="select"  name="brandclass" size="1">--%>
+                <%--<option value="" disabled selected  class="display-none">选择厂家</option>--%>
+				<%--<option value="1" selected>厂家名称 </option>--%>
+				<%--<option value="0">厂家2</option>--%>
+			<%--</select>--%>
+			<%--</span>--%>
+            <%--</span><button type="button" class="btn btn-success" id="" name="" onClick="purSearch()"><i class="Hui-iconfont">&#xe600;</i> 查询</button>--%>
+            <%--<span class="btn-upload form-group">--%>
+			<%--<input class="input-text upload-url" type="text" name="uploadfile-2" id="uploadfile-2" readonly style="width:200px">--%>
+			<%--<a href="javascript:void(0);" class="btn btn-primary upload-btn"><i class="Hui-iconfont">&#xe642;</i> 上传文件</a>--%>
+			<%--<input type="file" multiple name="file-2" class="input-file">--%>
+			<%--</span>--%>
+            <%--&lt;%&ndash;<button type="button" class="btn btn-success" id="" name="" onClick="picture_colume_add(this);"><i class="Hui-iconfont">&#xe600;</i> 添加</button>&ndash;%&gt;--%>
+        <%--</form>--%>
+    <%--</div>--%>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">&nbsp;&nbsp;&nbsp;<a href="/addR" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 添加订单</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>--%>
     <div class="mt-20">
 
@@ -114,13 +114,13 @@
                     <tr class="text-c">
                         <td><input name="id" type="checkbox" value="${brProcureM.bRProcureMRProcureNo}"></td>
                         <td><%=i %><% i++; %></td>
-                        <td><a href="">${brProcureM.bRProcureMRProcureNo}</a></td>
+                        <td><a href="/detail/th/${brProcureM.bRProcureMRProcureNo}">${brProcureM.bRProcureMRProcureNo}</a></td>
                         <td>${brProcureM.bRProcureMPaymentAttributer}</td>
                         <td>${brProcureM.bRProcureMModifiTime}</td>
                         <td>${brProcureM.bRProcureMCreateDate}</td>
                         <td>${brProcureM.bRProcureMCheckDate}</td>
                         <td>${brProcureM.bRProcureMState == 0? "未审核" : "已审核"}</td>
-                        <td class="f-14 product-brand-manage"><c:if test="${brProcureM.bRProcureMState ==  \"0\"}"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/updateR/${brProcureM.bRProcureMRProcureNo}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> </c:if> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="/deleteRM/${brProcureM.bRProcureMRProcureNo}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                        <td class="f-14 product-brand-manage"><c:if test="${brProcureM.bRProcureMState ==  \"0\"}"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/updateR/${brProcureM.bRProcureMRProcureNo}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> </c:if> <a style="text-decoration:none" class="ml-5" onclick="if(!confirm('确定删除？')) return false;" href="/deleteRM/${brProcureM.bRProcureMRProcureNo}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

@@ -79,6 +79,32 @@
 
         }
 
+//            function listhone(){
+//                if($(".list_hidone").css("display")=="block")
+//                { $(".list_hidone").css("display","none");
+//                    $(".list_changeone").removeClass("icon-minus");
+//                    $(".list_changeone").addClass("icon-plus");
+//                    $(".list_changetwo").removeClass("icon_right");
+//                }
+//                else
+//                { $(".list_hidone").css("display","block");
+//                    $(".list_changeone").removeClass("icon-plus");
+//                    $(".list_changeone").addClass("icon-minus");
+//                    $(".list_changetwo").addClass("icon_right");
+//                }
+//            }
+
+        function hidediv(){
+            $(document).ready(function(){
+                $("#hide").click(function(){
+                    $("#p1").hide(500);
+                });
+                $("#show").click(function(){
+                    $("#p1").show(500);
+                });
+            });
+        }
+
     </script>
 
     <title>采购入库</title>
@@ -89,10 +115,10 @@
     }
 </style>
 <style type="text/css">
-    ul{width:900px; height:20px;  size: 20px; color: rgba(0,0,0,0.5); font-weight: 600; font-size: inherit;}
+    ul{width:1200px; height:20px;  size: 20px; color: rgba(0,0,0,0.5); font-weight: 600; font-size: inherit;}
     li{width:150px; height:20px; float:left;}
 </style>
-<body>
+<body onload="hidediv()">
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购明细 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 
@@ -163,7 +189,7 @@
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓库</li>
                 <li>
                     <select class="input-text" name="bPurchaseOrdSRoomNo" id="bPurchaseOrdSRoomNo" required>
-                        <option value="" >选择厂家编号</option>
+                        <option value="" >选择仓库编号</option>
                         <c:forEach items="${TRoom}" var="TRoom">
                             <option value="${TRoom.tRoomRoomNo}">${TRoom.tRoomRoomNo}(${TRoom.tRoomRoomName})</option>
                         </c:forEach>
@@ -217,6 +243,74 @@
             <a href="/pur_order"  class="btn btn radius">取消</a>
             </center>
     </form:form>
+        <br>
+
+        <%--//======================================================================================================================================================--%>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" id="hide" class="btn btn-primary upload-btn">隐藏采购订单</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" id="show" class="btn btn-primary upload-btn">显示采购订单</button>
+
+
+        <div id="p1">
+            <br>
+        <ul>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单货号</li>
+            <li><input id="bPurchaseOrdMOrdProcureNo" name="bPurchaseOrdMOrdProcureNo" type="text" class="input-text"  value="${bPurchaseOrdM.bPurchaseOrdMOrdProcureNo}" readonly="readonly"></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务员</li>
+            <li><input id="bPurchaseOrdMSalesman" name="bPurchaseOrdMSalesman" type="text" class="input-text"  value="${bPurchaseOrdM.tStaffByBPurchaseOrdMSalesman.tStaffStaffName}" readonly="readonly"></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;预付款</li>
+            <li><input id="bPurchaseOrdMAdPaymoney" name="bPurchaseOrdMAdPaymoney" type="text" class="input-text" value="${bPurchaseOrdM.bPurchaseOrdMAdPaymoney}" readonly="readonly"></li>
+            <%--<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结算性质</li>--%>
+            <%--<li><input type="text" class="input-text" name=""></li>--%>
+            <%--<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结算方式</li>--%>
+            <%--<li><input type="text" class="input-text" name=""></li>--%>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单人</li>
+            <li><input type="text" class="input-text" id="bPurchaseOrdMCreateNo" name="bPurchaseOrdMCreateNo" value="${bPurchaseOrdM.tStaffByBPurchaseOrdMCreateNo.tStaffStaffName}" readonly="readonly"></li>
+        </ul><br>
+        <ul>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手工单号</li>
+            <li><input type="text" class="input-text" name="bPurchaseOrdMHandbillNo" id="bPurchaseOrdMHandbillNo" value="${bPurchaseOrdM.bPurchaseOrdMHandbillNo}" readonly="readonly"></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务属性</li>
+            <li><input type="text" class="input-text" id="bPurchaseOrdMServiceAttribute" name="bPurchaseOrdMServiceAttribute" value="${bPurchaseOrdM.bPurchaseOrdMServiceAttribute}" readonly="readonly"></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订货日期</li>
+            <li style="float: left;width: 345px;"><input type="text" class="input-text" id="bPurchaseOrdMOrdDate" name="bPurchaseOrdMOrdDate" value="${bPurchaseOrdM.bPurchaseOrdMOrdDate}" readonly="readonly"></li>
+
+        </ul><br>
+        <ul>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;付款性质</li>
+            <li><input type="text" class="input-text" name="bPurchaseOrdMPaymentType" id="bPurchaseOrdMPaymentType" value="${bPurchaseOrdM.bPurchaseOrdMPaymentType}" readonly="readonly"></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家名称</li>
+            <li><input type="text" class="input-text" name="bPurchaseOrdMFactoryGoodsNo" id="bPurchaseOrdMFactoryGoodsNo" value="${bPurchaseOrdM.tFactorysByBPurchaseOrdMFactoryGoodsNo.tFactorysFactoryGoodsName}" readonly="readonly"></li>
+
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到货期期</li>
+            <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bPurchaseOrdMDeliveryDate" name="bPurchaseOrdMDeliveryDate" value="${bPurchaseOrdM.bPurchaseOrdMDeliveryDate}" readonly="readonly"></li>
+        </ul><br>
+        <ul>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户编号</li>
+            <li><input type="text" class="input-text" name="bPurchaseOrdMClientNo" id="bPurchaseOrdMClientNo" value="${bPurchaseOrdM.bPurchaseOrdMClientNo}(${bPurchaseOrdM.tClientByBPurchaseOrdMClientNo.tClientClientShortname})" readonly="readonly"></li>
+            <%--<li><input type="text" class="input-text" id="bPurchaseOrdMClientNo" name="bPurchaseOrdMClientNo" readonly="readonly" ></li>--%>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核人</li>
+            <li><input type="text" class="input-text" id="bPurchaseOrdMChecker" name="bPurchaseOrdMChecker" value="${bPurchaseOrdM.tStaffByBPurchaseOrdMChecker.tStaffStaffName}" readonly="readonly"></li>
+            <%--<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核日期</li>--%>
+            <%--<li style="float: left;width: 345px;"><input type="date" class="input-text" id="bPurchaseOrdMCheckDate" name="bPurchaseOrdMCheckDate" readonly="readonly"></li>--%>
+
+        </ul><br>
+
+        <ul>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
+            <li style="float: left;width: 420px;"><input type="text" class="input-text" id="bPurchaseOrdMNotes" name="bPurchaseOrdMNotes" value="${bPurchaseOrdM.bPurchaseOrdMNotes}" readonly="readonly"></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总经理</li>
+            <li><input type="text" class="input-text" id="bPurchaseOrdMManagerNo" name="bPurchaseOrdMManagerNo" value="${bPurchaseOrdM.tStaffByBPurchaseOrdMManagerNo.tStaffStaffName}" readonly="readonly"></li>
+            <%--<li>--%>
+            <%--<select class="input-text" name="bPurchaseOrdMManagerNo"  id="bPurchaseOrdMManagerNo">--%>
+            <%--<option value="" >添加总经理</option>--%>
+            <%--<c:forEach items="${Staff}" var="Staff">--%>
+            <%--<option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>--%>
+            <%--</c:forEach>--%>
+            <%--</select>--%>
+            <%--</li>--%>
+        </ul>
+    </div>
 </div>
 </div>
 

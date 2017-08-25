@@ -68,13 +68,13 @@
     li{width:150px; height:20px; float:left;}
 </style>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购明细 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购退货 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    <div class="cl pd-5 bg-1 bk-gray mt-20"><span><a href="/pur_order/detaileOrder/deleteall/${ordProcureNo}" class="btn btn-danger radius radius">删除所有明细</a></span>&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="/pur_order/detaileOrder/add/${ordProcureNo}" class="btn btn-success radius">新增明细</a></span></div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"><span><a href="/th/detail/add/${brProcureNo}" class="btn btn-success radius">新增明细</a></span></div>
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>--%>
     <div class="mt-20">
 
-<c:if test="${empty bPurchaseOrdS}">
+<c:if test="${empty brProcureS}">
     <table class="table table-border table-bordered table-bg">
         <thead>
         <tr class="text-c">
@@ -93,7 +93,7 @@
         </tbody>
     </table>
 </c:if>
-<c:if test="${!empty bPurchaseOrdS}">
+<c:if test="${!empty brProcureS}">
 
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
@@ -104,8 +104,8 @@
         <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
     </ul><br>
     <ul>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退货单号</li>
+        <li><input type="text" class="input-text" readonly="readonly" name="" value="${brProcureNo}" ></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;规格型号</li>
         <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓库</li>
@@ -116,11 +116,11 @@
         <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;包装数量/单位</li>
         <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;遂率</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税率</li>
         <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
     </ul><br>
     <ul>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退货单号</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
         <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库位编号</li>
         <li><input type="text" class="input-text" readonly="readonly" name="taxRate" ></li>
@@ -135,10 +135,6 @@
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;批次号</li>
         <li><input type="text" class="input-text" readonly="readonly" name="price"></li>
 
-    </ul><br>
-    <ul>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
-        <li style="float: left;width: 390px;"><input type="text" class="input-text" id="bPurchaseOrdMNotes" name="bPurchaseOrdMNotes"></li>
     </ul><br>
     <table class="table table-border table-bordered table-bg table-sort">
         <thead>
@@ -159,17 +155,18 @@
         <%
             int i = 1;
         %>
-        <c:forEach items="${bPurchaseOrdS}" var="purOrder">
+        <c:forEach items="${brProcureS}" var="brProcureS">
             <tr class="text-c">
                     <%--<td><input name="id" type="checkbox"  value="${purOrder.ordProcureNo}"></td>--%>
                 <td ><%=i %><% i++; %></td>
                     <%--<td><a href="/pur_order/detaileOrder/${purOrder.bPurchaseOrdSOrdProcureNo}">${purOrder.bPurchaseOrdSOrdProcureNo}</a></td>--%>
-                <td><a href="/pur_order/detaileOrderDetail/${purOrder.bPurchaseOrdSDetailId}&${purOrder.bPurchaseOrdSOrdProcureNo}">${purOrder.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsName}</a></td>
-                <td >${purOrder.tRoomByBPurchaseOrdSRoomNo.tRoomRoomName}</td>
-                <td >${purOrder.tGoodsByBPurchaseOrdSGoodsNo.tGoodsUnit}</td>
-                <td >${purOrder.bPurchaseOrdSPrice}</td>
-                <td >${purOrder.bPurchaseOrdSQuantity}</td>
-                <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('明细编辑','index2.html','1')" href="/pur_order/detaileOrder/update/${purOrder.bPurchaseOrdSDetailId}&${purOrder.bPurchaseOrdSOrdProcureNo}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="/pur_order/detaileOrder/delete/${purOrder.bPurchaseOrdSDetailId}&${purOrder.bPurchaseOrdSOrdProcureNo}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                <td><a href="/detail/th2/${brProcureS.bRProcureSDetailId}&${brProcureS.bRProcureSRProcureNo}">${brProcureS.bPurchaseOrdS.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsName}</a></td>
+                <td >${brProcureS.bPurchaseOrdS.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsSpce}</td>
+                <td >${brProcureS.bPurchaseOrdS.tRoomByBPurchaseOrdSRoomNo.tRoomRoomName}</td>
+                <td >${brProcureS.bPurchaseOrdS.tGoodsByBPurchaseOrdSGoodsNo.tGoodsInTax}</td>
+                <td >${brProcureS.bPurchaseOrdS.bPurchaseOrdSQuantity}${brProcureS.bPurchaseOrdS.tGoodsByBPurchaseOrdSGoodsNo.tGoodsUnit}</td>
+                <td >${brProcureS.bPurchaseOrdS.bPurchaseOrdSBoxQuantity}${brProcureS.bPurchaseOrdS.tGoodsByBPurchaseOrdSGoodsNo.tGoodsPackUnit}</td>
+                <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('明细编辑','index2.html','1')" href="/th/detaileOrder/update/${brProcureS.bRProcureSDetailId}&${brProcureS.bRProcureSRProcureNo}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onclick="if(!confirm('确定删除？')) return false;" href="/th/delete/${brProcureS.bRProcureSDetailId}&${brProcureS.bRProcureSRProcureNo}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
             </tr>
         </c:forEach>
         </tbody>

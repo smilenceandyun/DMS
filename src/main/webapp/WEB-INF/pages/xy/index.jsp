@@ -73,26 +73,26 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购入库 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    <div class="text-c">
-        <form class="Huiform" method="post" action="" target="_self">
-            <input type="text" placeholder="请输入订单号" name="search" id="search" value="" class="input-text" style="width:120px">
-            <span class="select-box" style="width:150px">
-			<select class="select"  name="brandclass" size="1">
-                <option value="" disabled selected  class="display-none">选择厂家</option>
-				<option value="1" selected>厂家名称 </option>
-				<option value="0">厂家2</option>
-			</select>
-			</span>
-            </span><button type="button" class="btn btn-success" id="" name="" onClick="purSearch()"><i class="Hui-iconfont">&#xe600;</i> 查询</button>
-            <span class="btn-upload form-group">
-			<input class="input-text upload-url" type="text" name="uploadfile-2" id="uploadfile-2" readonly style="width:200px">
-			<a href="javascript:void(0);" class="btn btn-primary upload-btn"><i class="Hui-iconfont">&#xe642;</i> 上传文件</a>
-			<input type="file" multiple name="file-2" class="input-file">
-			</span>
-          <%--<button type="button" class="btn btn-success" id="" name="" onClick="picture_colume_add(this);"><i class="Hui-iconfont">&#xe600;</i> 添加</button>--%>
-        </form>
-    </div>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel1()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span style="margin-left: 10px"><a href="/promotion/add" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 新增协议</a></span> <span class="r">共有数据：<strong>${list.size()}</strong> 条</span> </div>
+    <%--<div class="text-c">--%>
+        <%--<form class="Huiform" method="post" action="" target="_self">--%>
+            <%--<input type="text" placeholder="请输入订单号" name="search" id="search" value="" class="input-text" style="width:120px">--%>
+            <%--<span class="select-box" style="width:150px">--%>
+			<%--<select class="select"  name="brandclass" size="1">--%>
+                <%--<option value="" disabled selected  class="display-none">选择厂家</option>--%>
+				<%--<option value="1" selected>厂家名称 </option>--%>
+				<%--<option value="0">厂家2</option>--%>
+			<%--</select>--%>
+			<%--</span>--%>
+            <%--</span><button type="button" class="btn btn-success" id="" name="" onClick="purSearch()"><i class="Hui-iconfont">&#xe600;</i> 查询</button>--%>
+            <%--<span class="btn-upload form-group">--%>
+			<%--<input class="input-text upload-url" type="text" name="uploadfile-2" id="uploadfile-2" readonly style="width:200px">--%>
+			<%--<a href="javascript:void(0);" class="btn btn-primary upload-btn"><i class="Hui-iconfont">&#xe642;</i> 上传文件</a>--%>
+			<%--<input type="file" multiple name="file-2" class="input-file">--%>
+			<%--</span>--%>
+          <%--&lt;%&ndash;<button type="button" class="btn btn-success" id="" name="" onClick="picture_colume_add(this);"><i class="Hui-iconfont">&#xe600;</i> 添加</button>&ndash;%&gt;--%>
+        <%--</form>--%>
+    <%--</div>--%>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span style="margin-left: 10px"><a href="/promotion/add" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 新增协议</a></span> <span class="r">共有数据：<strong>${list.size()}</strong> 条</span> </div>
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>--%>
     <div class="mt-20">
 <form:form action="/index3" method="post" commondName="p">

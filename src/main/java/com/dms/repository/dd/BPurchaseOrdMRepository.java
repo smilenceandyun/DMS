@@ -29,5 +29,9 @@ public interface BPurchaseOrdMRepository extends JpaRepository<BPurchaseOrdMEnti
             , @Param("bPurchaseOrdMOrdDate") Timestamp bPurchaseOrdMOrdDate, @Param("bPurchaseOrdMPaymentType") String bPurchaseOrdMPaymentType, @Param("bPurchaseOrdMFactoryGoodsNo") String bPurchaseOrdMFactoryGoodsNo, @Param("bPurchaseOrdMDeliveryDate") String bPurchaseOrdMDeliveryDate
             , @Param("bPurchaseOrdMClientNo") String bPurchaseOrdMClientNo, @Param("bPurchaseOrdMNotes") String bPurchaseOrdMNotes, @Param("bPurchaseOrdMOrdProcureNo") String bPurchaseOrdMOrdProcureNo);
 
+
+   // BPurchaseOrdMEntity findBPurchaseOrdMEntitiesByBPurchaseOrdMOrdProcureNoEqual(String id);
+
+    BPurchaseOrdMEntity findBPurchaseOrdMEntityByBPurchaseOrdMOrdProcureNoEquals(String id);
 }
 
