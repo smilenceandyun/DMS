@@ -1,7 +1,7 @@
 //package com.dms.controller.procure;
 //
 //import com.dms.service.dd.getOrderNo;
-//import com.dms.serviceImpl.GetOrderNumber;
+//import com.dms.service.serviceImpl.GetOrderNumber;
 //
 //import java.text.SimpleDateFormat;
 //import java.util.*;

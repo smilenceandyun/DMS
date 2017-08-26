@@ -6,7 +6,7 @@ import com.dms.repository.dd.BPurchaseOrdMRepository;
 import com.dms.repository.dd.BPurchaseOrdSRepository;
 import com.dms.repository.th.BRProcureMRepository;
 import com.dms.repository.th.BRProcureSRepository;
-import com.dms.serviceImpl.GetOrderNumber;
+import com.dms.service.serviceImpl.GetOrderNumber;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -204,6 +204,34 @@ public class ReturnController {
         //BPurchaseOrdSEntity bPurchaseOrdSEntity = bPurchaseOrdSRepository.findOne("01");
         List<BRProcureSEntity> brProcureSEntitie = brProcureSRepository.findBRProcureSEntitiesBybRProcureSRProcureNoEquals(Id);
         // 传递给请求页面
+        Integer detailId = (brProcureSRepository.findMaxDetailId(Id));
+
+        if(detailId == null){
+            detailId = 1;
+        }
+        else {
+            detailId += 1;
+        }
+
+
+        List<TStaffEntity> Staff = tStaffRepository.findAll();
+        List<TClientEntity> Client = tClientRepository.findAll();
+        List<TFactorysEntity> TFactorys = tFactorysRepository.findAll();
+        List<TGoodsEntity> TGoods = tGoodsRepository.findAll();
+        List<TRoomEntity> TRoom = tRoomRepository.findAll();
+        List<TPaymentEntity> TPayment = tPaymentRepository.findAll();
+        List<BPurchaseOrdSEntity> bPurchaseOrdSEntities = bPurchaseOrdSRepository.findAll();
+        List<BPurchaseOrdMEntity> bPurchaseOrdMEntities = bPurchaseOrdMRepository.findAll();
+
+        modelMap.addAttribute("bPurchaseOrdMEntities", bPurchaseOrdMEntities);
+        modelMap.addAttribute("bPurchaseOrdSEntities", bPurchaseOrdSEntities);
+        modelMap.addAttribute("TPayment", TPayment);
+        modelMap.addAttribute("TRoom", TRoom);
+        modelMap.addAttribute("TGoods", TGoods);
+        modelMap.addAttribute("TFactorys", TFactorys);
+        modelMap.addAttribute("Client", Client);
+        modelMap.addAttribute("Staff", Staff);
+        modelMap.addAttribute("detailId", detailId);
         modelMap.addAttribute("brProcureS", brProcureSEntitie);
         modelMap.addAttribute("brProcureNo", Id);
 

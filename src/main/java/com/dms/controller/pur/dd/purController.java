@@ -3,6 +3,7 @@ import com.dms.model.*;
 import com.dms.repository.*;
 import com.dms.repository.dd.*;
 //import com.dms.repository.T01Repository;
+import com.dms.service.informationbase.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.Date;
 import java.util.Locale;
 
-import  com.dms.serviceImpl.GetOrderNumber;
+import  com.dms.service.serviceImpl.GetOrderNumber;
 
 import org.springframework.web.bind.annotation.InitBinder;
 
@@ -130,6 +131,25 @@ public class purController {
         }
 
     }
+
+    @Autowired
+    private TStaffCacheService tStaffCacheService;
+    @Autowired
+    private TClientCacheService tClientCacheService;
+    @Autowired
+    private TPaymentCacheService tPaymentCacheService;
+    @Autowired
+    private TRoomCacheService tRoomCacheService;
+    @Autowired
+    private TFactorysCacheService tFactorysCacheService;
+    @Autowired
+    private TGoodsCacheService tGoodsCacheService;
+    @Autowired
+    private TOrgCacheService tOrgCacheService;
+    @Autowired
+    private StoreLocationCacheService storeLocationCacheService;
+
+
     //============================================================================================
     // get请求，访问添加 页面
     @RequestMapping(value = "/pur_order/add", method = RequestMethod.GET)
@@ -297,12 +317,12 @@ public class purController {
         }
         BPurchaseOrdMEntity bPurchaseOrdMEntity = bPurchaseOrdMRepository.findBPurchaseOrdMEntityByBPurchaseOrdMOrdProcureNoEquals(Id);
         //List<BPurchaseOrdSEntity> bPurchaseOrdSEntity = bPurchaseOrdSRepository.findBPurchaseOrdSEntitiesByBPurchaseOrdSOrdProcureNoEquals(Id);
-        List<TStaffEntity> Staff = tStaffRepository.findAll();
-        List<TClientEntity> Client = tClientRepository.findAll();
-        List<TFactorysEntity> TFactorys = tFactorysRepository.findAll();
-        List<TGoodsEntity> TGoods = tGoodsRepository.findAll();
-        List<TRoomEntity> TRoom = tRoomRepository.findAll();
-        List<TPaymentEntity> TPayment = tPaymentRepository.findAll();
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);
+        List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);
+        List<TFactorysEntity> TFactorys = tFactorysCacheService.findAll(tFactorysRepository);
+        List<TGoodsEntity> TGoods = tGoodsCacheService.findAll(tGoodsRepository);
+        List<TRoomEntity> TRoom = tRoomCacheService.findAll(tRoomRepository);
+        List<TPaymentEntity> TPayment = tPaymentCacheService.findAll(tPaymentRepository);
         String UUID = c.getOrderNo();
 
         // 传递给请求页面
@@ -396,6 +416,7 @@ public class purController {
     public String updateBPurchaseOrdSEntity(@PathVariable("detailID") Integer detailID,@PathVariable("id") String id, ModelMap modelMap) {
 
         // 找到userId所表示的用户
+        BPurchaseOrdMEntity bPurchaseOrdMEntity = bPurchaseOrdMRepository.findBPurchaseOrdMEntityByBPurchaseOrdMOrdProcureNoEquals(id);
         BPurchaseOrdSEntity bPurchaseOrdSEntity = bPurchaseOrdSRepository.findBPurchaseOrdSEntitiesByBPurchaseOrdSOrdProcureNoAndBPurchaseOrdSDetailIdEquals(id,detailID);
 
         List<TStaffEntity> Staff = tStaffRepository.findAll();
@@ -406,6 +427,7 @@ public class purController {
         List<TPaymentEntity> TPayment = tPaymentRepository.findAll();
 
         // 传递给请求页面
+        modelMap.addAttribute("bPurchaseOrdM", bPurchaseOrdMEntity);
         modelMap.addAttribute("TPayment", TPayment);
         modelMap.addAttribute("TRoom", TRoom);
         modelMap.addAttribute("TGoods", TGoods);

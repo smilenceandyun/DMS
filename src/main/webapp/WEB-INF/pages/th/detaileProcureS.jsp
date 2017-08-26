@@ -46,6 +46,82 @@
             }
         }
 
+        function goodsChange(id) {
+            switch (id){
+                case  "":
+                    document.getElementById("guige").value = "";
+                    document.getElementById("tiaoma").value = "";
+                    //document.getElementById("kucun").value = "";
+                    document.getElementById("mingcheng").value = "";
+                    // document.getElementById("dangwei").value = "";
+                    document.getElementById("baozjiqi").value = "";
+                    document.getElementById("suilv").value = "";
+                    // document.getElementById("danjia").value = "";
+                    document.getElementById("shuliang").value = "";
+//                    document.getElementById("bPurchaseOrdSBoxPrice").value = "";
+
+
+
+
+                    break;
+                <c:forEach items="${TGoods}" var="TGoods">
+                case "${TGoods.tGoodsGoodsNo}":
+                    document.getElementById("guige").value = "${TGoods.tGoodsGoodsSpce}";
+                    document.getElementById("tiaoma").value = "${TGoods.tGoodsBarcode}";
+                <%--document.getElementById("kucun").value = "${TGoods.tGoodsPackQuantity}";--%>
+                    document.getElementById("mingcheng").value = "${TGoods.tGoodsGoodsName}";
+                <%--document.getElementById("dangwei").value = "${TGoods.tGoodsUnit}";--%>
+                    document.getElementById("baozjiqi").value = "${TGoods.tGoodsExDay/30}";
+                    document.getElementById("suilv").value = "${TGoods.tGoodsInTax}";
+                <%--document.getElementById("danjia").value = "${TGoods.tGoodsSPrice}";--%>
+                    document.getElementById("shuliang").value = "${TGoods.tGoodsPackQuantity}";
+                <%--document.getElementById("bPurchaseOrdSBoxPrice").value = "${TGoods.tGoodsPackQuantity * TGoods.tGoodsInTaxprice}";--%>
+
+
+                    break;
+                </c:forEach>
+            }
+        }
+
+        function price(id) {
+
+            document.getElementById("hansui").value =document.getElementById("bPurchaseOrdSBoxPrice").value * document.getElementById("bPurchaseOrdSBoxQuantity").value;
+            document.getElementById("weihansui").value = (document.getElementById("bPurchaseOrdSBoxPrice").value * document.getElementById("bPurchaseOrdSBoxQuantity").value) / (( 1 + document.getElementById("suilv").value)/10);
+            document.getElementById("jinger").value = document.getElementById("bPurchaseOrdSBoxPrice").value * document.getElementById("bPurchaseOrdSBoxQuantity").value;
+
+        }
+
+        function caigou(id) {
+            switch (id){
+                case  "":
+                    document.getElementById("shengchang").value = "";
+                    document.getElementById("yuanjia").value = "";
+                    //document.getElementById("kucun").value = "";
+                    document.getElementById("kuwei").value = "";
+                    // document.getElementById("dangwei").value = "";
+
+//                    document.getElementById("bPurchaseOrdSBoxPrice").value = "";
+
+
+
+
+                    break;
+                <c:forEach items="${bPurchaseOrdSEntities}" var="bPurchaseOrdSEntities">
+                case "${bPurchaseOrdSEntities.bPurchaseOrdSOrdProcureNo}":
+                    document.getElementById("shengchang").value = "${bPurchaseOrdSEntities.bPurchaseOrdSMfg}";
+                    document.getElementById("yuanjia").value = "${bPurchaseOrdSEntities.bPurchaseOrdSOriginalPrice}";
+                <%--document.getElementById("kucun").value = "${TGoods.tGoodsPackQuantity}";--%>
+                    document.getElementById("kuwei").value = "${bPurchaseOrdSEntities.bPurchaseOrdSLocationNo}";
+                <%--document.getElementById("dangwei").value = "${TGoods.tGoodsUnit}";--%>
+
+                <%--document.getElementById("bPurchaseOrdSBoxPrice").value = "${TGoods.tGoodsPackQuantity * TGoods.tGoodsInTaxprice}";--%>
+
+
+                    break;
+                </c:forEach>
+            }
+        }
+
         //查询订单，使用post时，参数必须一一对应，才可以匹配到controller中
         function purSearch(){
 //                 var search =$("input[id='search']").val();
@@ -53,6 +129,55 @@
             alert("确定要查询吗？");
             $.post('/pur_order/pur_search',{'search':search});
             window.location='pur_order';
+        }
+
+        function hidediv(){
+            $(document).ready(function(){
+                $("#hide").click(function(){
+                    $("#p1").hide(300);
+                });
+                $("#show").click(function(){
+                    $("#p1").show(300);
+                });
+            });
+            $(document).keydown(function(event){
+                var eCode = event.which;
+                if (eCode == 220) {
+//                    alert('您按了回车键')
+                    $("#detail").show(300);
+                    $("#p2").hide(300);
+
+                    //打开添加明细
+                }
+                if (eCode == 27) {
+//                    alert('您按了回车键')
+                    $("#detail").hide(300);
+                    $("#p2").show(300);
+                    //关闭添加明细
+                }
+            });
+        }
+
+        function hideform(){
+            $(document).ready(function(){
+                $("#hide1").click(function(){
+                    $("#detail").hide(300);
+                    $("#p2").show(300);
+                });
+                $("#show1").click(function(){
+                    $("#detail").show(300);
+                    $("#p2").hide(300);
+                });
+                $("#top").click(function(){
+                    $("#detail").hide(300);
+                    $("#p2").show(300);
+                });
+
+            });
+        }
+        function hidefirst() {
+            $("#detail").hide();
+            $("#p1").hide();
         }
     </script>
 
@@ -64,15 +189,88 @@
     }
 </style>
 <style type="text/css">
-    ul{width:900px; height:20px;  size: 20px; color: rgba(0,0,0,0.5); font-weight: 600; font-size: inherit;}
+    ul{width:1200px; height:20px;  size: 20px; color: rgba(0,0,0,0.5); font-weight: 600; font-size: inherit;}
     li{width:150px; height:20px; float:left;}
 </style>
-<body>
+<body onload="hidediv();hideform();hidefirst();top();">
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购退货 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    <div class="cl pd-5 bg-1 bk-gray mt-20"><span><a href="/th/detail/add/${brProcureNo}" class="btn btn-success radius">新增明细</a></span></div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"><span><a id="show1" class="btn btn-success radius" onclick="hideform()">新增明细</a></span></div>
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>--%>
     <div class="mt-20">
+        <form:form id="detail" name="detail" action="/th/detail/addP" method="post" role="form" >
+            <ul>
+                <input type="hidden" name="bRProcureSDetailId" value="${detailId}">
+
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编码</li>
+                <li><select id="good1" class="input-text" required onchange="goodsChange(this.value);" name="bRProcureSGoodsNo" required>
+                    <option value="" selected>选择商品编号</option>
+                    <c:forEach items="${bPurchaseOrdSEntities}" var="bPurchaseOrdSEntities">
+                        <option value="${bPurchaseOrdSEntities.bPurchaseOrdSGoodsNo}">${bPurchaseOrdSEntities.bPurchaseOrdSOrdProcureNo}采购订单号 ->${bPurchaseOrdSEntities.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsNo}(${bPurchaseOrdSEntities.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsName})</option>
+                    </c:forEach>
+                </select></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
+                <li><input type="text" class="input-text" readonly="readonly" id="mingcheng" required ></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品条码</li>
+                <li><input type="text" class="input-text" readonly="readonly"  id="tiaoma" required></li>
+
+
+            </ul><br>
+            <ul>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;采购订单号</li>
+                <li>
+                    <select class="input-text" required onchange="caigou(this.value);" id="bRProcureSOrdProcureNo" name="bRProcureSOrdProcureNo" required>
+                        <option value="" selected >选择采购订单号</option>
+                        <c:forEach items="${bPurchaseOrdMEntities}" var="bPurchaseOrdMEntities">
+                            <option value="${bPurchaseOrdMEntities.bPurchaseOrdMOrdProcureNo}">${bPurchaseOrdMEntities.bPurchaseOrdMOrdProcureNo}</option>
+                        </c:forEach>
+
+                    </select>
+                </li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;规格型号</li>
+                <li><input type="text" class="input-text" readonly="readonly"  id="guige" required ></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓库</li>
+                <li>
+                    <select class="input-text" name="bRProcureSRoomNo" id="bRProcureSRoomNo" required>
+                        <option value="" >选择仓库编号</option>
+                        <c:forEach items="${TRoom}" var="TRoom">
+                            <option value="${TRoom.tRoomRoomNo}">${TRoom.tRoomRoomNo}(${TRoom.tRoomRoomName})</option>
+                        </c:forEach>
+
+                    </select></li>
+            </ul><br>
+            <ul>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数量/单位</li>
+                <li><input type="text" class="input-text" readonly="readonly" id="shuliang" name="bRProcureSQuantity"  ></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱数</li>
+                <li><input type="text" class="input-text"  name="bRProcureSBoxQuantity" id="bRProcureSBoxQuantity" ></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税率</li>
+                <li><input type="text" class="input-text" readonly="readonly" id="suilv" ></li>
+            </ul><br>
+            <ul>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退货单号</li>
+                <li><input type="text" class="input-text" readonly="readonly" name="bRProcureSRProcureNo" value="${ordProcureNo}"></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库位编号</li>
+                <li><input type="text" class="input-text"  name="bRProcureSLocationNo" id="kuwei"  required></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保质期</li>
+                <li><input type="text" class="input-text" readonly="readonly" id="baozjiqi" ></li>
+            </ul><br>
+            <ul>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;生产日期</li>
+                <li><input type="text" class="input-text"  id="shengchang"  readonly="readonly" ></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交易原价</li>
+                <li><input type="text" class="input-text" readonly="readonly" id="yuanjia"></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;批次号</li>
+                <li><input type="text" class="input-text" readonly="readonly" name="price"></li>
+
+            </ul><br>
+
+            <br>
+            <center>
+                <input class="btn btn-primary upload-btn" type="submit" name="submit" value="确定添加">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a id="hide1" class="btn btn radius">取消</a>
+            </center>
+        </form:form>
 
 <c:if test="${empty brProcureS}">
     <table class="table table-border table-bordered table-bg">
@@ -94,7 +292,7 @@
     </table>
 </c:if>
 <c:if test="${!empty brProcureS}">
-
+<div id="p2">
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
         <li><input type="text" class="input-text" readonly="readonly" name="ordProcureNo" ></li>
@@ -136,6 +334,77 @@
         <li><input type="text" class="input-text" readonly="readonly" name="price"></li>
 
     </ul><br>
+</div>
+        <div class="cl pd-5 bg-1 bk-gray mt-20"><span><button type="button" id="show" class="btn btn-primary upload-btn">显示采购订单</button></span>&nbsp;&nbsp;&nbsp;&nbsp;<span> <button type="button" id="hide" class="btn btn-primary upload-btn">隐藏采购订单</button></span></div>
+            <%--<button type="button" id="hide" class="btn btn-primary upload-btn">隐藏采购订单</button>&nbsp;&nbsp;&nbsp;&nbsp;--%>
+            <%--<button type="button" id="show" class="btn btn-primary upload-btn">显示采购订单</button>--%>
+
+
+        <div id="p1">
+            <br>
+    <ul>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退货单号</li>
+        <li><input type="text" class="input-text" name="bRProcureMRProcureNo" id="bRProcureMRProcureNo" value="${UUID}" readonly="readonly"></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手工单号</li>
+        <li><input type="text" class="input-text" name="bRProcureMHandbillNo" id="bRProcureMHandbillNo" required></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单日期</li>
+        <li><input type="date" class="input-text" name="bRProcureMCreateDate" id="bRProcureMCreateDate" required></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核日期</li>
+        <li><input type="date" class="input-text" name="bRProcureMCheckDate" id="bRProcureMCheckDate" required></li>
+    </ul><br>
+    <ul>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务性质</li>
+        <li><input type="text" class="input-text" name="bRProcureMServiceAttribute" id="bRProcureMServiceAttribute" required></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结算方式</li>
+        <li><input type="text" class="input-text" name="bRProcureMPaymentAttributer" id="bRProcureMPaymentAttributer" required></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓管员</li>
+        <li>
+            <select class="input-text" name="bRProcureMWarehouseKeeper" id="bRProcureMWarehouseKeeper" required>
+                <option value="" ></option>
+                <c:forEach items="${Staff}" var="Staff">
+                    <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                </c:forEach>
+            </select>
+        </li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核人</li>
+        <li>
+            <select class="input-text" name="bRProcureMChecker" id="bRProcureMChecker">
+                <option value="" ></option>
+                <c:forEach items="${Staff}" var="Staff">
+                    <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                </c:forEach>
+            </select>
+        </li>
+    </ul><br>
+    <ul>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务日期</li>
+        <li><input type="date" class="input-text" name="bRProcureMModifiTime" id="bRProcureMModifiTime" required></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务员</li>
+        <li>
+            <select class="input-text" name="bRProcureMSalesman" id="bRProcureMSalesman" required>
+                <option value="" ></option>
+                <c:forEach items="${Staff}" var="Staff">
+                    <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                </c:forEach>
+            </select>
+        </li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;送货员</li>
+        <li>
+            <select class="input-text" name="bRProcureMDeliverymanNo" id="bRProcureMDeliverymanNo" required>
+                <option value="" ></option>
+                <c:forEach items="${Staff}" var="Staff">
+                    <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                </c:forEach>
+            </select>
+        </li>
+    </ul><br>
+    <ul>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
+        <li><input type="text" style="width: 376px" class="input-text" name="bRProcureMNotes" id="bRProcureMNotes" required></li>
+    </ul><br>
+        </div>
+
+
     <table class="table table-border table-bordered table-bg table-sort">
         <thead>
         <tr class="text-c">
@@ -185,6 +454,7 @@
 <script type="text/javascript" src="../../../statics/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="../../../statics/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../../statics/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="../../../statics/lib/scrolltopcontrol.js"></script>
 <script type="text/javascript">
     $('.table-sort').dataTable({
         "aaSorting": [[ 1, "desc" ]],//默认第几个排序

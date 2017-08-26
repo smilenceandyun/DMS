@@ -1,4 +1,4 @@
-//package com.dms.serviceImpl;
+//package com.dms.service.serviceImpl;
 //
 //import org.springframework.stereotype.Service;
 //

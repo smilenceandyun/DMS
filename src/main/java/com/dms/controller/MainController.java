@@ -2,7 +2,7 @@
 //
 //import com.dms.model.pur.PurDetail;
 //import com.dms.model.pur.PurOrder;
-//import com.dms.serviceImpl.Person;
+//import com.dms.service.serviceImpl.Person;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Controller;
 //import org.springframework.ui.ModelMap;

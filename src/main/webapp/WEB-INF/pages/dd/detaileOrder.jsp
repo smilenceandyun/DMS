@@ -139,7 +139,7 @@
 //                    alert('您按了回车键')
                     $("#detail").hide(300);
                     $("#p2").show(300);
-                    //打开添加明细
+                    //关闭添加明细
                 }
             });
         }
@@ -218,6 +218,46 @@
                     });
             })
         }
+
+        <%--function goodsChangeupdate(id) {--%>
+            <%--switch (id){--%>
+                <%--case  "":--%>
+                    <%--document.getElementById("guige3").value = "";--%>
+                    <%--document.getElementById("tiaoma3").value = "";--%>
+                    <%--document.getElementById("kucun3").value = "";--%>
+                    <%--document.getElementById("mingcheng3").value = "";--%>
+                    <%--document.getElementById("dangwei3").value = "";--%>
+                    <%--document.getElementById("baozjiqi3").value = "";--%>
+                    <%--document.getElementById("suilv3").value = "";--%>
+                    <%--document.getElementById("danjia3").value = "";--%>
+                    <%--document.getElementById("shuliang3").value = "";--%>
+                    <%--document.getElementById("bPurchaseOrdSBoxPrice3").value = "";--%>
+
+                    <%--break;--%>
+                <%--<c:forEach items="${TGoods}" var="TGoods">--%>
+                <%--case "${TGoods.tGoodsGoodsNo}":--%>
+                    <%--document.getElementById("guige3").value = "${TGoods.tGoodsGoodsSpce}";--%>
+                    <%--document.getElementById("tiaoma3").value = "${TGoods.tGoodsBarcode}";--%>
+                    <%--document.getElementById("kucun3").value = "${TGoods.tGoodsPackQuantity}";--%>
+                    <%--document.getElementById("mingcheng3").value = "${TGoods.tGoodsGoodsName}";--%>
+                    <%--document.getElementById("dangwei3").value = "${TGoods.tGoodsUnit}";--%>
+                    <%--document.getElementById("baozjiqi3").value = "${TGoods.tGoodsExDay/30}";--%>
+                    <%--document.getElementById("suilv3").value = "${TGoods.tGoodsInTax}";--%>
+                    <%--document.getElementById("danjia3").value = "${TGoods.tGoodsSPrice}";--%>
+                    <%--document.getElementById("shuliang3").value = "${TGoods.tGoodsPackQuantity}";--%>
+                    <%--document.getElementById("bPurchaseOrdSBoxPrice3").value = "${TGoods.tGoodsPackQuantity * TGoods.tGoodsInTaxprice}";--%>
+                    <%--break;--%>
+                <%--</c:forEach>--%>
+            <%--}--%>
+        <%--}--%>
+
+        <%--function priceupdate(id) {--%>
+
+            <%--document.getElementById("hansui").value =document.getElementById("bPurchaseOrdSBoxPrice").value * document.getElementById("bPurchaseOrdSBoxQuantity").value;--%>
+            <%--document.getElementById("weihansui").value = (document.getElementById("bPurchaseOrdSBoxPrice").value * document.getElementById("bPurchaseOrdSBoxQuantity").value) / (( 1 + document.getElementById("suilv").value)/10);--%>
+            <%--document.getElementById("jinger").value = document.getElementById("bPurchaseOrdSBoxPrice").value * document.getElementById("bPurchaseOrdSBoxQuantity").value;--%>
+
+        <%--}--%>
     </script>
 
     <title>采购管理</title>
@@ -260,6 +300,7 @@
         </tbody>
     </table>
 </c:if>
+        <%--=================================================================================================================t添加--%>
         <form:form id="detail" name="detail" action="/pur_order/detaileOrder/addP" method="post" role="form" >
 
             <ul>
@@ -383,6 +424,8 @@
         </form:form>
         <br>
 <%--//====================================================================================================--%>
+
+        <%--===========================================================================================--%>
         <c:if test="${!empty bPurchaseOrdS}">
 <div id="p2">
     <ul>

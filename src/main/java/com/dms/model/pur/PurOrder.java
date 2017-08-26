@@ -1,6 +1,6 @@
 package com.dms.model.pur;
 
-import com.dms.serviceImpl.Person;
+import com.dms.service.serviceImpl.Person;
 
 import java.util.List;
 

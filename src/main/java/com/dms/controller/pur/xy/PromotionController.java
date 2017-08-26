@@ -8,7 +8,7 @@ import com.dms.repository.ht.CPurchaseConMRepository;
 import com.dms.repository.xy.PromotionMProductSRepository;
 import com.dms.repository.xy.PromotionMRepository;
 import com.dms.repository.xy.PromotionMSRepository;
-import com.dms.serviceImpl.GetOrderNumber;
+import com.dms.service.serviceImpl.GetOrderNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
