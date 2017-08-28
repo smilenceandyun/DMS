@@ -7,6 +7,7 @@ import com.dms.repository.TGoodsRepository;
 import com.dms.repository.TStaffRepository;
 import com.dms.repository.ht.CPurchaseConMRepository;
 import com.dms.repository.ht.CPurchaseConSRepository;
+import com.dms.service.informationbase.*;
 import com.dms.service.serviceImpl.GetOrderNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,7 +58,22 @@ public class ContractController {
 
     //==================================================================================================================
 
-
+    @Autowired
+    private TStaffCacheService tStaffCacheService;
+    @Autowired
+    private TClientCacheService tClientCacheService;
+    @Autowired
+    private TPaymentCacheService tPaymentCacheService;
+    @Autowired
+    private TRoomCacheService tRoomCacheService;
+    @Autowired
+    private TFactorysCacheService tFactorysCacheService;
+    @Autowired
+    private TGoodsCacheService tGoodsCacheService;
+    @Autowired
+    private TOrgCacheService tOrgCacheService;
+    @Autowired
+    private StoreLocationCacheService storeLocationCacheService;
     //==================================================================================================================
 
     @RequestMapping(value = "/CPurCon_order", method = RequestMethod.GET)
@@ -95,10 +111,10 @@ public class ContractController {
             detailId += 1;
         }
 
-        List<TStaffEntity> Staff = tStaffRepository.findAll();//获取员工信息
-        List<TClientEntity> Client = tClientRepository.findAll();//获取客户信息
-        List<TFactorysEntity> Factorys = tFactorysRepository.findAll();//获取厂家信息
-        List<TGoodsEntity> Goods = tGoodsRepository.findAll();//获取商品信息
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);//获取员工信息
+        List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);//获取客户信息
+        List<TFactorysEntity> Factorys =tFactorysCacheService.findAll(tFactorysRepository);//获取厂家信息
+        List<TGoodsEntity> Goods = tGoodsCacheService.findAll(tGoodsRepository);//获取商品信息
 
         // 传递给请求页面
         modelMap.addAttribute("Staff", Staff);
@@ -145,9 +161,9 @@ public class ContractController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addCPurchaseConM(ModelMap modelMap) {
 
-        List<TStaffEntity> Staff = tStaffRepository.findAll();//获取员工信息
-        List<TClientEntity> Client = tClientRepository.findAll();//获取客户信息
-        List<TFactorysEntity> Factorys = tFactorysRepository.findAll();//获取厂家信息
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);//获取员工信息
+        List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);//获取客户信息
+        List<TFactorysEntity> Factorys = tFactorysCacheService.findAll(tFactorysRepository);//获取厂家信息
         String UUID = h.getOrderNo();//获取UUID
 
         // 传递给请求页面
@@ -212,8 +228,8 @@ public class ContractController {
             detailId += 1;
         }
 
-        List<TGoodsEntity> Goods = tGoodsRepository.findAll();//获取商品信息
-        List<TStaffEntity> Staff = tStaffRepository.findAll();//获取员工信息
+        List<TGoodsEntity> Goods = tGoodsCacheService.findAll(tGoodsRepository);//获取商品信息
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);//获取员工信息
 
         // 传递给请求页面
         modelMap.addAttribute("cPurchaseConM", cPurchaseConMEntitylist);
@@ -249,9 +265,9 @@ public class ContractController {
         // 找到相应合同号所表示的合同
         CPurchaseConMEntity cPurchaseConMEntity = cPurchaseConMRepository.findOne(cPurchaseConMPurchasConNo);
 
-        List<TStaffEntity> Staff = tStaffRepository.findAll();//获取员工信息
-        List<TClientEntity> Client = tClientRepository.findAll();//获取客户信息
-        List<TFactorysEntity> Factorys = tFactorysRepository.findAll();//获取厂家信息
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);//获取员工信息
+        List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);//获取客户信息
+        List<TFactorysEntity> Factorys = tFactorysCacheService.findAll(tFactorysRepository);//获取厂家信息
 
         // 传递给请求页面
         modelMap.addAttribute("cPurchaseConM", cPurchaseConMEntity);
@@ -288,8 +304,8 @@ public class ContractController {
         //通过采购合同号和采购合同明细号，定位一条明细
         CPurchaseConSEntity detail = cPurchaseConSRepository.findCPurchaseConSEntitiesByCPurchaseConSPurchasConNoAndCPurchaseConSDetailIdEquals(cPurchaseConSPurchasConNo,detailid);
 
-        List<TGoodsEntity> Goods = tGoodsRepository.findAll();//获取商品信息
-        List<TStaffEntity> Staff = tStaffRepository.findAll();//获取员工信息
+        List<TGoodsEntity> Goods = tGoodsCacheService.findAll(tGoodsRepository);//获取商品信息
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);//获取员工信息
 
         // 传递给请求页面
         modelMap.addAttribute("Goods", Goods);

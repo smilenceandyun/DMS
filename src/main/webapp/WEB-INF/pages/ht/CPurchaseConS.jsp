@@ -72,8 +72,8 @@
                 <c:forEach items="${cPurchaseConS}" var="detail">
                 case "${detail.cPurchaseConSDetailId}":
                     document.getElementById("shangpinmingcheng").value = "${detail.tGoodsByCPurchaseConSGoodsNo.tGoodsGoodsName}";  //商品名称
-                    <%--document.getElementById("zongjinli").value = "${detail.cPurchaseConSManagerNo}";  //总经理--%>
-                    document.getElementById("zongjinli").value = "11111111";  //总经理
+                    document.getElementById("zongjinli").value = "${detail.cPurchaseConSManagerNo}";  //总经理
+//                    document.getElementById("zongjinli").value = "11111111";  //总经理
                     document.getElementById("shuilv").value = "${detail.cPurchaseConSTaxRate}";  //税率
                     document.getElementById("shangpintiaoma").value = "${detail.tGoodsByCPurchaseConSGoodsNo.tGoodsBoxBarcode}";  //商品条码
                     document.getElementById("xiangjia").value = "${detail.cPurchaseConSBoxPrice}";  //箱价
@@ -285,31 +285,31 @@
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
                 <li><input type="text" class="input-text" style="background-color: #F5F5F5"  name="shangpinmingcheng" id='shangpinmingcheng' readonly="readonly"  value=""></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总经理</li>
-                <li><input type="text" class="input-text" style="background-color: #F5F5F5"  name="zongjinli" id=“zongjinli” readonly="readonly" value=""></li>
+                <li><input type="text" class="input-text" style="background-color: #F5F5F5"  name="zongjinli" id="zongjinli" readonly="readonly" value="111111111"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税率</li>
-                <li><input type="text" class="input-text" style="background-color: #F5F5F5"  name="shuilv" id=“shuilv” readonly="readonly"></li>
+                <li><input type="text" class="input-text" style="background-color: #F5F5F5"  name="shuilv" id="shuilv" readonly="readonly" value=""></li>
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品条码</li>
-                <li><input type="text" class="input-text" style="background-color: #F5F5F5"  name="shangpintiaoma" id="shangpintiaoma" readonly="readonly"></li>
+                <li><input type="text" class="input-text" style="background-color: #F5F5F5"  name="shangpintiaoma" id="shangpintiaoma" readonly="readonly" value=""></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱价</li>
-                <li><input type="text" class="input-text" style="background-color: #F5F5F5"  name="xiangjia" id="xiangjia" readonly="readonly"></li>
+                <li><input type="text" class="input-text" style="background-color: #F5F5F5"  name="xiangjia" id="xiangjia" readonly="readonly" value=""></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单价</li>
-                <li><input type="text" class="input-text" style="background-color: #F5F5F5"  name="danjia" id="danjia" readonly="readonly"></li>
+                <li><input type="text" class="input-text" style="background-color: #F5F5F5"  name="danjia" id="danjia" readonly="readonly" value=""></li>
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编码</li>
-                <li><input type="text" class="input-text" style="background-color: #F5F5F5" name="shangpinbianma" id="shangpinbianma" readonly="readonly"></li>
+                <li><input type="text" class="input-text" style="background-color: #F5F5F5" name="shangpinbianma" id="shangpinbianma" readonly="readonly" value=""></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位</li>
-                <li><input type="text" class="input-text" style="background-color: #F5F5F5" name="danwei" id="danwei" readonly="readonly"></li>
+                <li><input type="text" class="input-text" style="background-color: #F5F5F5" name="danwei" id="danwei" readonly="readonly" value=""></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;规格型号</li>
-                <li><input type="text" class="input-text" style="background-color: #F5F5F5" name="guigexinghao" id="guigexinghao" readonly="readonly"></li>
+                <li><input type="text" class="input-text" style="background-color: #F5F5F5" name="guigexinghao" id="guigexinghao" readonly="readonly" value=""></li>
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同编号</li>
                 <li><input type="text" class="input-text" style="background-color: #F5F5F5" name="" readonly ="readonly" value="${cPurchaseConSPurchasConNo}"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同数量</li>
-                <li><input type="text" class="input-text" style="background-color: #F5F5F5" name="hetongshuliang" id="hetongshuliang" readonly="readonly"></li>
+                <li><input type="text" class="input-text" style="background-color: #F5F5F5" name="hetongshuliang" id="hetongshuliang" readonly="readonly" value=""></li>
             </ul><br>
            </div>
        </c:if>
@@ -359,6 +359,7 @@
             <table class="table table-border table-bordered table-bg table-sort">
                 <thead>
                 <tr class="text-c">
+                    <th width="25">选择</th>
                     <th width="30">ID</th>
                     <th width="80">商品名称</th>
                     <th width="80">规格型号</th>
@@ -375,6 +376,7 @@
                 %>
                 <c:forEach items="${cPurchaseConS}" var="cPurchaseConS">
                     <tr class="text-c">
+                        <td><input name="id" type="checkbox"></td>
                         <td><%=i %><% i++; %></td>
                         <td><a href="#top" onclick="showdetail('${cPurchaseConS.cPurchaseConSDetailId}');$('#detail').hide(300);$('#p2').show(300);">${cPurchaseConS.tGoodsByCPurchaseConSGoodsNo.tGoodsGoodsName}</a></td>
                         <%--<td><a href="/detail2/${cPurchaseConS.cPurchaseConSPurchasConNo} & ${cPurchaseConS.cPurchaseConSDetailId}">${cPurchaseConS.tGoodsByCPurchaseConSGoodsNo.tGoodsGoodsName}</a></td>--%>
@@ -402,6 +404,8 @@
 <script type="text/javascript" src="../../../statics/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="../../../statics/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../../statics/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="../../../statics/lib/scrolltopcontrol.js"></script>
+
 <script type="text/javascript">
     $('.table-sort').dataTable({
         "aaSorting": [[ 1, "desc" ]],//默认第几个排序
