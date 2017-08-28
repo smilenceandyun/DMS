@@ -294,10 +294,12 @@
                 </ul><br>
 
                 <br>
+            <div style="width: 900px">
                 <center>
                     <input class="btn btn-primary upload-btn" type="submit" name="submit" value="确定修改">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="/pur_order/detaileOrder/${bPurchaseOrdS.bPurchaseOrdSOrdProcureNo}"  class="btn btn radius">取消</a>
                 </center>
+            </div>
             </form:form>
 
         <div class="cl pd-5 bg-1 bk-gray mt-20"><span><button type="button" id="show" class="btn btn-primary upload-btn">显示采购订单</button></span>&nbsp;&nbsp;&nbsp;&nbsp;<span> <button type="button" id="hide" class="btn btn-primary upload-btn">隐藏采购订单</button></span></div>
