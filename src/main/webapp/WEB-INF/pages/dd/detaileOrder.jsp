@@ -602,7 +602,7 @@
                 <td >${purOrder.bPurchaseOrdSQuantity}</td>
                 <td >${purOrder.bPurchaseOrdSBoxQuantity}</td>
                 <td >${purOrder.bPurchaseOrdSMfg}</td>
-                <td >${purOrder.bPurchaseOrdSDetailMoney}</td>
+                <td >${purOrder.bPurchaseOrdSDetailMoney *(1 + purOrder.bPurchaseOrdSTaxRate)}</td>
                 <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('明细编辑','index2.html','1')" href="/pur_order/detaileOrder/update/${purOrder.bPurchaseOrdSDetailId}&${purOrder.bPurchaseOrdSOrdProcureNo}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onclick="if(!confirm('确定删除？')) return false;" href="/pur_order/detaileOrder/delete/${purOrder.bPurchaseOrdSDetailId}&${purOrder.bPurchaseOrdSOrdProcureNo}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
             </tr>
         </c:forEach>

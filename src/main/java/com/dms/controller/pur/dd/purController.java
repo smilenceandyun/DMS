@@ -154,9 +154,9 @@ public class purController {
     // get请求，访问添加 页面
     @RequestMapping(value = "/pur_order/add", method = RequestMethod.GET)
     public String addBPurchaseOrdM(ModelMap modelMap) {
-        List<TStaffEntity> Staff = tStaffRepository.findAll();
-        List<TClientEntity> Client = tClientRepository.findAll();
-        List<TFactorysEntity> TFactorys = tFactorysRepository.findAll();
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);
+        List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);
+        List<TFactorysEntity> TFactorys = tFactorysCacheService.findAll(tFactorysRepository);
 
         String UUID = c.getOrderNo();
 
@@ -250,12 +250,12 @@ public class purController {
         // 找到userId所表示的用户
         BPurchaseOrdMEntity bPurchaseOrdMEntity = bPurchaseOrdMRepository.findOne(id);
 
-        List<TStaffEntity> Staff = tStaffRepository.findAll();
-        List<TClientEntity> Client = tClientRepository.findAll();
-        List<TFactorysEntity> TFactorys = tFactorysRepository.findAll();
-        List<TGoodsEntity> TGoods = tGoodsRepository.findAll();
-        List<TRoomEntity> TRoom = tRoomRepository.findAll();
-        List<TPaymentEntity> TPayment = tPaymentRepository.findAll();
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);
+        List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);
+        List<TFactorysEntity> TFactorys = tFactorysCacheService.findAll(tFactorysRepository);
+        List<TGoodsEntity> TGoods = tGoodsCacheService.findAll(tGoodsRepository);
+        List<TRoomEntity> TRoom = tRoomCacheService.findAll(tRoomRepository);
+        List<TPaymentEntity> TPayment = tPaymentCacheService.findAll(tPaymentRepository);
 
         // 传递给请求页面
         modelMap.addAttribute("TPayment", TPayment);
@@ -372,12 +372,12 @@ public class purController {
         }
         BPurchaseOrdMEntity bPurchaseOrdMEntity = bPurchaseOrdMRepository.findBPurchaseOrdMEntityByBPurchaseOrdMOrdProcureNoEquals(Id);
         //List<BPurchaseOrdSEntity> bPurchaseOrdSEntity = bPurchaseOrdSRepository.findBPurchaseOrdSEntitiesByBPurchaseOrdSOrdProcureNoEquals(Id);
-        List<TStaffEntity> Staff = tStaffRepository.findAll();
-        List<TClientEntity> Client = tClientRepository.findAll();
-        List<TFactorysEntity> TFactorys = tFactorysRepository.findAll();
-        List<TGoodsEntity> TGoods = tGoodsRepository.findAll();
-        List<TRoomEntity> TRoom = tRoomRepository.findAll();
-        List<TPaymentEntity> TPayment = tPaymentRepository.findAll();
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);
+        List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);
+        List<TFactorysEntity> TFactorys = tFactorysCacheService.findAll(tFactorysRepository);
+        List<TGoodsEntity> TGoods = tGoodsCacheService.findAll(tGoodsRepository);
+        List<TRoomEntity> TRoom = tRoomCacheService.findAll(tRoomRepository);
+        List<TPaymentEntity> TPayment = tPaymentCacheService.findAll(tPaymentRepository);
         String UUID = c.getOrderNo();
 
         modelMap.addAttribute("bPurchaseOrdM", bPurchaseOrdMEntity);
@@ -419,12 +419,12 @@ public class purController {
         BPurchaseOrdMEntity bPurchaseOrdMEntity = bPurchaseOrdMRepository.findBPurchaseOrdMEntityByBPurchaseOrdMOrdProcureNoEquals(id);
         BPurchaseOrdSEntity bPurchaseOrdSEntity = bPurchaseOrdSRepository.findBPurchaseOrdSEntitiesByBPurchaseOrdSOrdProcureNoAndBPurchaseOrdSDetailIdEquals(id,detailID);
 
-        List<TStaffEntity> Staff = tStaffRepository.findAll();
-        List<TClientEntity> Client = tClientRepository.findAll();
-        List<TFactorysEntity> TFactorys = tFactorysRepository.findAll();
-        List<TGoodsEntity> TGoods = tGoodsRepository.findAll();
-        List<TRoomEntity> TRoom = tRoomRepository.findAll();
-        List<TPaymentEntity> TPayment = tPaymentRepository.findAll();
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);
+        List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);
+        List<TFactorysEntity> TFactorys = tFactorysCacheService.findAll(tFactorysRepository);
+        List<TGoodsEntity> TGoods = tGoodsCacheService.findAll(tGoodsRepository);
+        List<TRoomEntity> TRoom = tRoomCacheService.findAll(tRoomRepository);
+        List<TPaymentEntity> TPayment = tPaymentCacheService.findAll(tPaymentRepository);
 
         // 传递给请求页面
         modelMap.addAttribute("bPurchaseOrdM", bPurchaseOrdMEntity);
