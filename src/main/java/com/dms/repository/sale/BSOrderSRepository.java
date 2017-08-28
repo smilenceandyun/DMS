@@ -16,7 +16,7 @@ public interface BSOrderSRepository  extends JpaRepository<BSOrderSEntity, Strin
 
     //======================================================================================================
     List<BSOrderSEntity> findBSOrderSEntitiesByBSOrderSSOrderNoEquals(String id);
-
+//
 
     //-----------通过销售订货单号（BSOrderSSOrderNo）和明细ID（BSOrderSDetailId）查询 BSOrderSEntity里的一条内容--------------
     BSOrderSEntity findBSOrderSEntitiesByBSOrderSSOrderNoAndBSOrderSDetailIdEquals(String id,Integer detailID);

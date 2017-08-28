@@ -1,7 +1,7 @@
 package com.dms.service.serviceImpl.imformationbaselmpl;
 
 import com.dms.model.SalesPropertiesEntity;
-import com.dms.repository.SalesPorpertiesRepository;
+import com.dms.repository.SalesPropertiesRepository;
 import com.dms.service.informationbase.SalesPorpertiesCacheService;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -14,12 +14,12 @@ public class SalesPorpertiesCacheServiceLimp implements SalesPorpertiesCacheServ
 
 
     @Override
-    @Cacheable(value = "myCache", key = "'get'+#salesPorpertiesRepository")
-    public List<SalesPropertiesEntity> findAll(SalesPorpertiesRepository salesPorpertiesRepository) {
+    @Cacheable(value = "myCache", key = "'get'+#salesPropertiesRepository")
+    public List<SalesPropertiesEntity> findAll(SalesPropertiesRepository salesPropertiesRepository) {
 
 
 
-        List<SalesPropertiesEntity> list = salesPorpertiesRepository.findAll();
+        List<SalesPropertiesEntity> list = salesPropertiesRepository.findAll();
 
         return list;
     }

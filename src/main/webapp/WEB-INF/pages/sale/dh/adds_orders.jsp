@@ -104,7 +104,7 @@
                 <li><input type="text" class="input-text" name="bSOrderMSalesDiscount" id="bSOrderMSalesDiscount" ></li>
             </ul><br>
             <ul>
-
+//
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户名称</li>
                 <li>
                     <select class="input-text" name="bSOrderMClientNo" id="bSOrderMClientNo" >

@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 
 @Repository
 public interface BSOrderMRepository  extends JpaRepository<BSOrderMEntity, String> {
-    @Modifying      // 说明该方法是修改操作
+    @Modifying      // 说明该方法是修改操作/
     @Transactional
     // 说明该方法是事务性操作a
     //定义查询

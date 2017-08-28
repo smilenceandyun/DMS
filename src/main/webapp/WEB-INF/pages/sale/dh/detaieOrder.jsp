@@ -547,7 +547,7 @@
                     <th width="80">保质期/月</th>
                     <th width="80">总金额</th>
                     <th width="40">操作</th>
-                </tr>
+                </tr>//
                 </thead>
                 <tbody>
                 <%

@@ -122,8 +122,8 @@
             <li>
                 <select id="good1" class="input-text"  onchange="goodsChange(this.value);" name="bSOrderSGoodsNo" required>
                     <option value="" selected>选择商品编号</option>
-                    <c:forEach items="${TGoods}" var="Goods">
-                        <option value="${Goods.tGoodsGoodsNo}">${Goods.tGoodsGoodsNo}(${Goods.tGoodsGoodsName})</option>
+                    <c:forEach items="${TGoods}" var="TGoods">
+                        <option value="${TGoods.tGoodsGoodsNo}">${TGoods.tGoodsGoodsNo}(${TGoods.tGoodsGoodsName})</option>
                     </c:forEach>
                 </select>
             </li>

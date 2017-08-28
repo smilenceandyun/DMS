@@ -38,7 +38,7 @@ public class DhController {
     TClientRepository tClientRepository;
 
     final
-    SalesPorpertiesRepository salesPorpertiesRepository;
+    SalesPropertiesRepository salesPropertiesRepository;
     final
     TFactorysRepository tFactorysRepository;
 
@@ -52,7 +52,7 @@ public class DhController {
     TPaymentRepository tPaymentRepository;
 
     @Autowired
-    public DhController(BSOrderMRepository bsOrderMRepository, BSOrderSRepository bsOrderSRepository, TStaffRepository tStaffRepository, TClientRepository tClientRepository, TFactorysRepository tFactorysRepository, TGoodsRepository tGoodsRepository, TRoomRepository tRoomRepository, TPaymentRepository tPaymentRepository, SalesPorpertiesRepository salesPorpertiesRepository) {
+    public DhController(BSOrderMRepository bsOrderMRepository, BSOrderSRepository bsOrderSRepository, TStaffRepository tStaffRepository, TClientRepository tClientRepository, TFactorysRepository tFactorysRepository, TGoodsRepository tGoodsRepository, TRoomRepository tRoomRepository, TPaymentRepository tPaymentRepository, SalesPropertiesRepository salesPropertiesRepository) {
         this.bsOrderMRepository = bsOrderMRepository;
         this.bsOrderSRepository = bsOrderSRepository;
         this.tStaffRepository = tStaffRepository;
@@ -60,7 +60,7 @@ public class DhController {
         this.tFactorysRepository = tFactorysRepository;
         this.tGoodsRepository = tGoodsRepository;
         this.tRoomRepository = tRoomRepository;
-        this.salesPorpertiesRepository = salesPorpertiesRepository;
+        this.salesPropertiesRepository = salesPropertiesRepository;
         this.tPaymentRepository = tPaymentRepository;
         g = new GetOrderNumber("O");
     }
@@ -97,7 +97,7 @@ public class DhController {
         List<TStaffEntity> Staff = tStaffRepository.findAll();
         List<TClientEntity> Client = tClientRepository.findAll();
         List<TFactorysEntity> TFactorys = tFactorysRepository.findAll();
-        List<SalesPropertiesEntity> SalesProperties=salesPorpertiesRepository.findAll();
+        List<SalesPropertiesEntity> SalesProperties= salesPropertiesRepository.findAll();
         List<TPaymentEntity> Payment=tPaymentRepository.findAll();
 
         String UUID = g.getOrderNo();
@@ -184,7 +184,7 @@ public class DhController {
         List<TStaffEntity> Staff = tStaffRepository.findAll();//获取员工信息
         List<TClientEntity> Client = tClientRepository.findAll();//获取客户信息
         List<TPaymentEntity> Payment = tPaymentRepository.findAll();//获取付款信息
-        List<SalesPropertiesEntity> SalesProperties=salesPorpertiesRepository.findAll();
+        List<SalesPropertiesEntity> SalesProperties=salesPropertiesRepository.findAll();
 
         // 传递给请求页面
         modelMap.addAttribute("bSOrderM", bsOrderMEntity);
@@ -297,7 +297,7 @@ public class DhController {
         List<TGoodsEntity> TGoods = tGoodsCacheService.findAll(tGoodsRepository);
         List<TRoomEntity> TRoom = tRoomCacheService.findAll(tRoomRepository);
         List<TPaymentEntity> TPayment = tPaymentCacheService.findAll(tPaymentRepository);
-        List<SalesPropertiesEntity> SalesProperties=salesPorpertiesCacheService.findAll(salesPorpertiesRepository);
+        List<SalesPropertiesEntity> SalesProperties=salesPorpertiesCacheService.findAll(salesPropertiesRepository);
         String UUID = g.getOrderNo();
 
 

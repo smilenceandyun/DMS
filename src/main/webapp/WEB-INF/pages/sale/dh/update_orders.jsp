@@ -113,7 +113,6 @@
             <li>
                 <select class="input-text" name="bPurchaseOrdSPaymentNo" id="bPurchaseOrdSPaymentNo" >
                     <option value="" >选择结算方式</option>
-                    <option value="" >购销即结</option>
                     <c:forEach items="${Payment}" var="Payment">
                         <option value="${Payment.tPaymentPaymentNo}">${Payment.tPaymentPaymentName}</option>
                     </c:forEach>
