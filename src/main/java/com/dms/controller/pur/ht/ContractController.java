@@ -74,6 +74,7 @@ public class ContractController {
     }
 
     //======采购订单详情================================================================================================
+    //===============================================================================================================
 
     @RequestMapping(value = "/detail/{cPurchaseConSPurchasConNo}", method = RequestMethod.GET)
     public String showCPurchaseConS(ModelMap modelMap, @PathVariable("cPurchaseConSPurchasConNo") String cPurchaseConSPurchasConNo) {
@@ -84,7 +85,28 @@ public class ContractController {
         //通过采购合同号查询一条采购合同
         CPurchaseConMEntity cPurchaseConMEntitylist = cPurchaseConMRepository.findOne(cPurchaseConSPurchasConNo);
 
+        //查找改订单合同下最大的明细ID号
+        Integer detailId = (cPurchaseConSRepository.findMaxDetailId(cPurchaseConSPurchasConNo));
+
+        if(detailId == null){
+            detailId = 1;
+        }
+        else {
+            detailId += 1;
+        }
+
+        List<TStaffEntity> Staff = tStaffRepository.findAll();//获取员工信息
+        List<TClientEntity> Client = tClientRepository.findAll();//获取客户信息
+        List<TFactorysEntity> Factorys = tFactorysRepository.findAll();//获取厂家信息
+        List<TGoodsEntity> Goods = tGoodsRepository.findAll();//获取商品信息
+
         // 传递给请求页面
+        modelMap.addAttribute("Staff", Staff);
+        modelMap.addAttribute("Client", Client);
+        modelMap.addAttribute("Factorys", Factorys);
+        modelMap.addAttribute("Goods", Goods);
+
+        modelMap.addAttribute("detailId", detailId);
         modelMap.addAttribute("cPurchaseConM", cPurchaseConMEntitylist);
         modelMap.addAttribute("cPurchaseConS", cPurchaseConSEntitylist);
         modelMap.addAttribute("cPurchaseConSPurchasConNo", cPurchaseConSPurchasConNo);
@@ -92,6 +114,7 @@ public class ContractController {
         return "ht/CPurchaseConS";
     }
 
+    //===============================================================================================================
     //======采购订单详情2===============================================================================================
 
     @RequestMapping(value = "/detail2/{cPurchaseConSPurchasConNo}&{detailid}", method = RequestMethod.GET)
