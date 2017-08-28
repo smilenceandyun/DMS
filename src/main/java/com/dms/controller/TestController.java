@@ -2,8 +2,8 @@
 //
 //import com.dms.model.pur.PurDetailList;
 //import com.dms.model.pur.PurOrder;
-//import com.dms.serviceImpl.Person;
-//import com.dms.serviceImpl.User;
+//import com.dms.service.serviceImpl.Person;
+//import com.dms.service.serviceImpl.User;
 //import org.springframework.stereotype.Controller;
 //import org.springframework.ui.ModelMap;
 //import org.springframework.web.bind.WebDataBinder;

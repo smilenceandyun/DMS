@@ -1,9 +1,9 @@
-package com.dms.serviceImpl;
+package com.dms.service.serviceImpl;
 
 /**
- * Created by laoli on 2017/7/6.
+ * Created by laoli on 2017/6/28.
  */
-public class User {
+public class Person {
     String name;
     int sex;
 

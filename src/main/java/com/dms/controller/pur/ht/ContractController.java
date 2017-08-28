@@ -7,7 +7,7 @@ import com.dms.repository.TGoodsRepository;
 import com.dms.repository.TStaffRepository;
 import com.dms.repository.ht.CPurchaseConMRepository;
 import com.dms.repository.ht.CPurchaseConSRepository;
-import com.dms.serviceImpl.GetOrderNumber;
+import com.dms.service.serviceImpl.GetOrderNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

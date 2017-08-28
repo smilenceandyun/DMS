@@ -1,7 +1,7 @@
 package com.dms.service.pur;
 
 import com.dms.model.pur.PurDetail;
-import com.dms.serviceImpl.Person;
+import com.dms.service.serviceImpl.Person;
 
 import java.util.List;
 

@@ -8,7 +8,7 @@ import com.dms.repository.TRoomRepository;
 import com.dms.repository.TStaffRepository;
 import com.dms.repository.rk.BProcureMRepository;
 import com.dms.repository.rk.BProcureSRepository;
-import com.dms.serviceImpl.GetOrderNumber;
+import com.dms.service.serviceImpl.GetOrderNumber;
 import com.google.gson.Gson;
 import org.springframework.aop.AopInvocationException;
 import org.springframework.beans.factory.annotation.Autowired;
