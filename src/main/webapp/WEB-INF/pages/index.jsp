@@ -121,8 +121,8 @@
             <dt><i class="Hui-iconfont">&#xe622;</i> 销售管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="pur_order" data-title="销售管理" href="javascript:;">销售管理</a></li>
-                    <li><a data-href="pur_order" data-title="销售管理" href="javascript:void(0)">销售管理</a></li>
+                    <li><a data-href="sale_order" data-title="销售管理" href="javascript:;">销售订货</a></li>
+                    <li><a data-href="pur_order" data-title="销售管理" href="javascript:void(0)">销售单</a></li>
                 </ul>
             </dd>
         </dl>
