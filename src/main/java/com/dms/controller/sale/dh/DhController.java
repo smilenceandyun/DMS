@@ -21,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
+import static com.dms.controller.pur.rk.ProcureController.string2Date;
+
 @Controller
 public class DhController {
 
@@ -94,11 +96,11 @@ public class DhController {
 
     @RequestMapping(value = "/sale_order/add", method = RequestMethod.GET)
     public String addBPurchaseOrdM(ModelMap modelMap) {
-        List<TStaffEntity> Staff = tStaffRepository.findAll();
-        List<TClientEntity> Client = tClientRepository.findAll();
-        List<TFactorysEntity> TFactorys = tFactorysRepository.findAll();
-        List<SalesPropertiesEntity> SalesProperties= salesPropertiesRepository.findAll();
-        List<TPaymentEntity> Payment=tPaymentRepository.findAll();
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);
+        List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);
+        List<TFactorysEntity> TFactorys = tFactorysCacheService.findAll(tFactorysRepository);
+        List<SalesPropertiesEntity> SalesProperties= salesPorpertiesCacheService.findAll(salesPropertiesRepository);
+        List<TPaymentEntity> Payment=tPaymentCacheService.findAll(tPaymentRepository);
 
         String UUID = g.getOrderNo();
 
@@ -111,6 +113,57 @@ public class DhController {
 
         // 转到addOrder.jsp页面
         return "/sale/dh/adds_orders";
+    }
+    // 更新用户信息 页面
+    @RequestMapping(value = "/updateMa/{bSOrderMSOrderNo}", method = RequestMethod.GET)
+    public String updatebSOrderM(@PathVariable("bSOrderMSOrderNo") String bSOrderMSOrderNo, ModelMap modelMap) {
+
+        BSOrderMEntity bsOrderMEntity = bsOrderMRepository.findOne(bSOrderMSOrderNo);
+
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);//获取员工信息
+        List<TClientEntity> Client =tClientCacheService.findAll(tClientRepository);//获取客户信息
+        List<TPaymentEntity> Payment = tPaymentCacheService.findAll(tPaymentRepository);//获取付款信息
+        List<SalesPropertiesEntity> SalesProperties=salesPorpertiesCacheService.findAll(salesPropertiesRepository);
+
+        // 传递给请求页面
+        modelMap.addAttribute("bSOrderM", bsOrderMEntity);
+        modelMap.addAttribute("Payment", Payment);
+        modelMap.addAttribute("Staff", Staff);
+        modelMap.addAttribute("Client", Client);
+        modelMap.addAttribute("SalesProperties",SalesProperties);
+        return "/sale/dh/update_orders";
+    }
+    // 删除订货单
+    @RequestMapping(value = "/sale_order/delete/{bSOrderMSOrderNo}", method = RequestMethod.GET)
+    public  String deleteMM(@PathVariable("bSOrderMSOrderNo") String bSOrderMSOrderNo)
+    {
+        bsOrderMRepository.delete(bSOrderMSOrderNo);
+        bsOrderSRepository.deleteALLBybSOrderMSOrderNoEquals(bSOrderMSOrderNo);
+        return "redirect:/sale_order";
+    }
+    // 更新销售订货 信息操作
+    @RequestMapping(value = "/updateMSa", method = RequestMethod.POST)
+    public String updatebSOrderMPost(BSOrderMEntity bsOrderMEntity) {
+        try {
+            bsOrderMEntity.setbSOrderMSendDate(new Timestamp(string2Date(bsOrderMEntity.getbSOrderMSendDate().toString()).getTime()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            bsOrderMEntity.setbSOrderMCreateDate(new Timestamp(string2Date(bsOrderMEntity.getbSOrderMCreateDate().toString()).getTime()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            bsOrderMEntity.setbSOrderMOrdDate(new Timestamp(string2Date(bsOrderMEntity.getbSOrderMOrdDate().toString()).getTime()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        BSOrderMEntity c=bsOrderMRepository.findOne(bsOrderMEntity.getbSOrderMSOrderNo());
+        bsOrderMEntity.setbSOrderMState(c.getbSOrderMState());
+        bsOrderMEntity.setbSOrderMGroupNodeId("01");
+        bsOrderMRepository.saveAndFlush(bsOrderMEntity);
+        return "redirect:/sale_order";
     }
     /**
      *method 将字符串类型的日期转换为一个Date（java.sql.Date）
@@ -163,11 +216,6 @@ public class DhController {
         }
         bSOrderMEntity.setbSOrderMState("0");
         bSOrderMEntity.setbSOrderMGroupNodeId("01");
-        // 注意此处，post请求传递过来的是一个UserEntity对象，里面包含了该用户的信息
-        // 通过@ModelAttribute()注解可以获取传递过来的'user'，并创建这个对象
-
-        // 数据库中添加一个用户，该步暂时不会刷新缓存
-        //userRepository.save(userEntity);
 
         // 数据库中添加一个订货单，并立即刷新缓存
         bsOrderMRepository.saveAndFlush(bSOrderMEntity);
@@ -175,43 +223,16 @@ public class DhController {
         // 重定向到用户管理页面，方法为 redirect:url
         return "redirect: /detaileOrder/addS/"+bSOrderMEntity.getbSOrderMSOrderNo();
     }
-    // 更新用户信息 页面
-    @RequestMapping(value = "/updateMa/{id}", method = RequestMethod.GET)
-    public String updatebSOrderM(@PathVariable("id") String id, ModelMap modelMap) {
 
-        BSOrderMEntity bsOrderMEntity = bsOrderMRepository.findOne(id);
-
-        List<TStaffEntity> Staff = tStaffRepository.findAll();//获取员工信息
-        List<TClientEntity> Client = tClientRepository.findAll();//获取客户信息
-        List<TPaymentEntity> Payment = tPaymentRepository.findAll();//获取付款信息
-        List<SalesPropertiesEntity> SalesProperties=salesPropertiesRepository.findAll();
-
-        // 传递给请求页面
-        modelMap.addAttribute("bSOrderM", bsOrderMEntity);
-        modelMap.addAttribute("Payment", Payment);
-        modelMap.addAttribute("Staff", Staff);
-        modelMap.addAttribute("Client", Client);
-        modelMap.addAttribute("SalesProperties",SalesProperties);
-        return "/sale/dh/update_orders";
-    }
-
-
-
-    // 删除订货单
-    @RequestMapping(value = "/sale_order/delete/{id}", method = RequestMethod.GET)
-    public  String deleteM(@PathVariable("id") String id)
-    {
-        bsOrderMRepository.delete(id);
-        bsOrderSRepository.deleteALLBSOrderSEntity(id);
-        return "redirect:/sale_order";
-    }
     // get请求，访问添加 页面
 
-    @RequestMapping(value = "/detaileOrder/addS/{id}", method = RequestMethod.GET)
-    public String addBSOrderMS(@PathVariable("id") String Id, ModelMap modelMap) {
+    @RequestMapping(value = "/detaileOrder/addS/{bSOrderSSOrderNo}", method = RequestMethod.GET)
+    public String addBSOrderMS(@PathVariable("bSOrderSSOrderNo") String bSOrderSSOrderNo, ModelMap modelMap) {
 
+         BSOrderMEntity bsOrderMEntitylist =bsOrderMRepository.findOne(bSOrderSSOrderNo);
+        List<BSOrderSEntity> bsOrderSEntitylist=bsOrderSRepository.findBybSOrderS(bSOrderSSOrderNo);
         //查找改订单单下最大的明细ID号
-        Integer detailId = (bsOrderSRepository.findMaxDetailId(Id));
+        Integer detailId = (bsOrderSRepository.findMaxDetailId(bSOrderSSOrderNo));
 
         if(detailId == null){
             detailId = 1;
@@ -219,55 +240,33 @@ public class DhController {
         else {
             detailId += 1;
         }
-        BSOrderMEntity bsOrderMEntity = bsOrderMRepository.findBSOrderMEntityByBSOrderMSOrderNoEquals(Id);
 
-        List<TGoodsEntity> TGoods = tGoodsRepository.findAll();//获取商品信息
-        List<TStaffEntity> Staff = tStaffRepository.findAll();//获取员工信息
-        List<TClientEntity> Client = tClientRepository.findAll();
-        List<TRoomEntity> TRoom = tRoomRepository.findAll();
-        List<TPaymentEntity> TPayment = tPaymentRepository.findAll();
+        List<TGoodsEntity> TGoods = tGoodsCacheService.findAll(tGoodsRepository);//获取商品信息
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);//获取员工信息
+        List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);
+        List<TRoomEntity> TRoom = tRoomCacheService.findAll(tRoomRepository);
+        List<TPaymentEntity> TPayment = tPaymentCacheService.findAll(tPaymentRepository);
         // 传递给请求页面
 
-        String UUID = g.getOrderNo();
-
-        modelMap.addAttribute("bSOrderM", bsOrderMEntity);
-        modelMap.addAttribute("TPayment", TPayment);
-        modelMap.addAttribute("TRoom", TRoom);
+        modelMap.addAttribute("bSOrderM", bsOrderMEntitylist);
+        modelMap.addAttribute("bSOrderS", bsOrderSEntitylist);
+        modelMap.addAttribute("Staff", Staff);
         modelMap.addAttribute("TGoods", TGoods);
         modelMap.addAttribute("Client", Client);
-        modelMap.addAttribute("Staff", Staff);
-        modelMap.addAttribute("UUID", UUID);
+        modelMap.addAttribute("TRoom", TRoom);
+        modelMap.addAttribute("TPayment ",TPayment );
         modelMap.addAttribute("detailId", detailId);
-        modelMap.addAttribute("bSOrderNo", Id);
+        modelMap.addAttribute("bSOrderNo", bSOrderSSOrderNo);
         // 转到CPurchaseConS_add.jsp页面
         return "/sale/dh/adddetaile_orders";
+    }
 
-    }
-    // 更新销售订货 信息操作
-    @RequestMapping(value = "/updateMSa", method = RequestMethod.POST)
-    public String updatebSOrderMPost(BSOrderMEntity bsOrderMEntity) {
-        try {
-            bsOrderMEntity.setbSOrderMSendDate(new Timestamp(string2Date(bsOrderMEntity.getbSOrderMSendDate().toString()).getTime()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // 更新用户信息
-        bsOrderMRepository.updateOrder(bsOrderMEntity.getbSOrderMSalesman(), bsOrderMEntity.getbSOrderMAdPaymoney(),
-                bsOrderMEntity.getbSOrderMCreateNo(),bsOrderMEntity.getbSOrderMOrderNo(), bsOrderMEntity.getbSOrderMSalesTypeNo(),bsOrderMEntity.getbSOrderMSalesDiscount(),
-                bsOrderMEntity.getbSOrderMClientNo(),bsOrderMEntity.getbSOrderMSendDate(), bsOrderMEntity.getbSOrderMClientAddress(),bsOrderMEntity.getbSOrderMCreateDate(),
-                bsOrderMEntity.getbSOrderMNotes(),bsOrderMEntity.getbSOrderMOrdDate(),bsOrderMEntity.getbSOrderMSOrderNo());
-        bsOrderMRepository.flush(); // 刷新缓冲区
-        return "redirect:/sale_order";
-    }
+
     @RequestMapping(value = "/sale_order/detaileOrder/addP", method = RequestMethod.POST)
     public String addBSOrderSEntityPost(BSOrderSEntity bsOrderSEntity) {
 
-        // 注意此处，post请求传递过来的是一个UserEntity对象，里面包含了该用户的信息
-        // 通过@ModelAttribute()注解可以获取传递过来的'user'，并创建这个对象
-
-        // 数据库中添加一个用户，该步暂时不会刷新缓存
-        //userRepository.save(userEntity);
-
+        bsOrderSEntity.setbSOrderSMfg("2016");
+        bsOrderSEntity.setbSOrderSGroupNodeId("01");
         // 数据库中添加一个用户，并立即刷新缓存
         bsOrderSRepository.saveAndFlush(bsOrderSEntity);
 
@@ -278,11 +277,12 @@ public class DhController {
     //订单明细
     //******************************************************************************************
 
-    @RequestMapping(value = "/sale_order/detaileOrder/{id}", method = RequestMethod.GET)
-    public String showBSOrderSEntity(@PathVariable("id") String Id, ModelMap modelMap) {
+    @RequestMapping(value = "/sale_order/detaileOrder/{bSOrderSSOrderNo}", method = RequestMethod.GET)
+    public String showBSOrderSEntity(@PathVariable("bSOrderSSOrderNo") String bSOrderSSOrderNo, ModelMap modelMap) {
 
-        List<BSOrderSEntity> bsOrderSEntity =bsOrderSRepository.findBSOrderSEntitiesByBSOrderSSOrderNoEquals(Id);
-        Integer detailId = (bsOrderSRepository.findMaxDetailId(Id));
+        List<BSOrderSEntity> bsOrderSEntity =bsOrderSRepository.findBybSOrderS(bSOrderSSOrderNo);
+        BSOrderMEntity bsOrderMEntity=bsOrderMRepository.findOne(bSOrderSSOrderNo);
+        Integer detailId = (bsOrderSRepository.findMaxDetailId(bSOrderSSOrderNo));
 
         if(detailId == null){
             detailId = 1;
@@ -290,15 +290,12 @@ public class DhController {
         else {
             detailId += 1;
         }
-        BSOrderMEntity bsOrderMEntity = bsOrderMRepository.findBSOrderMEntityByBSOrderMSOrderNoEquals(Id);
         List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);
         List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);
-        List<TFactorysEntity> TFactorys = tFactorysCacheService.findAll(tFactorysRepository);
         List<TGoodsEntity> TGoods = tGoodsCacheService.findAll(tGoodsRepository);
         List<TRoomEntity> TRoom = tRoomCacheService.findAll(tRoomRepository);
         List<TPaymentEntity> TPayment = tPaymentCacheService.findAll(tPaymentRepository);
         List<SalesPropertiesEntity> SalesProperties=salesPorpertiesCacheService.findAll(salesPropertiesRepository);
-        String UUID = g.getOrderNo();
 
 
 
@@ -306,15 +303,13 @@ public class DhController {
         modelMap.addAttribute("TPayment", TPayment);
         modelMap.addAttribute("TRoom", TRoom);
         modelMap.addAttribute("TGoods", TGoods);
-        modelMap.addAttribute("TFactorys", TFactorys);
         modelMap.addAttribute("SalesPorperties",SalesProperties);
         modelMap.addAttribute("Client", Client);
         modelMap.addAttribute("Staff", Staff);
-        modelMap.addAttribute("UUID", UUID);
         modelMap.addAttribute("detailId", detailId);
         modelMap.addAttribute("bSOrderS", bsOrderSEntity);
         modelMap.addAttribute("bSOrderM", bsOrderMEntity);
-        modelMap.addAttribute("bSOrderNo", Id);
+        modelMap.addAttribute("bSOrderNo", bSOrderSSOrderNo);
 
         return "/sale/dh/detaieOrder";
     }

@@ -62,7 +62,7 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 销售管理 <span class="c-gray en">&gt;</span> 销售订货 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
     <div class="mt-20">
-        <form:form name="dh" id="dh" action="/sale_order/addP" method="post" role="form" onsubmit="return checkinput(this)">
+        <form:form name="dh" id="dh" action="/sale_order/addP" method="post"  commondName="p" role="form">
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订货单号</li>
                 <li><input id="bSOrderMSOrderNo" name="bSOrderMSOrderNo" type="text" class="input-text"  value="${UUID}" readonly="readonly" required></li>
@@ -89,7 +89,7 @@
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户单号</li>
-                <li><input type="text" class="input-text" name="bSOrderMOrderNo" id="bSOrderMOrderNo" required></li>
+                <li><input type="text" class="input-text" name="bSOrderMOrderNo" id="bSOrderMOrderNo" ></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售性质</li>
                 <li><select class="input-text" name="bSOrderMSalesTypeNo" id="bSOrderMSalesTypeNoo" >
                     <option value="" ></option>
@@ -104,7 +104,7 @@
                 <li><input type="text" class="input-text" name="bSOrderMSalesDiscount" id="bSOrderMSalesDiscount" ></li>
             </ul><br>
             <ul>
-//
+
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户名称</li>
                 <li>
                     <select class="input-text" name="bSOrderMClientNo" id="bSOrderMClientNo" >
@@ -154,7 +154,7 @@
              <input type="hidden" id="bSOrderMState" name="bSOrderMState" value="1">--%>
             <center>
                 <div style="margin:0 auto;">
-                    <br><br><input class="btn btn-primary upload-btn" type="submit" name="submit" value="确定添加并继续添加明细">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <br><br><input class="btn btn-primary upload-btn" type="submit" name="submit" value="确定添加并添加明细">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="/sale_order"  class="btn btn radius">取消</a>
                 </div>
             </center>

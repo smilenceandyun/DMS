@@ -55,7 +55,10 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 销售管理 <span class="c-gray en">&gt;</span> 更新 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    <form:form action="/updateMSa" method="post" role="form">
+    <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel1()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>--%>
+    <%--&lt;%&ndash;<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>&ndash;%&gt;--%>
+    <%--<div class="mt-20">--%>
+    <form:form action="/updateMSa" method="post" commondName="p">
 
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订货单号</li>
@@ -113,8 +116,9 @@
             <li>
                 <select class="input-text" name="bPurchaseOrdSPaymentNo" id="bPurchaseOrdSPaymentNo" >
                     <option value="" >选择结算方式</option>
-                    <c:forEach items="${Payment}" var="Payment">
-                        <option value="${Payment.tPaymentPaymentNo}">${Payment.tPaymentPaymentName}</option>
+                    <option value="" >购销即结</option>
+                    <c:forEach items="${TPayment}" var="TPayment">
+                        <option value="${TPayment.tPaymentPaymentNo}">${TPayment.tPaymentPaymentName}</option>
                     </c:forEach>
 
                 </select>
@@ -134,7 +138,7 @@
 
             </li>
             <li></li>  <li></li>                   <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单日期</li>
-            <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bSOrderMCreateDate" name="bSOrderMCreateDate" readonly="readonly" value="${bSOrderM.bSOrderMCreateDate}"></li>
+            <li style="float: left;width: 345px;"><input type="data" class="input-text" id="bSOrderMCreateDate" name="bSOrderMCreateDate" readonly="readonly" value="${bSOrderM.bSOrderMCreateDate}"></li>
 
         </ul><br>
 
@@ -142,14 +146,14 @@
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
             <li style="float: left;width: 345px;"><input type="text" class="input-text" id="bSOrderMNotes" name="bSOrderMNotes" value="${bSOrderM.bSOrderMNotes}"></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订货日期</li>
-            <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bSOrderMOrdDate" name="bSOrderMOrdDate" readonly="readonly" value="${bSOrderM.bSOrderMOrdDate}" ></li>
+            <li style="float: left;width: 345px;"><input type="data" class="input-text" id="bSOrderMOrdDate" name="bSOrderMOrdDate" readonly="readonly" value="${bSOrderM.bSOrderMOrdDate}" ></li>
         </ul>
         <input type="hidden" id="bSOrderMIsPass" name="bSOrderMIsPass" value="0" >
         <input type="hidden" id="bSOrderMState" name="bSOrderMState" value="1">
         <center>
             <div style="margin:0 auto;">
                 <br><br><input class="btn btn-primary upload-btn" type="submit" name="submit" value="确定修改">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="/sale_order"  class="btn btn radius">取消</a>
+                <a href="/pur_order"  class="btn btn radius">取消</a>
             </div>
         </center>
     </form:form>
