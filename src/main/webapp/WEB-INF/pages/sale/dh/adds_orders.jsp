@@ -91,7 +91,7 @@
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户单号</li>
                 <li><input type="text" class="input-text" name="bSOrderMOrderNo" id="bSOrderMOrderNo" ></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售性质</li>
-                <li><select class="input-text" name="bSOrderMSalesTypeNo" id="bSOrderMSalesTypeNoo" >
+                <li><select class="input-text" name="bSOrderMSalesTypeNo" id="bSOrderMSalesTypeNo" >
                     <option value="" ></option>
                     <c:forEach items="${SalesProperties}" var="SalesProperties">
                         <option value="${SalesProperties.salesPropertiesSalesTypeNo}">${SalesProperties.salesPropertiesSalesPropertiesName}</option>
@@ -150,8 +150,8 @@
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订货日期</li>
                 <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bSOrderMOrdDate" name="bSOrderMOrdDate" required ></li>
             </ul>
-            <%-- <input type="hidden" id="bSOrderMIsPass" name="bSOrderMIsPass" value="0" >
-             <input type="hidden" id="bSOrderMState" name="bSOrderMState" value="1">--%>
+             <input type="hidden" id="bSOrderMIsPass" name="bSOrderMIsPass" value="0" >
+             <input type="hidden" id="bSOrderMState" name="bSOrderMState" value="1">
             <center>
                 <div style="margin:0 auto;">
                     <br><br><input class="btn btn-primary upload-btn" type="submit" name="submit" value="确定添加并添加明细">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

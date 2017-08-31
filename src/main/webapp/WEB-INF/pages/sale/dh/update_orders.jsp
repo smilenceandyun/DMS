@@ -58,7 +58,7 @@
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel1()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>--%>
     <%--&lt;%&ndash;<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>&ndash;%&gt;--%>
     <%--<div class="mt-20">--%>
-    <form:form action="/updateMSa" method="post" commondName="p">
+    <form:form action="/updateMSa" method="post" role="form">
 
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订货单号</li>
@@ -138,22 +138,21 @@
 
             </li>
             <li></li>  <li></li>                   <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单日期</li>
-            <li style="float: left;width: 345px;"><input type="data" class="input-text" id="bSOrderMCreateDate" name="bSOrderMCreateDate" readonly="readonly" value="${bSOrderM.bSOrderMCreateDate}"></li>
-
+            <li style="float: left;width: 345px;"><input type="text" class="input-text" id="bSOrderMCreateDate" name="bSOrderMCreateDate" readonly="readonly" value="${bSOrderM.bSOrderMCreateDate}"></li>
         </ul><br>
 
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
             <li style="float: left;width: 345px;"><input type="text" class="input-text" id="bSOrderMNotes" name="bSOrderMNotes" value="${bSOrderM.bSOrderMNotes}"></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订货日期</li>
-            <li style="float: left;width: 345px;"><input type="data" class="input-text" id="bSOrderMOrdDate" name="bSOrderMOrdDate" readonly="readonly" value="${bSOrderM.bSOrderMOrdDate}" ></li>
+            <li style="float: left;width: 345px;"><input type="text" class="input-text" id="bSOrderMOrdDate" name="bSOrderMOrdDate" readonly="readonly" value="${bSOrderM.bSOrderMOrdDate}" ></li>
         </ul>
         <input type="hidden" id="bSOrderMIsPass" name="bSOrderMIsPass" value="0" >
         <input type="hidden" id="bSOrderMState" name="bSOrderMState" value="1">
         <center>
             <div style="margin:0 auto;">
                 <br><br><input class="btn btn-primary upload-btn" type="submit" name="submit" value="确定修改">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="/pur_order"  class="btn btn radius">取消</a>
+                <a href="/sale_order"  class="btn btn radius">取消</a>
             </div>
         </center>
     </form:form>

@@ -51,7 +51,9 @@
                     document.getElementById("d7").value = "";
                     document.getElementById("d8").value = "";
                     document.getElementById("d9").value = "";
-                    document.getElementById("d10").value = "";
+                    document.getElementById("j1").value = "";
+                    document.getElementById("j2").value = "";
+                    document.getElementById("sl").value = "";
 
                     break;
                 <c:forEach items="${TGoods}" var="TGoods">
@@ -65,7 +67,9 @@
                     document.getElementById("d7").value = "${TGoods.tGoodsInTax}";
                     document.getElementById("d8").value = "${TGoods.tGoodsSPrice}";
                     document.getElementById("d9").value = "${TGoods.tGoodsPackQuantity}";
-                    document.getElementById("d10").value = "${TGoods.tGoodsSPrice}";
+                    document.getElementById("j1").value = "${TGoods.tGoodsInPrice}";
+                    document.getElementById("j2").value = "${TGoods.tGoodsInTaxprice}";
+                    document.getElementById("sl").value = "${TGoods.tGoodsPackQuantity}";
                     break;
                 </c:forEach>
             }
@@ -73,10 +77,10 @@
 
         function price(id) {
 
-            document.getElementById("s3").value =(document.getElementById("d8").value * document.getElementById("bSOrderSOrdQuantity").value)*(1+document.getElementById("d7").value);
-            document.getElementById("s2").value = (document.getElementById("d8").value * document.getElementById("bSOrderSOrdQuantity").value);
-            document.getElementById("s4").value = document.getElementById("bSOrderSOrdQuantity").value * document.getElementById("d10").value;
-            document.getElementById("s1").value =document.getElementById("bSOrderSOrdQuantity").value/4;
+            document.getElementById("s3").value =(document.getElementById("d8").value * document.getElementById("s1").value)*(1+document.getElementById("d7").value);
+            document.getElementById("s2").value = (document.getElementById("d8").value * document.getElementById("s1").value);
+            document.getElementById("s4").value = document.getElementById("s1").value * document.getElementById("j1").value;
+            document.getElementById("s1").value =document.getElementById("bSOrderSOrdBoxQuantity").value * document.getElementById("sl").value;
 
 
         }
@@ -117,7 +121,7 @@
 
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订货单号</li>
-            <li><input type="text" class="input-text" name="bSOrderSSOrderNo"  id="bSOrderSSOrderNo" readonly ="readonly"  value="${bSOrderNo}"></li>
+            <li><input type="text" class="input-text" name="bSOrderSSOrderNo"  id="bSOrderSSOrderNo" readonly ="readonly"  value="${orderS}"></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编码</li>
             <li>
                 <select id="good1" class="input-text"  onchange="goodsChange(this.value);" name="bSOrderSGoodsNo" required>
@@ -128,12 +132,12 @@
                 </select>
             </li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;促销性质</li>
-            <li><input type="text" class="input-text" id="bPurchaseOrdSPresentationProperty" name="bPurchaseOrdSPresentationProperty" ></li>
+            <li><input type="text" class="input-text" id="bPurchaseOrdSPresentationProperty"  ></li>
         </ul><br>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户编码</li>
             <li>
-                <select class="input-text" name="bPurchaseOrdSFactoryGoodsNo" id="bPurchaseOrdSFactoryGoodsNo" >
+                <select class="input-text" id="bPurchaseOrdSFactoryGoodsNo" >
                     <option value="" >选择客户编码</option>
                     <c:forEach items="${Client}" var="Client">
                         <option value="${Client.tClientClientNo}">${Client.tClientClientNo}(${Client.tClientClientName})</option>
@@ -147,20 +151,20 @@
         </ul><br>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品条码</li>
-            <li><input type="text" class="input-text"  id="d2"  name="tiaom" disabled></li>
+            <li><input type="text" class="input-text"  id="d2"   disabled></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库存</li>
-            <li><input type="text" class="input-text"  id="d3"  name="bSOrderSInventory"required></li>
+            <li><input type="text" class="input-text"  id="d3"  name="bSOrderSInventory" required></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位</li>
             <li><input type="text" class="input-text" name="bSOrderSUnit" id="d5" required></li>
 
         </ul><br>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
-            <li><input type="text" class="input-text"  id="d4"  name="name" required></li>
+            <li><input type="text" class="input-text"  id="d4"   ></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税率</li>
-            <li><input type="text" class="input-text" id="d7" name="bPurchaseOrdSTaxRate" ></li>
+            <li><input type="text" class="input-text" id="d7" ></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不含税单价</li>
-            <li><input type="text" class="input-text"  id="d8" name="BHSdanjia" ></li>
+            <li><input type="text" class="input-text"  id="d8" ></li>
         </ul><br>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓库</li>
@@ -174,22 +178,21 @@
                 </select>
             </li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;包装单价</li>
-            <li><input type="text" class="input-text" required id="d10" name="baozhuang"></li>
+            <li><input type="text" class="input-text"  id="j1"  ></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基本单价</li>
-            <li><input type="text" class="input-text" id="sddsf" name="bPPrice"  required></li>
+            <li><input type="text" class="input-text" id="j2" ></li>
 
         </ul><br>
-        <ul>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订货数量</li>
-            <li><input type="text" class="input-text" onchange="price(this.value);" id="bSOrderSOrdQuantity" name="bSOrderSOrdQuantity"  required></li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保质期/月</li>
+        <ul> <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订货箱数</li>
+            <li><input type="text" class="input-text" onchange="price(this.value);" id="bSOrderSOrdBoxQuantity" name=" bSOrderSOrdBoxQuantity" required></li>
+               <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保质期/月</li>
             <li><input type="text" class="input-text" required id="d6" name="bSOrderSExRequest" ></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实送金额</li>
             <li><input  type="text" class="input-text" id="bSOrderSRealPrice" name="bSOrderSRealPrice"   required></li>
         </ul><br>
         <ul>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订货箱数</li>
-            <li><input type="text" class="input-text"  id="s1" name=" bSOrderSOrdBoxQuantity" required></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订货数量</li>
+            <li><input type="text" class="input-text"  id="s1" name="bSOrderSOrdQuantity"  required></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实送箱数</li>
             <li><input type="text" class="input-text"  id="bSOrderSSalesBoxquantity" name="bSOrderSSalesBoxquantity" required></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实送数量</li>
@@ -197,19 +200,19 @@
         </ul><br>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售折扣</li>
-            <li><input type="text" class="input-text"  id="zhekou" name="ssssa " required></li>
+            <li><input type="text" class="input-text"  id="zhekou"  required></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;含税金额</li>
-            <li><input type="text" class="input-text"  id="s3" name=hsuijine" required></li>
+            <li><input type="text" class="input-text"  id="s3"  required></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未含税金额</li>
-            <li><input type="text" class="input-text" id="s2" name="weihansui"  required></li>
+            <li><input type="text" class="input-text" id="s2"  required></li>
         </ul><br>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对账日期</li>
-            <li><input type="date" class="input-text"  id=" bSOrderSInvoiceDate" name=" bSOrderSInvoiceDate" required></li>
+            <li><input type="date" class="input-text"  <%--id=" bSOrderSCheckAccountDate" name=" bSOrderSCheckAccountDate"--%> required></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;拿支票日期</li>
-            <li><input type="date" class="input-text"  id="bSOrderSTakeCheckDate" name="bSOrderSTakeCheckDate" required></li>
+            <li><input type="date" class="input-text"  <%--id="bSOrderSTakeCheckDate" name="bSOrderSTakeCheckDate"--%> required></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;开票日期</li>
-            <li><input type="date" class="input-text" id="bSOrderSInvoiceDate" name="bSOrderSInvoiceDate"  required></li>
+            <li><input type="date" class="input-text" <%--id="bSOrderSInvoiceDate" name="bSOrderSInvoiceDate"--%>  required></li>
         </ul><br>
         <ul>
 
@@ -219,7 +222,8 @@
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;明细ID</li>
             <li><input type="text" class="input-text" readonly="readonly" name="bSOrderSDetailId" value="${detailId}"></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
-            <li style="width: 220px"><input type="text" class="input-text" id="" name="bSOrderSInvoiceDate" ></li>
+            <li style="width: 220px"><input type="text" class="input-text" id="" name="" ></li>
+            <li><input type="hidden" class="input-text" id="sl"  name=""></li>
         </ul><br>
 
         <br>
@@ -240,48 +244,48 @@
         <br>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订货单号</li>
-            <li><input id="bSOrderMSOrderNo" name="bSOrderMSOrderNo" type="text" class="input-text"  value="${bSOrderM.bSOrderMSOrderNo}" readonly="readonly"></li>
+            <li><input id="bSOrderMSOrderNo" name="bSOrderMSOrderNo" type="text" class="input-text"  value="${bsOrderM.bSOrderMSOrderNo}" readonly="readonly"></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务员</li>
-            <li><input class="input-text" name="bSOrderMSalesman" type="text" id="bSOrderMSalesman" readonly="readonly" value="${bSOrderM.tStaffByBSOrderMSalesman.tStaffStaffName}" readonly="readonly"></li>
+            <li><input class="input-text" name="bSOrderMSalesman" type="text" id="bSOrderMSalesman" readonly="readonly" value="${bsOrderM.tStaffByBSOrderMSalesman.tStaffStaffName}" readonly="readonly"></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;预付款</li>
-            <li><input id="bSOrderMAdPaymoney" name="bSOrderMAdPaymoney" type="text" class="input-text" value="${bSOrderM.bSOrderMAdPaymoney}" readonly="readonly"></li>
+            <li><input id="bSOrderMAdPaymoney" name="bSOrderMAdPaymoney" type="text" class="input-text" value="${bsOrderM.bSOrderMAdPaymoney}" readonly="readonly"></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单人</li>
-            <li><input class="input-text" name="bSOrderMCreateNo" type="text"  id="bSOrderMCreateNo" value="${bSOrderM.tStaffByBSOrderMCreateNo.tStaffStaffName}" readonly="readonly"></li>
+            <li><input class="input-text" name="bSOrderMCreateNo" type="text"  id="bSOrderMCreateNo" value="${bsOrderM.tStaffByBSOrderMCreateNo.tStaffStaffName}" readonly="readonly"></li>
         </ul><br>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户单号</li>
-            <li><input type="text" class="input-text" name="bSOrderMOrderNo" id="bSOrderMOrderNo" value="${bSOrderM.bSOrderMOrderNo}" readonly="readonly"></li>
+            <li><input type="text" class="input-text" name="bSOrderMOrderNo" id="bSOrderMOrderNo" value="${bsOrderM.bSOrderMOrderNo}" readonly="readonly"></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售性质</li>
-            <li><input class="input-text" name="bSOrderMSalesTypeNo" id="bSOrderMSalesTypeNo" value="${bSOrderM.salesPropertiesByBSOrderMSalesTypeNo.salesPropertiesSalesPropertiesName}" readonly="readonly" type="text" ></li>
+            <li><input class="input-text" name="bSOrderMSalesTypeNo" id="bSOrderMSalesTypeNo" value="${bsOrderM.salesPropertiesByBSOrderMSalesTypeNo.salesPropertiesSalesPropertiesName}" readonly="readonly" type="text" ></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核人</li>
             <li><input type="text" class="input-text" id="bSOrderMChecker" name="bSOrderMChecker" disabled ></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售折扣</li>
-            <li><input type="text" class="input-text" name="bSOrderMSalesDiscount" id="bSOrderMSalesDiscount" value="${bSOrderM.bSOrderMSalesDiscount}" readonly="readonly"></li>
+            <li><input type="text" class="input-text" name="bSOrderMSalesDiscount" id="bSOrderMSalesDiscount" value="${bsOrderM.bSOrderMSalesDiscount}" readonly="readonly"></li>
 
 
         </ul><br>
         <ul>
 
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户名称</li>
-            <li><input class="input-text" name="bSOrderMClientNo" id="bSOrderMClientNo"  value="${bSOrderM.tClientByBSOrderMClientNo.tClientClientName}" readonly="readonly" type="text"></li>
+            <li><input class="input-text" name="bSOrderMClientNo" id="bSOrderMClientNo"  value="${bsOrderM.tClientByBSOrderMClientNo.tClientClientName}" readonly="readonly" type="text"></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结算方式</li>
             <li><input class="input-text" name="bPurchaseOrdSPaymentNo" id="bPurchaseOrdSPaymentNo"  readonly="readonly" type="text"></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;送货日期</li>
-            <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bSOrderMSendDate" name="bSOrderMSendDate"   value="${bSOrderM.bSOrderMSendDate}" readonly="readonly" ></li>
+            <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bSOrderMSendDate" name="bSOrderMSendDate"   value="${bsOrderM.bSOrderMSendDate}" readonly="readonly" ></li>
         </ul><br>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;地址</li>
-            <li><input style="float: left;width: 345px;" class="input-text" name="bSOrderMClientAddress"  id="bSOrderMClientAddress"  value="${bSOrderM.bSOrderMClientAddress}"  readonly="readonly" type="text"></li>
+            <li><input style="float: left;width: 345px;" class="input-text" name="bSOrderMClientAddress"  id="bSOrderMClientAddress"  value="${bsOrderM.bSOrderMClientAddress}"  readonly="readonly" type="text"></li>
             <li></li>  <li></li>                   <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单日期</li>
-            <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bSOrderMCreateDate" name="bSOrderMCreateDate" readonly="readonly" value="${bSOrderM.bSOrderMCreateDate}"></li>
+            <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bSOrderMCreateDate" name="bSOrderMCreateDate" readonly="readonly" value="${bsOrderM.bSOrderMCreateDate}"></li>
 
         </ul><br>
 
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
-            <li style="float: left;width: 345px;"><input type="text" class="input-text" id="bSOrderMNotes" name="bSOrderMNotes" value="${bSOrderM.bSOrderMNotes}" readonly="readonly"></li>
+            <li style="float: left;width: 345px;"><input type="text" class="input-text" id="bSOrderMNotes" name="bSOrderMNotes" value="${bsOrderM.bSOrderMNotes}" readonly="readonly"></li>
             <li></li> <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订货日期</li>
-            <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bSOrderMOrdDate" name="bSOrderMOrdDate" readonly="readonly" value="${bSOrderM.bSOrderMOrdDate}" ></li>
+            <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bSOrderMOrdDate" name="bSOrderMOrdDate" readonly="readonly" value="${bsOrderM.bSOrderMOrdDate}" ></li>
         </ul>
     </div>
 </div>

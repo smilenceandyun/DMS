@@ -14,14 +14,12 @@ package com.dms.repository.sale;
 
 @Repository
 public interface BSOrderSRepository  extends JpaRepository<BSOrderSEntity, String> {
-
-    //======================================================================================================
     @Transactional(timeout = 10)
     @Query("select bSOrderS from BSOrderSEntity bSOrderS where bSOrderS.bSOrderSSOrderNo = ?1")
-    List<BSOrderSEntity> findBybSOrderS(String bSOrderSSOrderNo);
 
+    List<BSOrderSEntity> findBSOrderSEntitiesByBSOrderSSOrderNoEquals(String id);
     //-----------通过销售订货单号（BSOrderSSOrderNo）和明细ID（BSOrderSDetailId）查询 BSOrderSEntity里的一条内容--------------
-    BSOrderSEntity findBSOrderSEntitiesByBSOrderSSOrderNoAndBSOrderSDetailIdEquals(String BSOrderSSOrderNo,int detailid);
+    BSOrderSEntity findBSOrderSEntitiesByBSOrderSSOrderNoAndBSOrderSDetailIdEquals(String BSOrderSSOrderNo,Integer detailid);
 
     //-----------通过销售订货单号（BSOrderSSOrderNo）和明细ID（BSOrderSDetailId）删除 BSOrderSEntity里的一条内容--------------
     @Transactional
@@ -35,7 +33,7 @@ public interface BSOrderSRepository  extends JpaRepository<BSOrderSEntity, Strin
     @Transactional
     @Modifying
     @Query("delete from BSOrderSEntity where bSOrderSSOrderNo in (:bSOrderMSOrderNo)")
-    public void deleteALLBybSOrderMSOrderNoEquals(@Param("bSOrderMSOrderNo") String bSOrderMSOrderNo );
+    public void deleteAllBSOrderSEntity(@Param("bSOrderMSOrderNo") String bSOrderMSOrderNo );
 
     //找到该所有明细的最大DetailID
     @Transactional

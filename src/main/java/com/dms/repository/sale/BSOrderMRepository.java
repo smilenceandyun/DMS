@@ -15,4 +15,5 @@ import java.sql.Timestamp;
 @Repository
 public interface BSOrderMRepository  extends JpaRepository<BSOrderMEntity, String> {
 
+    BSOrderMEntity findBSOrderMEntityByBSOrderMSOrderNoEquals(String id);
 }
