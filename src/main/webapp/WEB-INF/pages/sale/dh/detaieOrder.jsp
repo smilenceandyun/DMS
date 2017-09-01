@@ -178,9 +178,7 @@
                     document.getElementById("d7").value = "";
                     document.getElementById("d8").value = "";
                     document.getElementById("d9").value = "";
-                    document.getElementById("j1").value = "";
-                    document.getElementById("j2").value = "";
-                    document.getElementById("sl").value = "";
+                    document.getElementById("d10").value = "";
 
                     break;
                 <c:forEach items="${TGoods}" var="TGoods">
@@ -193,21 +191,19 @@
                     document.getElementById("d6").value = "${TGoods.tGoodsExDay/30}";
                     document.getElementById("d7").value = "${TGoods.tGoodsInTax}";
                     document.getElementById("d8").value = "${TGoods.tGoodsSPrice}";
-                    document.getElementById("d9").value = "${TGoods.tGoodsPackQuantity}";
-                    document.getElementById("j1").value = "${TGoods.tGoodsInPrice}";
-                    document.getElementById("j2").value = "${TGoods.tGoodsInTaxprice}";
-                    document.getElementById("sl").value = "${TGoods.tGoodsPackQuantity}";
+                    document.getElementById("d9").value = "${TGoods.tGoodsInPrice}";
+                    document.getElementById("d10").value = "${TGoods.tGoodsInTaxprice}";
                     break;
                 </c:forEach>
             }
         }
 
         function price(id) {
-
-            document.getElementById("s3").value =(document.getElementById("d8").value * document.getElementById("s1").value)*(1+document.getElementById("d7").value);
+            document.getElementById("s1").value =document.getElementById("bSOrderSOrdBoxQuantity").value * document.getElementById("d3").value;
             document.getElementById("s2").value = (document.getElementById("d8").value * document.getElementById("s1").value);
-            document.getElementById("s4").value = document.getElementById("s1").value * document.getElementById("j1").value;
-            document.getElementById("s1").value =document.getElementById("bSOrderSOrdBoxQuantity").value * document.getElementById("sl").value;
+            document.getElementById("s3").value =(document.getElementById("d8").value * document.getElementById("s1").value)*(1+document.getElementById("d7").value);
+            document.getElementById("s4").value = document.getElementById("s1").value * document.getElementById("d9").value;
+
 
 
         }
@@ -300,7 +296,7 @@
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品条码</li>
                 <li><input type="text" class="input-text"  id="d2"   disabled></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库存</li>
-                <li><input type="text" class="input-text"  id="d3"  name="bSOrderSInventory" required></li>
+                <li><input type="text" class="input-text"  id="bSOrderSInventory"  name="bSOrderSInventory" required></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位</li>
                 <li><input type="text" class="input-text" name="bSOrderSUnit" id="d5" required></li>
 
@@ -325,9 +321,9 @@
                     </select>
                 </li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;包装单价</li>
-                <li><input type="text" class="input-text"  id="j1"  ></li>
+                <li><input type="text" class="input-text"  id="d9"  ></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基本单价</li>
-                <li><input type="text" class="input-text" id="j2" ></li>
+                <li><input type="text" class="input-text" id="d10" ></li>
 
             </ul><br>
             <ul> <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订货箱数</li>
@@ -370,7 +366,7 @@
                 <li><input type="text" class="input-text" readonly="readonly" name="bSOrderSDetailId" value="${detailId}"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
                 <li style="width: 220px"><input type="text" class="input-text" id="" name="" ></li>
-                <li><input type="hidden" class="input-text" id="sl"  ></li>
+                <li><input type="hidden" class="input-text" id="d3"  ></li>
             </ul><br>
 
             <br>
