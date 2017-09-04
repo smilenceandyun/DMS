@@ -230,7 +230,7 @@ public class DhController {
         return "redirect:/sale_order";
     }
     // 更新销售订货 信息操作
-    // 更新用户信息 操作
+    // 更新用户信息  操作
     @RequestMapping(value = "/updateMSa", method = RequestMethod.POST)
     public String updateOrder(BSOrderMEntity bsOrderMEntity) {
         BSOrderMEntity c = bsOrderMRepository.findOne(bsOrderMEntity.getbSOrderMSOrderNo());

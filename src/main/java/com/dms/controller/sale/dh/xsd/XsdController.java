@@ -137,7 +137,7 @@ public class XsdController {
     }*/
 
 
-    // 更新明细信息 页面
+    // 更新明细信息 页面吖
     @RequestMapping(value = "/sale_xs/detaileOrder/update/{detailID}&{id}", method = RequestMethod.GET)
     public String updateBSOrdSEntity(@PathVariable("detailID") Integer detailID,@PathVariable("id") String id, ModelMap modelMap) {
 

@@ -53,7 +53,7 @@
             }
         }
 
-        //查询订单，使用post时，参数必须一一对应，才可以匹配到controller中
+        //查询订单，使用post时，参数必须一一对应，才可以匹配到 controller中
         function purSearch(){
 //                 var search =$("input[id='search']").val();
             var search=$("#search").val();

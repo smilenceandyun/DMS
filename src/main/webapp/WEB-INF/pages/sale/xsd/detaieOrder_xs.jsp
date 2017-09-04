@@ -449,7 +449,7 @@
             </select>
         </li>
 
-        <li></li><li></li> <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售日期</li>
+        <li></li><li></li>  <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售日期</li>
         <li style="float: left;width: 320px;"><input type="date" class="input-text" id="bSOrderMSendDate" name="bSOrderMSendDate" required></li>
     </ul><br>
     <ul>
@@ -470,7 +470,7 @@
         <li style="float: left;width: 390px;"><input type="text" class="input-text" id="bSOrderMNotes" name="bSOrderMNotes" ></li>
     </ul><br>
  </div>
-      <%--  <c:if test="${!empty bSOrderS}">--%>
+      <%--  <c:if test="${!empty bSOrderS}" >--%>
             <%--//======================================================================================================================================================--%>
             <table class="table table-border table-bordered table-bg table-sort">
                 <br>
