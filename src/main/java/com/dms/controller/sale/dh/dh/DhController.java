@@ -1,4 +1,4 @@
-package com.dms.controller.sale.dh;
+package com.dms.controller.sale.dh.dh;
 
 import com.dms.model.*;
 import com.dms.repository.*;
