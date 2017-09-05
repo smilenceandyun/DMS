@@ -59,16 +59,16 @@
     li{width:130px; height:20px; float:left;}
 </style>
 <body >
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 销售管理 <span class="c-gray en">&gt;</span> 销售订货 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 销售管理 <span class="c-gray en">&gt;</span> 销售单 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
     <div class="mt-20">
-        <form:form name="dh" id="dh" action="/sale_order/addP" method="post"  commondName="p" role="form">
+        <form:form name="dh" id="dh" action="/sale_xs/addP" method="post"  commondName="p" role="form">
             <ul>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订货单号</li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售单号</li>
                 <li><input id="bSOrderMSOrderNo" name="bSOrderMSOrderNo" type="text" class="input-text"  value="${UUID}" readonly="readonly" required></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务员</li>
                 <li>
-                    <select class="input-text" name="bSOrderMSalesman"  id="bSOrderMSalesman" required>
+                    <select class="input-text" name="bSOrderMSalesman"  id="bSOrderMSalesman" >
                         <option value="" >选择业务员</option>
                         <c:forEach items="${Staff}" var="Staff">
                             <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
@@ -79,7 +79,7 @@
                 <li><input id="bSOrderMAdPaymoney" name="bSOrderMAdPaymoney" type="text" class="input-text" required ></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单人</li>
                 <li>
-                    <select class="input-text" name="bSOrderMCreateNo"  id="bSOrderMCreateNo" required>
+                    <select class="input-text" name="bSOrderMCreateNo"  id="bSOrderMCreateNo" >
                         <option value="" >选择制单人</option>
                         <c:forEach items="${Staff}" var="Staff">
                             <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
@@ -88,47 +88,38 @@
                 </li>
             </ul><br>
             <ul>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户单号</li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订货单号</li>
                 <li><input type="text" class="input-text" name="bSOrderMOrderNo" id="bSOrderMOrderNo" ></li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售性质</li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户编码</li>
                 <li><select class="input-text" name="bSOrderMSalesTypeNo" id="bSOrderMSalesTypeNo" >
-                    <option value="" ></option>
+                    <option value="" >选择客户编码</option>
                     <c:forEach items="${SalesProperties}" var="SalesProperties">
                         <option value="${SalesProperties.salesPropertiesSalesTypeNo}">${SalesProperties.salesPropertiesSalesPropertiesName}</option>
                     </c:forEach>
                 </select></li>
 
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核人</li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;送货单号</li>
                 <li><input type="text" class="input-text" id="bSOrderMChecker" name="bSOrderMChecker" disabled ></li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售折扣</li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售金额</li>
                 <li><input type="text" class="input-text" name="bSOrderMSalesDiscount" id="bSOrderMSalesDiscount" ></li>
             </ul><br>
             <ul>
 
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户名称</li>
-                <li>
-                    <select class="input-text" name="bSOrderMClientNo" id="bSOrderMClientNo" >
-                        <option value="" >选择客户</option>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家名称</li>
+                <li >
+                    <select style="float: left;width: 345px;" class="input-text" name="bSOrderMClientNo" id="bSOrderMClientNo" >
+                        <option value="" >选择厂家</option>
                         <c:forEach items="${Client}" var="Client">
                             <option value="${Client.tClientClientNo}">${Client.tClientClientName}</option>
                         </c:forEach>
                     </select>
                 </li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结算方式</li>
-                <li>
-                    <select class="input-text" name="bPurchaseOrdSPaymentNo" id="bPurchaseOrdSPaymentNo" >
-                        <option value="" >选择结算方式</option>
-                        <c:forEach items="${Payment}" var="Payment">
-                            <option value="${Payment.tPaymentPaymentNo}">${Payment.tPaymentPaymentName}</option>
-                        </c:forEach>
 
-                    </select>
-                </li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;送货日期</li>
-                <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bSOrderMSendDate" name="bSOrderMSendDate" required></li>
+                <li></li><li></li>  <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售日期</li>
+                <li style="float: left;width: 320px;"><input type="date" class="input-text" id="bSOrderMSendDate" name="bSOrderMSendDate" required></li>
             </ul><br>
             <ul>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;地址</li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;送货地址</li>
                 <li>
                     <select style="float: left;width: 390px;" class="input-text" name="bSOrderMClientAddress"  id="bSOrderMClientAddress">
                         <option value="" >选择地址</option>
@@ -136,24 +127,20 @@
                             <option value="${Client.tClientClientAddress}">${Client.tClientClientAddress}</option>
                         </c:forEach>
                     </select>
-
                 </li>
 
-                <li></li>  <li></li>                   <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单日期</li>
-                <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bSOrderMCreateDate" name="bSOrderMCreateDate" required></li>
             </ul><br>
+
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
                 <li style="float: left;width: 390px;"><input type="text" class="input-text" id="bSOrderMNotes" name="bSOrderMNotes" ></li>
-                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订货日期</li>
-                <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bSOrderMOrdDate" name="bSOrderMOrdDate" required ></li>
-            </ul>
+            </ul><br>
              <input type="hidden" id="bSOrderMIsPass" name="bSOrderMIsPass" value="0" >
              <input type="hidden" id="bSOrderMState" name="bSOrderMState" value="1">
             <center>
                 <div style="margin:0 auto;">
                     <br><br><input class="btn btn-primary upload-btn" type="submit" name="submit" value="确定添加并添加明细">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="/sale_order"  class="btn btn radius">取消</a>
+                    <a href="/sale_xs"  class="btn btn radius">取消</a>
                 </div>
             </center>
 
@@ -165,7 +152,7 @@
 <script type="text/javascript" src="../../../statics/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="../../../statics/lib/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="../../../statics/jss/H-ui.min.js"></script>
-<script type="text/javascript" src="../../../statics/jss/admin/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../../../statics/jss/admin/H-ui.admin.js"></script> <!--/_footer  作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="../../../statics/lib/My97DatePicker/4.8/WdatePicker.js"></script>

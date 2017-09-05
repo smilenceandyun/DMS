@@ -15,19 +15,11 @@
 <head>
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-    <script src="../../../statics/jss/ansel_select/ansel_select.js"></script>
+    <script src="../../statics/select/ansel_select.js"></script>
 </head>
 <body class="">
 <div class="main">
     1、指定选中数据
-    <div class="demo">
-    <select class="select" name="bPurchaseOrdSFactoryGoodsNo" id="bPurchaseOrdSFactoryGoodsNo"  required>
-        <option value="" >选择厂家编号</option>
-        <c:forEach items="${TFactorys}" var="TFactorys">
-            <option value="${TFactorys.tFactorysFactoryGoodsNo}">${TFactorys.tFactorysFactoryGoodsNo}(${TFactorys.tFactorysFactoryGoodsName})</option>
-        </c:forEach>
-    </select>
-    </div>
     <div class="demo">
         <select class="select" id="aaaa" >
             <option value="">选择数据1</option>

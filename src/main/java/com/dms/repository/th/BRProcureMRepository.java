@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BRProcureMRepository extends JpaRepository<BRProcureMEntity, String> {
 
+    BRProcureMEntity findBRProcureMEntityByBRProcureMRProcureNoEquals(String id);
+
 }
