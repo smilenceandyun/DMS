@@ -82,6 +82,17 @@
                 </c:forEach>
             }
         }
+
+        function hidehead() {
+            $("#head").hide(300);
+            document.getElementById("head_btn").innerHTML = "显示入库单据头";
+            document.getElementById("head_btn").onclick = showhead;
+        }
+        function showhead() {
+            $("#head").show(300);
+            document.getElementById("head_btn").innerHTML = "隐藏入库单据头"
+            document.getElementById("head_btn").onclick = hidehead;
+        }
     </script>
 
     <title>采购入库明细</title>
@@ -92,52 +103,14 @@
     }
 </style>
 <style type="text/css">
-    div{ height:50px;}
     ul{width:900px; height:20px; size: 20px;}
     li{width:130px; height:20px; float:left;}
 </style>
-<body onload="goodsChange(document.getElementById('good1').value)">
+<body onload="goodsChange(document.getElementById('good1').value); hidehead();">
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 采购管理 <span class="c-gray en">&gt;</span> 采购入库明细 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
     <form action="/procure/addDetaildb" method="post">
         <c:if test="${spur.bProcureSDetailId != null}"><input type="hidden" name="bProcureSDetailId" value="${spur.bProcureSDetailId}"></c:if>
-    <%--单据头--%>
-    <ul>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;入库单号</li>
-        <li><input readonly type="text" class="input-text" name="bProcureSProcureNo"  value="${procure.bProcureMProcureNo}" required>
-        </li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家订单号</li>
-        <li><input readonly type="text" class="input-text" value="${procure.bProcureMOrdProcureNo}" required>
-        </li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家代表</li>
-        <li><input readonly id="factory" style="width: 200px;" type="text" class="input-text" value="${procure.bPurchaseOrdMByBProcureMOrdProcureNo.bPurchaseOrdMFactoryGoodsNo}" name="" required></li>
-    </ul><br>
-    <ul>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手工单号</li>
-        <li><input readonly type="text" class="input-text"  value="${procure.bProcureMHandbillNo}" required></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;供货商编号</li>
-        <li><input readonly id="factory1" type="text" class="input-text" value="${procure.bPurchaseOrdMByBProcureMOrdProcureNo.bPurchaseOrdMFactoryGoodsNo}" name="" required></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交货日期</li>
-        <li><input readonly id="deildate" style="width: 200px;" type="date" value="${procure.bPurchaseOrdMByBProcureMOrdProcureNo.bPurchaseOrdMDeliveryDate}" class="input-text" name="" required></li>
-    </ul><br>
-    <ul>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单货号</li>
-        <li><input readonly type="text" class="input-text" name="" value="${procure.bPurchaseOrdMByBProcureMOrdProcureNo.bPurchaseOrdMOrdProcureNo}" required></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓管员</li>
-        <li><input readonly type="text" class="input-text" name="" value="${procure.bProcureMWarehouseKep}(${procure.tStaffByBProcureMWarehouseKep.tStaffStaffName})" required>
-        </li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建日期</li>
-        <li><input readonly style="width: 200px;" required type="text" value="${procure.bProcureMCreateDate.toString()}" class="input-text" name=""></li>
-    </ul><br>
-    <ul>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;供货商名称</li>
-        <li><input readonly style="width: 720px;" required type="text" class="input-text" value="${procure.bPurchaseOrdMByBProcureMOrdProcureNo.tFactorysByBPurchaseOrdMFactoryGoodsNo.tFactorysFactoryGoodsName}" name=""></li>
-    </ul><br>
-    <ul>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;附注</li>
-        <li><input readonly style="width: 720px;" required type="text" class="input-text" value="${procure.bProcureMNotes}" name=""></li>
-    </ul>
-    <br><hr><br>
     <%--明细--%>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单货号</li>
@@ -202,7 +175,51 @@
             </select>
         </li>
     </ul>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><button type="submit" onclick="" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 确认</button></span>&nbsp;&nbsp; <span class="l" style="margin-left: 10px"></div>
+        <center style="width: 900px;">
+    <div class="cl pd-5 mt-20"> <span><button type="submit"  class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 确认修改</button></span>&nbsp;&nbsp;<span ><a type="reset" href="/procure/detail/${procure.bProcureMProcureNo}" class="btn btn radius"> 取消</a></span></div>
+        </center>
+        <%--按钮--%>
+        <div class="cl pd-5 bg-1 bk-gray mt-20" style="margin-bottom: 20px;"><span><button type="button" id="head_btn" onclick="showhead()" class="btn btn-primary upload-btn">显示入库单据头</button></span></div>
+
+        <div id="head" style="margin-top: 10px;">
+            <%--单据头--%>
+            <ul>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;入库单号</li>
+                <li><input readonly type="text" class="input-text" name="bProcureSProcureNo"  value="${procure.bProcureMProcureNo}" required>
+                </li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家订单号</li>
+                <li><input readonly type="text" class="input-text" value="${procure.bProcureMOrdProcureNo}" required>
+                </li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家代表</li>
+                <li><input readonly id="factory" style="width: 200px;" type="text" class="input-text" value="${procure.bPurchaseOrdMByBProcureMOrdProcureNo.bPurchaseOrdMFactoryGoodsNo}" name="" required></li>
+            </ul><br>
+            <ul>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手工单号</li>
+                <li><input readonly type="text" class="input-text"  value="${procure.bProcureMHandbillNo}" required></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;供货商编号</li>
+                <li><input readonly id="factory1" type="text" class="input-text" value="${procure.bPurchaseOrdMByBProcureMOrdProcureNo.bPurchaseOrdMFactoryGoodsNo}" name="" required></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交货日期</li>
+                <li><input readonly id="deildate" style="width: 200px;" type="text" value="${procure.bPurchaseOrdMByBProcureMOrdProcureNo.bPurchaseOrdMDeliveryDate}" class="input-text" name="" required></li>
+            </ul><br>
+            <ul>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单货号</li>
+                <li><input readonly type="text" class="input-text" name="" value="${procure.bPurchaseOrdMByBProcureMOrdProcureNo.bPurchaseOrdMOrdProcureNo}" required></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓管员</li>
+                <li><input readonly type="text" class="input-text" name="" value="${procure.bProcureMWarehouseKep}(${procure.tStaffByBProcureMWarehouseKep.tStaffStaffName})" required>
+                </li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建日期</li>
+                <li><input readonly style="width: 200px;" required type="text" value="${procure.bProcureMCreateDate.toString()}" class="input-text" name=""></li>
+            </ul><br>
+            <ul>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;供货商名称</li>
+                <li><input readonly style="width: 720px;" required type="text" class="input-text" value="${procure.bPurchaseOrdMByBProcureMOrdProcureNo.tFactorysByBPurchaseOrdMFactoryGoodsNo.tFactorysFactoryGoodsName}" name=""></li>
+            </ul><br>
+            <ul>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;附注</li>
+                <li><input readonly style="width: 720px;" required type="text" class="input-text" value="${procure.bProcureMNotes}" name=""></li>
+            </ul>
+            <br><br>
+        </div>
         </form>
 </div>
 <!--_footer 作为公共模版分离出去-->

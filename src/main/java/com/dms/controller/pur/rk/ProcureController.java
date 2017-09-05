@@ -8,6 +8,7 @@ import com.dms.repository.TRoomRepository;
 import com.dms.repository.TStaffRepository;
 import com.dms.repository.rk.BProcureMRepository;
 import com.dms.repository.rk.BProcureSRepository;
+import com.dms.service.informationbase.*;
 import com.dms.service.serviceImpl.GetOrderNumber;
 import com.google.gson.Gson;
 import org.springframework.aop.AopInvocationException;
@@ -53,6 +54,24 @@ public class ProcureController {
         getNo = new GetOrderNumber("R");
     }
 
+
+    @Autowired
+    private TStaffCacheService tStaffCacheService;
+    @Autowired
+    private TClientCacheService tClientCacheService;
+    @Autowired
+    private TPaymentCacheService tPaymentCacheService;
+    @Autowired
+    private TRoomCacheService tRoomCacheService;
+    @Autowired
+    private TFactorysCacheService tFactorysCacheService;
+    @Autowired
+    private TGoodsCacheService tGoodsCacheService;
+    @Autowired
+    private TOrgCacheService tOrgCacheService;
+    @Autowired
+    private StoreLocationCacheService storeLocationCacheService;
+
     //采购入库所有订单查询
     @RequestMapping(value = "procure")
     public  String index(ModelMap map)
@@ -69,12 +88,27 @@ public class ProcureController {
     @RequestMapping(value = "procure/detail/{id}")
     public  String detail(@PathVariable("id") String id, ModelMap map)
     {
+
          List<BProcureSEntity> procures = sRepository.findByBProcureSProcureNoEquals(id);
 
          map.addAttribute("procures",procures);
 
          BProcureMEntity mEntity = mRepository.findOne(id);
          map.addAttribute("mpur",mEntity);
+
+        //获取采购单信息
+        BProcureMEntity procure = mRepository.findOne(id);
+        map.addAttribute("procure",procure);
+
+        //获取商品资料
+        List<TGoodsEntity> goods = tGoodsCacheService.findAll(tGoodsRepository);
+        map.addAttribute("goods",goods);
+
+        //获取所有仓库及库位信息
+        List<TRoomEntity> roomes = tRoomCacheService.findAll(tRoomRepository);
+        List<StoreLocationEntity> stores = storeLocationCacheService.findAll(storeLocationRepository);
+        map.addAttribute("rooms",roomes);
+        map.addAttribute("stores",stores);
 
          return "rk/detail";
     }
@@ -108,7 +142,7 @@ public class ProcureController {
         String no = getNo.getOrderNo();
         map.addAttribute("no",no);
         //获取员工
-        List<TStaffEntity> staff = tStaffRepository.findAll();
+        List<TStaffEntity> staff = tStaffCacheService.findAll(tStaffRepository);
         map.addAttribute("staff",staff);
         //获取所有订单
         List<BPurchaseOrdMEntity> purchaseOrdMEntityList = mOrdRepository.findAll();
@@ -175,12 +209,12 @@ public class ProcureController {
         map.addAttribute("procure",procure);
 
         //获取商品资料
-        List<TGoodsEntity> goods = tGoodsRepository.findAll();
+        List<TGoodsEntity> goods = tGoodsCacheService.findAll(tGoodsRepository);
         map.addAttribute("goods",goods);
 
         //获取所有仓库及库位信息
-        List<TRoomEntity> roomes = tRoomRepository.findAll();
-        List<StoreLocationEntity> stores = storeLocationRepository.findAll();
+        List<TRoomEntity> roomes = tRoomCacheService.findAll(tRoomRepository);
+        List<StoreLocationEntity> stores = storeLocationCacheService.findAll(storeLocationRepository);
         map.addAttribute("rooms",roomes);
         map.addAttribute("stores",stores);
 
@@ -197,12 +231,12 @@ public class ProcureController {
         map.addAttribute("procure",procure);
 
         //获取商品资料
-        List<TGoodsEntity> goods = tGoodsRepository.findAll();
+        List<TGoodsEntity> goods = tGoodsCacheService.findAll(tGoodsRepository);
         map.addAttribute("goods",goods);
 
         //获取所有仓库及库位信息
-        List<TRoomEntity> roomes = tRoomRepository.findAll();
-        List<StoreLocationEntity> stores = storeLocationRepository.findAll();
+        List<TRoomEntity> roomes = tRoomCacheService.findAll(tRoomRepository);
+        List<StoreLocationEntity> stores = storeLocationCacheService.findAll(storeLocationRepository);
         map.addAttribute("rooms",roomes);
         map.addAttribute("stores",stores);
 
@@ -275,7 +309,7 @@ public class ProcureController {
     {
 
         //获取员工
-        List<TStaffEntity> staff = tStaffRepository.findAll();
+        List<TStaffEntity> staff = tStaffCacheService.findAll(tStaffRepository);
         map.addAttribute("staff",staff);
         //获取所有订单
         List<BPurchaseOrdMEntity> purchaseOrdMEntityList = mOrdRepository.findAll();

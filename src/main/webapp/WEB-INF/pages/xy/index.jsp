@@ -126,7 +126,7 @@
                 <td >整单结算</td>
                 <td >${item.tStaffByPromotionMSalesman.tStaffStaffName}</td>
                 <td >${item.tStaffByPromotionMCreateNo.tStaffStaffName}</td>
-                <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick='window.location.href="/promotion/update/${item.promotionMPromotionNo}";' title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" href="/promotion/detele/${item.promotionMPromotionNo}" onclick="if(!confirm('确定删除？')) return false;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                <td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick='window.location.href="/promotion/update/${item.promotionMPromotionNo}";' title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" href="/promotion/delete/${item.promotionMPromotionNo}" onclick="if(!confirm('确定删除？')) return false;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
             </tr>
             </c:forEach>
             </tbody>
