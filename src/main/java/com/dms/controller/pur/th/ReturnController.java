@@ -4,9 +4,12 @@ import com.dms.model.*;
 import com.dms.repository.*;
 import com.dms.repository.dd.BPurchaseOrdMRepository;
 import com.dms.repository.dd.BPurchaseOrdSRepository;
+import com.dms.repository.rk.BProcureMRepository;
 import com.dms.repository.th.BRProcureMRepository;
 import com.dms.repository.th.BRProcureSRepository;
+import com.dms.service.informationbase.*;
 import com.dms.service.serviceImpl.GetOrderNumber;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -70,6 +73,24 @@ public class ReturnController {
 
     //==================================================================================================================
 
+    @Autowired
+    private TStaffCacheService tStaffCacheService;
+    @Autowired
+    private TClientCacheService tClientCacheService;
+    @Autowired
+    private TPaymentCacheService tPaymentCacheService;
+    @Autowired
+    private TRoomCacheService tRoomCacheService;
+    @Autowired
+    private TFactorysCacheService tFactorysCacheService;
+    @Autowired
+    private TGoodsCacheService tGoodsCacheService;
+    @Autowired
+    private TOrgCacheService tOrgCacheService;
+    @Autowired
+    private StoreLocationCacheService storeLocationCacheService;
+
+
     @RequestMapping(value = "/BRProM_order", method = RequestMethod.GET)
     public String showAllBRPorM(ModelMap modelMap) {
         // 查询 BRProcureMEntity 表中所有记录
@@ -88,8 +109,8 @@ public class ReturnController {
     @RequestMapping(value = "/addR", method = RequestMethod.GET)
     public String addBRProcureM(ModelMap modelMap){
 
-        List<TStaffEntity> Staff = tStaffRepository.findAll();//获取员工信息
-        List<TFactorysEntity> Factorys = tFactorysRepository.findAll();//获取厂家信息
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);
+        List<TFactorysEntity> Factorys = tFactorysCacheService.findAll(tFactorysRepository);//获取厂家信息
         List<BPurchaseOrdMEntity> bPurchaseOrdMEntities = bPurchaseOrdMRepository.findAll();
         String UUID = t.getOrderNo();//获取UUID
 
@@ -139,7 +160,7 @@ public class ReturnController {
         }
 
         // 数据库中添加一个采购退货单，并立即刷新缓存
-       brProcureMRepository.saveAndFlush(brProcureMEntity);
+        brProcureMRepository.saveAndFlush(brProcureMEntity);
 
         // 重定向到用户管理页面，方法为 redirect:url
         return "redirect:/BRProM_order";
@@ -154,8 +175,8 @@ public class ReturnController {
         // 找到相应采购退货单
         BRProcureMEntity brProcureMEntity = brProcureMRepository.findOne(bRProcureMRProcureNo);
 
-        List<TStaffEntity> Staff = tStaffRepository.findAll();//获取员工信息
-        List<TFactorysEntity> Factorys = tFactorysRepository.findAll();//获取厂家信息
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);
+        List<TFactorysEntity> Factorys = tFactorysCacheService.findAll(tFactorysRepository);//获取厂家信息
 
         // 传递给请求页面
         modelMap.addAttribute("bRProcureM", brProcureMEntity);
@@ -204,6 +225,7 @@ public class ReturnController {
         //BPurchaseOrdSEntity bPurchaseOrdSEntity = bPurchaseOrdSRepository.findOne("01");
         List<BRProcureSEntity> brProcureSEntitie = brProcureSRepository.findBRProcureSEntitiesBybRProcureSRProcureNoEquals(Id);
         // 传递给请求页面
+
         Integer detailId = (brProcureSRepository.findMaxDetailId(Id));
 
         if(detailId == null){
@@ -214,15 +236,17 @@ public class ReturnController {
         }
 
 
-        List<TStaffEntity> Staff = tStaffRepository.findAll();
-        List<TClientEntity> Client = tClientRepository.findAll();
-        List<TFactorysEntity> TFactorys = tFactorysRepository.findAll();
-        List<TGoodsEntity> TGoods = tGoodsRepository.findAll();
-        List<TRoomEntity> TRoom = tRoomRepository.findAll();
-        List<TPaymentEntity> TPayment = tPaymentRepository.findAll();
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);
+        List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);
+        List<TFactorysEntity> TFactorys = tFactorysCacheService.findAll(tFactorysRepository);
+        List<TGoodsEntity> TGoods = tGoodsCacheService.findAll(tGoodsRepository);
+        List<TRoomEntity> TRoom = tRoomCacheService.findAll(tRoomRepository);
+        List<TPaymentEntity> TPayment = tPaymentCacheService.findAll(tPaymentRepository);
         List<BPurchaseOrdSEntity> bPurchaseOrdSEntities = bPurchaseOrdSRepository.findAll();
         List<BPurchaseOrdMEntity> bPurchaseOrdMEntities = bPurchaseOrdMRepository.findAll();
+        BRProcureMEntity bProcureM = brProcureMRepository.findBRProcureMEntityByBRProcureMRProcureNoEquals(Id);
 
+        modelMap.addAttribute("bProcureM", bProcureM);
         modelMap.addAttribute("bPurchaseOrdMEntities", bPurchaseOrdMEntities);
         modelMap.addAttribute("bPurchaseOrdSEntities", bPurchaseOrdSEntities);
         modelMap.addAttribute("TPayment", TPayment);
@@ -269,12 +293,12 @@ public class ReturnController {
         }
 
 
-        List<TStaffEntity> Staff = tStaffRepository.findAll();
-        List<TClientEntity> Client = tClientRepository.findAll();
-        List<TFactorysEntity> TFactorys = tFactorysRepository.findAll();
-        List<TGoodsEntity> TGoods = tGoodsRepository.findAll();
-        List<TRoomEntity> TRoom = tRoomRepository.findAll();
-        List<TPaymentEntity> TPayment = tPaymentRepository.findAll();
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);
+        List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);
+        List<TFactorysEntity> TFactorys = tFactorysCacheService.findAll(tFactorysRepository);
+        List<TGoodsEntity> TGoods = tGoodsCacheService.findAll(tGoodsRepository);
+        List<TRoomEntity> TRoom = tRoomCacheService.findAll(tRoomRepository);
+        List<TPaymentEntity> TPayment = tPaymentCacheService.findAll(tPaymentRepository);
         List<BPurchaseOrdSEntity> bPurchaseOrdSEntities = bPurchaseOrdSRepository.findAll();
         List<BPurchaseOrdMEntity> bPurchaseOrdMEntities = bPurchaseOrdMRepository.findAll();
 
@@ -317,11 +341,12 @@ public class ReturnController {
         BRProcureSEntity brProcureSEntity = brProcureSRepository.findBRProcureSEntitiesBybRProcureSRProcureNoAndBRProcureSDetailIdEquals(id,detailID);
         List<BPurchaseOrdMEntity> bPurchaseOrdMEntities = bPurchaseOrdMRepository.findAll();
         List<BPurchaseOrdSEntity> bPurchaseOrdSEntities = bPurchaseOrdSRepository.findAll();
-        List<TStaffEntity> Staff = tStaffRepository.findAll();
-        List<TClientEntity> Client = tClientRepository.findAll();
-        List<TFactorysEntity> TFactorys = tFactorysRepository.findAll();
-        List<TGoodsEntity> TGoods = tGoodsRepository.findAll();
-        List<TRoomEntity> TRoom = tRoomRepository.findAll();
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);
+        List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);
+        List<TFactorysEntity> TFactorys = tFactorysCacheService.findAll(tFactorysRepository);
+        List<TGoodsEntity> TGoods = tGoodsCacheService.findAll(tGoodsRepository);
+        List<TRoomEntity> TRoom = tRoomCacheService.findAll(tRoomRepository);
+        List<TPaymentEntity> TPayment = tPaymentCacheService.findAll(tPaymentRepository);
 
         // 传递给请求页面
         modelMap.addAttribute("bPurchaseOrdMEntities", bPurchaseOrdMEntities);
@@ -336,7 +361,7 @@ public class ReturnController {
         modelMap.addAttribute("ordProcureNo", id);
         return "/th/updatedetaileProcureS";
     }
-//
+    //
 //    //==============================================================================================
 //
 //    // 更新明细信息 操作

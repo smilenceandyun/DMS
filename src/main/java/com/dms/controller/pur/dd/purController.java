@@ -74,6 +74,24 @@ public class purController {
     }
     //============================================================================================
 
+    @Autowired
+    private TStaffCacheService tStaffCacheService;
+    @Autowired
+    private TClientCacheService tClientCacheService;
+    @Autowired
+    private TPaymentCacheService tPaymentCacheService;
+    @Autowired
+    private TRoomCacheService tRoomCacheService;
+    @Autowired
+    private TFactorysCacheService tFactorysCacheService;
+    @Autowired
+    private TGoodsCacheService tGoodsCacheService;
+    @Autowired
+    private TOrgCacheService tOrgCacheService;
+    @Autowired
+    private StoreLocationCacheService storeLocationCacheService;
+
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
         return "login";
@@ -85,6 +103,21 @@ public class purController {
     }
 
     //============================================================================================
+    @RequestMapping(value = "/text11", method = RequestMethod.GET)
+    public String index3(ModelMap modelMap) {
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);
+        List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);
+        List<TFactorysEntity> TFactorys = tFactorysCacheService.findAll(tFactorysRepository);
+
+        String UUID = c.getOrderNo();
+
+        modelMap.addAttribute("TFactorys", TFactorys);
+        modelMap.addAttribute("Client", Client);
+        modelMap.addAttribute("Staff", Staff);
+        modelMap.addAttribute("UUID", UUID);
+        return "test/result";
+    }
+
 
     @RequestMapping(value = "/pur_order", method = RequestMethod.GET)
     public String showAllMes(ModelMap modelMap) {
@@ -113,6 +146,12 @@ public class purController {
         if(user.equals("superadmin")&&psd.equals("superadmin")) {
             try {
                 f1 = true;
+                List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);
+                List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);
+                List<TFactorysEntity> TFactorys = tFactorysCacheService.findAll(tFactorysRepository);
+                List<TGoodsEntity> TGoods = tGoodsCacheService.findAll(tGoodsRepository);
+                List<TRoomEntity> TRoom = tRoomCacheService.findAll(tRoomRepository);
+                List<TPaymentEntity> TPayment = tPaymentCacheService.findAll(tPaymentRepository);
                 response.sendRedirect("/index");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -132,22 +171,6 @@ public class purController {
 
     }
 
-    @Autowired
-    private TStaffCacheService tStaffCacheService;
-    @Autowired
-    private TClientCacheService tClientCacheService;
-    @Autowired
-    private TPaymentCacheService tPaymentCacheService;
-    @Autowired
-    private TRoomCacheService tRoomCacheService;
-    @Autowired
-    private TFactorysCacheService tFactorysCacheService;
-    @Autowired
-    private TGoodsCacheService tGoodsCacheService;
-    @Autowired
-    private TOrgCacheService tOrgCacheService;
-    @Autowired
-    private StoreLocationCacheService storeLocationCacheService;
 
 
     //============================================================================================
