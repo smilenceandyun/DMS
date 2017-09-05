@@ -21,9 +21,10 @@
     <link rel="stylesheet" type="text/css" href="../../../statics/css/admin/style.css" />
     <!--[if IE 6]>
     <script type="text/javascript" src="../../../statics/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
-    <script src="../../../statics/jss/ansel_select/ansel_select.js"></script>
 
+    <script src="../../../statics/jss/ansel_select/ansel_select.js"></script>
     <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
     <script type="text/javascript">
@@ -693,16 +694,16 @@
 <script type="text/javascript" src="../../../statics/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript" src="../../../statics/lib/scrolltopcontrol.js"></script>
 <script type="text/javascript" src="../../../statics/select/ansel_select.js"></script>
-<%--<script type="text/javascript">--%>
-    <%--$('.table-sort').dataTable({--%>
-        <%--"aaSorting": [[ 1, "desc" ]],//默认第几个排序--%>
-        <%--"bStateSave": true,//状态保存--%>
-        <%--"aoColumnDefs": [--%>
-            <%--//{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示--%>
-            <%--{"orderable":false,"aTargets":[0,6]}// 制定列不参与排序--%>
-        <%--]--%>
-    <%--});--%>
-<%--</script>--%>
+<script type="text/javascript">
+    $('.table-sort').dataTable({
+        "aaSorting": [[ 1, "desc" ]],//默认第几个排序
+        "bStateSave": true,//状态保存
+        "aoColumnDefs": [
+            //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+            {"orderable":false,"aTargets":[0,6]}// 制定列不参与排序
+        ]
+    });
+</script>
 <script>
     //插件初始化配置
     $('.select').anselcfg({});

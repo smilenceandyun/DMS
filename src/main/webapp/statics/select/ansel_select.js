@@ -42,7 +42,8 @@
                         _li.children('.ansel_check').addClass("ansel_cur");
                         ansel_inputval.val($(el).text());
                     }
-                    ansel_ul.append(_li);
+                    if(index != 0)
+                        ansel_ul.append(_li);
                 });
                 ansel_ul.children(".ansel_li").click(function(){
                     $(this).parent().find('.ansel_check').removeClass('ansel_cur');
@@ -63,6 +64,7 @@
                     _txt=ansel_ul.children('.ansel_li').find('.ansel_cur').parent('.ansel_li').text();
                     _this.val(_val);
                     ansel_inputval.val(_txt);
+                    _this.trigger("change");
                     ansel_select.hide(100);
                 });
                 ansel_select.prev(".ansel_input").click(function(){

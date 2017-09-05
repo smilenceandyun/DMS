@@ -21,6 +21,10 @@
     <link rel="stylesheet" type="text/css" href="../../../statics/css/admin/style.css" />
     <!--[if IE 6]>
     <script type="text/javascript" src="../../../statics/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+
+    <script src="../../../statics/jss/ansel_select/ansel_select.js"></script>
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
     <script type="text/javascript">
@@ -73,7 +77,6 @@
                 case "${detail.cPurchaseConSDetailId}":
                     document.getElementById("shangpinmingcheng").value = "${detail.tGoodsByCPurchaseConSGoodsNo.tGoodsGoodsName}";  //商品名称
                     document.getElementById("zongjinli").value = "${detail.cPurchaseConSManagerNo}";  //总经理
-//                    document.getElementById("zongjinli").value = "11111111";  //总经理
                     document.getElementById("shuilv").value = "${detail.cPurchaseConSTaxRate}";  //税率
                     document.getElementById("shangpintiaoma").value = "${detail.tGoodsByCPurchaseConSGoodsNo.tGoodsBoxBarcode}";  //商品条码
                     document.getElementById("xiangjia").value = "${detail.cPurchaseConSBoxPrice}";  //箱价
@@ -222,7 +225,8 @@
            <ul>
                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
                <li>
-                   <select class="input-text" name="" id="good1" onchange="goodsChange(this.value);" required>
+                   <select class="select" name="" id="good1" onchange="goodsChange(this.value);" required>
+                   <%--<select class="input-text" name="" id="good1" onchange="goodsChange(this.value);" required>--%>
                        <option value=""></option>
                        <c:forEach items="${Goods}" var="Goods">
                            <option value="${Goods.tGoodsGoodsNo}">${Goods.tGoodsGoodsName}</option>
@@ -231,7 +235,7 @@
                </li>
                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总经理</li>
                <li>
-                   <select class="input-text" name="cPurchaseConSManagerNo" id="cPurchaseConSManagerNo" required >
+                   <select class="select" name="cPurchaseConSManagerNo" id="cPurchaseConSManagerNo" required >
                        <option value=""></option>
                        <c:forEach items="${Staff}" var="Staff">
                            <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
@@ -285,7 +289,7 @@
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
                 <li><input type="text" class="input-text" style="background-color: #F5F5F5"  name="shangpinmingcheng" id='shangpinmingcheng' readonly="readonly"  value=""></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总经理</li>
-                <li><input type="text" class="input-text" style="background-color: #F5F5F5"  name="zongjinli" id="zongjinli" readonly="readonly" value="111111111"></li>
+                <li><input type="text" class="input-text" style="background-color: #F5F5F5"  name="zongjinli" id="zongjinli" readonly="readonly" value=""></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税率</li>
                 <li><input type="text" class="input-text" style="background-color: #F5F5F5"  name="shuilv" id="shuilv" readonly="readonly" value=""></li>
             </ul><br>
@@ -405,6 +409,7 @@
 <script type="text/javascript" src="../../../statics/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../../statics/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript" src="../../../statics/lib/scrolltopcontrol.js"></script>
+<script type="text/javascript" src="../../../statics/select/ansel_select.js"></script>
 
 <script type="text/javascript">
     $('.table-sort').dataTable({
@@ -415,6 +420,10 @@
             {"orderable":false,"aTargets":[0,6]}// 制定列不参与排序
         ]
     });
+</script>
+<script>
+    //插件初始化配置
+    $('.select').anselcfg({});
 </script>
 </body>
 </html>
