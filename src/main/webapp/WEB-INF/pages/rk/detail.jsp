@@ -28,6 +28,10 @@
     <link rel="stylesheet" type="text/css" href="../../statics/css/admin/style.css" />
     <!--[if IE 6]>
     <script type="text/javascript" src="../../statics/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+
+    <script src="../../../statics/jss/ansel_select/ansel_select.js"></script>
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
     <script type="text/javascript">
@@ -163,7 +167,7 @@
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编号</li>
             <li>
-                <select id="good1" style="width: 100%; height: 31px;" required onchange="goodsChange(this.value);" name="bProcureSGoodsNo">
+                <select class="select" id="good1" style="width: 100%; height: 31px;" required onchange="goodsChange(this.value);" name="bProcureSGoodsNo">
                     <option value=""></option>
                     <c:forEach items="${goods}" var="good">
                         <option value="${good.tGoodsGoodsNo}"
@@ -188,7 +192,7 @@
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓库编号</li>
             <li>
-                <select style="width: 100%; height: 31px;" required name="bProcureSRoomNo">
+                <select class="select" style="width: 100%; height: 31px;" required name="bProcureSRoomNo">
                     <option value=""></option>
                     <c:forEach items="${rooms}" var="room">
                         <option value="${room.tRoomRoomNo}"
@@ -205,7 +209,7 @@
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库位编号</li>
             <li>
-                <select style="width: 100%; height: 31px;" required name="bProcureSLocationNo">
+                <select class="select" style="width: 100%; height: 31px;" required name="bProcureSLocationNo">
                     <option value=""></option>
                     <c:forEach items="${stores}" var="store">
                         <option value="${store.storeLocationLocationNo}"
@@ -358,6 +362,8 @@
 <script type="text/javascript" src="../../statics/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="../../statics/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../statics/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="../../../statics/lib/scrolltopcontrol.js"></script>
+<script type="text/javascript" src="../../../statics/select/ansel_select.js"></script>
 <script type="text/javascript">
     $('.table-sort').dataTable({
         "aaSorting": [[ 1, "desc" ]],//默认第几个排序
@@ -368,6 +374,10 @@
         ]
     });
 
+</script>
+<script>
+    //插件初始化配置
+    $('.select').anselcfg({});
 </script>
 </body>
 </html>

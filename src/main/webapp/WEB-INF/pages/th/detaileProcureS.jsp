@@ -21,6 +21,10 @@
     <link rel="stylesheet" type="text/css" href="../../../statics/css/admin/style.css" />
     <!--[if IE 6]>
     <script type="text/javascript" src="../../../statics/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+
+    <script src="../../../statics/jss/ansel_select/ansel_select.js"></script>
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
     <script type="text/javascript">
@@ -243,7 +247,7 @@
                 <input type="hidden" name="bRProcureSDetailId" value="${detailId}">
 
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编码</li>
-                <li><select id="good1" class="input-text" required onchange="goodsChange(this.value);" name="bRProcureSGoodsNo" required>
+                <li><select class='select' id="good1" class="input-text" required onchange="goodsChange(this.value);" name="bRProcureSGoodsNo" required>
                     <option value="" selected>选择商品编号</option>
                     <c:forEach items="${bPurchaseOrdSEntities}" var="bPurchaseOrdSEntities">
                         <option value="${bPurchaseOrdSEntities.bPurchaseOrdSGoodsNo}">${bPurchaseOrdSEntities.bPurchaseOrdSOrdProcureNo}采购订单号 ->${bPurchaseOrdSEntities.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsNo}(${bPurchaseOrdSEntities.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsName})</option>
@@ -259,7 +263,7 @@
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;采购订单号</li>
                 <li>
-                    <select class="input-text" required onchange="caigou(this.value);" id="bRProcureSOrdProcureNo" name="bRProcureSOrdProcureNo" required>
+                    <select class='select' class="input-text" required onchange="caigou(this.value);" id="bRProcureSOrdProcureNo" name="bRProcureSOrdProcureNo" required>
                         <option value="" selected >选择采购订单号</option>
                         <c:forEach items="${bPurchaseOrdMEntities}" var="bPurchaseOrdMEntities">
                             <option value="${bPurchaseOrdMEntities.bPurchaseOrdMOrdProcureNo}">${bPurchaseOrdMEntities.bPurchaseOrdMOrdProcureNo}</option>
@@ -271,7 +275,7 @@
                 <li><input type="text" class="input-text" readonly="readonly"  id="guige" required ></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓库</li>
                 <li>
-                    <select class="input-text" name="bRProcureSRoomNo" id="bRProcureSRoomNo" required>
+                    <select class='select' class="input-text" name="bRProcureSRoomNo" id="bRProcureSRoomNo" required>
                         <option value="" >选择仓库编号</option>
                         <c:forEach items="${TRoom}" var="TRoom">
                             <option value="${TRoom.tRoomRoomNo}">${TRoom.tRoomRoomNo}(${TRoom.tRoomRoomName})</option>
@@ -468,6 +472,7 @@
 <script type="text/javascript" src="../../../statics/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../../statics/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript" src="../../../statics/lib/scrolltopcontrol.js"></script>
+<script type="text/javascript" src="../../../statics/select/ansel_select.js"></script>
 <script type="text/javascript">
     $('.table-sort').dataTable({
         "aaSorting": [[ 1, "desc" ]],//默认第几个排序
@@ -477,6 +482,10 @@
             {"orderable":false,"aTargets":[0,6]}// 制定列不参与排序
         ]
     });
+</script>
+<script>
+    //插件初始化配置
+    $('.select').anselcfg({});
 </script>
 </body>
 </html>
