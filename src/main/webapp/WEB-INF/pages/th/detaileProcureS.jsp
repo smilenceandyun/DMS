@@ -21,6 +21,10 @@
     <link rel="stylesheet" type="text/css" href="../../../statics/css/admin/style.css" />
     <!--[if IE 6]>
     <script type="text/javascript" src="../../../statics/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+
+    <script src="../../../statics/jss/ansel_select/ansel_select.js"></script>
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
     <script type="text/javascript">
@@ -59,10 +63,6 @@
                     // document.getElementById("danjia").value = "";
                     document.getElementById("shuliang").value = "";
 //                    document.getElementById("bPurchaseOrdSBoxPrice").value = "";
-
-
-
-
                     break;
                 <c:forEach items="${TGoods}" var="TGoods">
                 case "${TGoods.tGoodsGoodsNo}":
@@ -179,6 +179,50 @@
             $("#detail").hide();
             $("#p1").hide();
         }
+
+        function showdetail(detailid) {
+            switch (detailid){
+                case  "":
+                    document.getElementById("th1").value = ""; //商品名称
+                    document.getElementById("th2").value = "";//商品条码
+                    document.getElementById("th3").value = "";//商品编码
+//                    document.getElementById("th4").value = "";
+                    document.getElementById("th5").value = "";//规格型号
+                    document.getElementById("th6").value = "";//仓库
+                    document.getElementById("th7").value = "";//基本数量/单位
+                    document.getElementById("th8").value = "";//包装数量/单位
+                    document.getElementById("th9").value = "";//税率
+                    document.getElementById("th10").value = "";//厂家编码
+                    document.getElementById("th11").value = "";//库位编号
+                    document.getElementById("th12").value = "";//保质期
+                    document.getElementById("th13").value = "";//生产日期
+                    document.getElementById("th14").value = "";//交易原价
+                    document.getElementById("th15").value = "";//批次号
+
+                    break;
+                <c:forEach items="${brProcureS}" var="brProcureS1">
+                case "${brProcureS1.bRProcureSDetailId}":
+                    document.getElementById("th1").value = "${brProcureS1.bPurchaseOrdS.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsName}"; //商品名称
+                    document.getElementById("th2").value = "${brProcureS1.bPurchaseOrdS.tGoodsByBPurchaseOrdSGoodsNo.tGoodsBarcode}";//商品条码
+                    document.getElementById("th3").value = "${brProcureS1.bPurchaseOrdS.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsNo}";//商品编码
+//                    document.getElementById("th4").value = "";
+                    document.getElementById("th5").value = "${brProcureS1.bPurchaseOrdS.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsSpce}";//规格型号
+                    document.getElementById("th6").value = "${brProcureS1.bPurchaseOrdS.tRoomByBPurchaseOrdSRoomNo.tRoomRoomName}";//仓库
+                    document.getElementById("th7").value = "${brProcureS1.bPurchaseOrdS.bPurchaseOrdSQuantity}${brProcureS1.bPurchaseOrdS.tGoodsByBPurchaseOrdSGoodsNo.tGoodsUnit}";//基本数量/单位
+                    document.getElementById("th8").value = "${brProcureS1.bPurchaseOrdS.bPurchaseOrdSBoxQuantity}/${brProcureS1.bPurchaseOrdS.tGoodsByBPurchaseOrdSGoodsNo.tGoodsPackUnit}";//包装数量/单位
+                    document.getElementById("th9").value = "${brProcureS1.bPurchaseOrdS.bPurchaseOrdSTaxRate}";//税率
+                    document.getElementById("th10").value = "${brProcureS1.bPurchaseOrdS.bPurchaseOrdSFactoryGoodsNo}";//厂家编码
+                    document.getElementById("th11").value = "${brProcureS1.bRProcureSLocationNo}";//库位编号
+                    document.getElementById("th12").value = "${brProcureS1.bPurchaseOrdS.tGoodsByBPurchaseOrdSGoodsNo.tGoodsExDay/30}";//保质期
+                    document.getElementById("th13").value = "${brProcureS1.bPurchaseOrdS.bPurchaseOrdSMfg}";//生产日期
+                    document.getElementById("th14").value = "${brProcureS1.bPurchaseOrdS.bPurchaseOrdSOriginalPrice}";//交易原价
+                    document.getElementById("th15").value = "${brProcureS1.bPurchaseOrdS.bPurchaseOrdSLot}";//批次号
+
+
+                    break;
+                </c:forEach>
+            }
+        }
     </script>
 
     <title>采购管理</title>
@@ -203,7 +247,7 @@
                 <input type="hidden" name="bRProcureSDetailId" value="${detailId}">
 
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编码</li>
-                <li><select id="good1" class="input-text" required onchange="goodsChange(this.value);" name="bRProcureSGoodsNo" required>
+                <li><select class='select' id="good1" class="input-text" required onchange="goodsChange(this.value);" name="bRProcureSGoodsNo" required>
                     <option value="" selected>选择商品编号</option>
                     <c:forEach items="${bPurchaseOrdSEntities}" var="bPurchaseOrdSEntities">
                         <option value="${bPurchaseOrdSEntities.bPurchaseOrdSGoodsNo}">${bPurchaseOrdSEntities.bPurchaseOrdSOrdProcureNo}采购订单号 ->${bPurchaseOrdSEntities.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsNo}(${bPurchaseOrdSEntities.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsName})</option>
@@ -219,7 +263,7 @@
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;采购订单号</li>
                 <li>
-                    <select class="input-text" required onchange="caigou(this.value);" id="bRProcureSOrdProcureNo" name="bRProcureSOrdProcureNo" required>
+                    <select class='select' class="input-text" required onchange="caigou(this.value);" id="bRProcureSOrdProcureNo" name="bRProcureSOrdProcureNo" required>
                         <option value="" selected >选择采购订单号</option>
                         <c:forEach items="${bPurchaseOrdMEntities}" var="bPurchaseOrdMEntities">
                             <option value="${bPurchaseOrdMEntities.bPurchaseOrdMOrdProcureNo}">${bPurchaseOrdMEntities.bPurchaseOrdMOrdProcureNo}</option>
@@ -231,7 +275,7 @@
                 <li><input type="text" class="input-text" readonly="readonly"  id="guige" required ></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓库</li>
                 <li>
-                    <select class="input-text" name="bRProcureSRoomNo" id="bRProcureSRoomNo" required>
+                    <select class='select' class="input-text" name="bRProcureSRoomNo" id="bRProcureSRoomNo" required>
                         <option value="" >选择仓库编号</option>
                         <c:forEach items="${TRoom}" var="TRoom">
                             <option value="${TRoom.tRoomRoomNo}">${TRoom.tRoomRoomNo}(${TRoom.tRoomRoomName})</option>
@@ -241,7 +285,7 @@
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数量/单位</li>
-                <li><input type="text" class="input-text" readonly="readonly" id="shuliang" name="bRProcureSQuantity"  ></li>
+                <li><input type="text" class="input-text" readonly id="shuliang" name="bRProcureSQuantity"  ></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱数</li>
                 <li><input type="text" class="input-text"  name="bRProcureSBoxQuantity" id="bRProcureSBoxQuantity" ></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税率</li>
@@ -249,7 +293,7 @@
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退货单号</li>
-                <li><input type="text" class="input-text" readonly="readonly" name="bRProcureSRProcureNo" value="${ordProcureNo}"></li>
+                <li><input type="text" class="input-text" readonly="readonly" name="bRProcureSRProcureNo" value="${brProcureNo}"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库位编号</li>
                 <li><input type="text" class="input-text"  name="bRProcureSLocationNo" id="kuwei"  required></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保质期</li>
@@ -295,43 +339,43 @@
 <div id="p2">
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="ordProcureNo" ></li>
+        <li><input type="text" class="input-text" readonly="readonly" id="th1" name="ordProcureNo" ></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品条码</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li><input type="text" class="input-text" readonly="readonly" id="th2"  name="" ></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编码</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li><input type="text" class="input-text" readonly="readonly" id="th3"  name="" ></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退货单号</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" value="${brProcureNo}" ></li>
+        <li><input type="text" class="input-text" readonly="readonly" id="th4"  name="" value="${brProcureNo}" ></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;规格型号</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li><input type="text" class="input-text" readonly="readonly" id="th5"  name="" ></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓库</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li><input type="text" class="input-text" readonly="readonly" id="th6"  name="" ></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基本数量/单位</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li><input type="text" class="input-text" readonly="readonly" id="th7"  name="" ></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;包装数量/单位</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li><input type="text" class="input-text" readonly="readonly" id="th8"  name="" ></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税率</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li><input type="text" class="input-text" readonly="readonly" id="th9"  name="" ></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li><input type="text" class="input-text" readonly="readonly" id="th10"  name="" ></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库位编号</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="taxRate" ></li>
+        <li><input type="text" class="input-text" readonly="readonly" id="th11"  name="taxRate" ></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保质期</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li><input type="text" class="input-text" readonly="readonly" id="th12"  name="" ></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;生产日期</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li><input type="text" class="input-text" readonly="readonly" id="th13"  name="" ></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交易原价</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="" ></li>
+        <li><input type="text" class="input-text" readonly="readonly" id="th14"  name="" ></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;批次号</li>
-        <li><input type="text" class="input-text" readonly="readonly" name="price"></li>
+        <li><input type="text" class="input-text" readonly="readonly" id="th15"  name="price"></li>
 
     </ul><br>
 </div>
@@ -344,67 +388,39 @@
             <br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退货单号</li>
-        <li><input type="text" class="input-text" name="bRProcureMRProcureNo" id="bRProcureMRProcureNo" value="${UUID}" readonly="readonly"></li>
+        <li><input type="text" class="input-text" name="bRProcureMRProcureNo" id="bRProcureMRProcureNo" value="${bProcureM.bRProcureMRProcureNo}" readonly="readonly"></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手工单号</li>
-        <li><input type="text" class="input-text" name="bRProcureMHandbillNo" id="bRProcureMHandbillNo" required></li>
+        <li><input type="text" class="input-text" name="bRProcureMHandbillNo" id="bRProcureMHandbillNo" value="${bProcureM.bRProcureMHandbillNo}" readonly></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单日期</li>
-        <li><input type="date" class="input-text" name="bRProcureMCreateDate" id="bRProcureMCreateDate" required></li>
+        <li><input type="text" class="input-text" name="bRProcureMCreateDate" id="bRProcureMCreateDate" value="${bProcureM.bRProcureMCreateDate}" readonly></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核日期</li>
-        <li><input type="date" class="input-text" name="bRProcureMCheckDate" id="bRProcureMCheckDate" required></li>
+        <li><input type="text" class="input-text" name="bRProcureMCheckDate" id="bRProcureMCheckDate" value="${bProcureM.bRProcureMCheckDate}" readonly></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务性质</li>
-        <li><input type="text" class="input-text" name="bRProcureMServiceAttribute" id="bRProcureMServiceAttribute" required></li>
+        <li><input type="text" class="input-text" name="bRProcureMServiceAttribute" id="bRProcureMServiceAttribute" value="${bProcureM.bRProcureMServiceAttribute}" readonly></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结算方式</li>
-        <li><input type="text" class="input-text" name="bRProcureMPaymentAttributer" id="bRProcureMPaymentAttributer" required></li>
+        <li><input type="text" class="input-text" name="bRProcureMPaymentAttributer" id="bRProcureMPaymentAttributer" value="${bProcureM.bRProcureMPaymentAttributer}" readonly></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓管员</li>
-        <li>
-            <select class="input-text" name="bRProcureMWarehouseKeeper" id="bRProcureMWarehouseKeeper" required>
-                <option value="" ></option>
-                <c:forEach items="${Staff}" var="Staff">
-                    <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
-                </c:forEach>
-            </select>
-        </li>
+        <li><input type="text" class="input-text" name="bRProcureMWarehouseKeeper" id="bRProcureMWarehouseKeeper" value="${bProcureM.tStaffByBRProcureMWarehouseKeeper.tStaffStaffName}" readonly></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核人</li>
-        <li>
-            <select class="input-text" name="bRProcureMChecker" id="bRProcureMChecker">
-                <option value="" ></option>
-                <c:forEach items="${Staff}" var="Staff">
-                    <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
-                </c:forEach>
-            </select>
-        </li>
+        <li><input type="text" class="input-text" name="bRProcureMChecker" id="bRProcureMChecker" value="${bProcureM.tStaffByBRProcureMChecker.tStaffStaffName}" readonly></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务日期</li>
-        <li><input type="date" class="input-text" name="bRProcureMModifiTime" id="bRProcureMModifiTime" required></li>
+        <li><input type="text" class="input-text" name="bRProcureMModifiTime" id="bRProcureMModifiTime" value="${bProcureM.bRProcureMModifiTime}" readonly></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务员</li>
-        <li>
-            <select class="input-text" name="bRProcureMSalesman" id="bRProcureMSalesman" required>
-                <option value="" ></option>
-                <c:forEach items="${Staff}" var="Staff">
-                    <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
-                </c:forEach>
-            </select>
-        </li>
+        <li><input type="text" class="input-text" name="bRProcureMSalesman" id="bRProcureMSalesman" value="${bProcureM.tStaffByBRProcureMSalesman.tStaffStaffName}" readonly></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;送货员</li>
-        <li>
-            <select class="input-text" name="bRProcureMDeliverymanNo" id="bRProcureMDeliverymanNo" required>
-                <option value="" ></option>
-                <c:forEach items="${Staff}" var="Staff">
-                    <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
-                </c:forEach>
-            </select>
-        </li>
+        <li><input type="text" class="input-text" name="bRProcureMDeliverymanNo" id="bRProcureMDeliverymanNo" value="${bProcureM.tStaffByBRProcureMDeliverymanNo.tStaffStaffName}" readonly></li>
     </ul><br>
     <ul>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
-        <li><input type="text" style="width: 376px" class="input-text" name="bRProcureMNotes" id="bRProcureMNotes" required></li>
+        <li><input type="text" style="width: 376px" class="input-text" name="bRProcureMNotes" id="bRProcureMNotes" value="${bProcureM.bRProcureMNotes}" required></li>
     </ul><br>
         </div>
 
-
+    <br>
     <table class="table table-border table-bordered table-bg table-sort">
         <thead>
         <tr class="text-c">
@@ -429,8 +445,9 @@
                     <%--<td><input name="id" type="checkbox"  value="${purOrder.ordProcureNo}"></td>--%>
                 <td ><%=i %><% i++; %></td>
                     <%--<td><a href="/pur_order/detaileOrder/${purOrder.bPurchaseOrdSOrdProcureNo}">${purOrder.bPurchaseOrdSOrdProcureNo}</a></td>--%>
-                <td><a href="/detail/th2/${brProcureS.bRProcureSDetailId}&${brProcureS.bRProcureSRProcureNo}">${brProcureS.bPurchaseOrdS.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsName}</a></td>
-                <td >${brProcureS.bPurchaseOrdS.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsSpce}</td>
+                <%--<td><a href="/detail/th2/${brProcureS.bRProcureSDetailId}&${brProcureS.bRProcureSRProcureNo}">${brProcureS.bPurchaseOrdS.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsName}</a></td>--%>
+                 <td><a href="#top" onclick="showdetail('${brProcureS.bRProcureSDetailId}');$('#detail').hide(300);$('#p2').show(300);">${brProcureS.bPurchaseOrdS.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsName}</a></td>
+                 <td >${brProcureS.bPurchaseOrdS.tGoodsByBPurchaseOrdSGoodsNo.tGoodsGoodsSpce}</td>
                 <td >${brProcureS.bPurchaseOrdS.tRoomByBPurchaseOrdSRoomNo.tRoomRoomName}</td>
                 <td >${brProcureS.bPurchaseOrdS.tGoodsByBPurchaseOrdSGoodsNo.tGoodsInTax}</td>
                 <td >${brProcureS.bPurchaseOrdS.bPurchaseOrdSQuantity}${brProcureS.bPurchaseOrdS.tGoodsByBPurchaseOrdSGoodsNo.tGoodsUnit}</td>
@@ -455,6 +472,7 @@
 <script type="text/javascript" src="../../../statics/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../../statics/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript" src="../../../statics/lib/scrolltopcontrol.js"></script>
+<script type="text/javascript" src="../../../statics/select/ansel_select.js"></script>
 <script type="text/javascript">
     $('.table-sort').dataTable({
         "aaSorting": [[ 1, "desc" ]],//默认第几个排序
@@ -464,6 +482,10 @@
             {"orderable":false,"aTargets":[0,6]}// 制定列不参与排序
         ]
     });
+</script>
+<script>
+    //插件初始化配置
+    $('.select').anselcfg({});
 </script>
 </body>
 </html>

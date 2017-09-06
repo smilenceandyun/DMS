@@ -21,6 +21,10 @@
     <link rel="stylesheet" type="text/css" href="../../../statics/css/admin/style.css" />
     <!--[if IE 6]>
     <script type="text/javascript" src="../../../statics/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+
+    <script src="../../../statics/jss/ansel_select/ansel_select.js"></script>
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
     <script type="text/javascript">
@@ -220,35 +224,35 @@
         }
 
         <%--function goodsChangeupdate(id) {--%>
-            <%--switch (id){--%>
-                <%--case  "":--%>
-                    <%--document.getElementById("guige3").value = "";--%>
-                    <%--document.getElementById("tiaoma3").value = "";--%>
-                    <%--document.getElementById("kucun3").value = "";--%>
-                    <%--document.getElementById("mingcheng3").value = "";--%>
-                    <%--document.getElementById("dangwei3").value = "";--%>
-                    <%--document.getElementById("baozjiqi3").value = "";--%>
-                    <%--document.getElementById("suilv3").value = "";--%>
-                    <%--document.getElementById("danjia3").value = "";--%>
-                    <%--document.getElementById("shuliang3").value = "";--%>
-                    <%--document.getElementById("bPurchaseOrdSBoxPrice3").value = "";--%>
+        <%--switch (id){--%>
+        <%--case  "":--%>
+        <%--document.getElementById("guige3").value = "";--%>
+        <%--document.getElementById("tiaoma3").value = "";--%>
+        <%--document.getElementById("kucun3").value = "";--%>
+        <%--document.getElementById("mingcheng3").value = "";--%>
+        <%--document.getElementById("dangwei3").value = "";--%>
+        <%--document.getElementById("baozjiqi3").value = "";--%>
+        <%--document.getElementById("suilv3").value = "";--%>
+        <%--document.getElementById("danjia3").value = "";--%>
+        <%--document.getElementById("shuliang3").value = "";--%>
+        <%--document.getElementById("bPurchaseOrdSBoxPrice3").value = "";--%>
 
-                    <%--break;--%>
-                <%--<c:forEach items="${TGoods}" var="TGoods">--%>
-                <%--case "${TGoods.tGoodsGoodsNo}":--%>
-                    <%--document.getElementById("guige3").value = "${TGoods.tGoodsGoodsSpce}";--%>
-                    <%--document.getElementById("tiaoma3").value = "${TGoods.tGoodsBarcode}";--%>
-                    <%--document.getElementById("kucun3").value = "${TGoods.tGoodsPackQuantity}";--%>
-                    <%--document.getElementById("mingcheng3").value = "${TGoods.tGoodsGoodsName}";--%>
-                    <%--document.getElementById("dangwei3").value = "${TGoods.tGoodsUnit}";--%>
-                    <%--document.getElementById("baozjiqi3").value = "${TGoods.tGoodsExDay/30}";--%>
-                    <%--document.getElementById("suilv3").value = "${TGoods.tGoodsInTax}";--%>
-                    <%--document.getElementById("danjia3").value = "${TGoods.tGoodsSPrice}";--%>
-                    <%--document.getElementById("shuliang3").value = "${TGoods.tGoodsPackQuantity}";--%>
-                    <%--document.getElementById("bPurchaseOrdSBoxPrice3").value = "${TGoods.tGoodsPackQuantity * TGoods.tGoodsInTaxprice}";--%>
-                    <%--break;--%>
-                <%--</c:forEach>--%>
-            <%--}--%>
+        <%--break;--%>
+        <%--<c:forEach items="${TGoods}" var="TGoods">--%>
+        <%--case "${TGoods.tGoodsGoodsNo}":--%>
+        <%--document.getElementById("guige3").value = "${TGoods.tGoodsGoodsSpce}";--%>
+        <%--document.getElementById("tiaoma3").value = "${TGoods.tGoodsBarcode}";--%>
+        <%--document.getElementById("kucun3").value = "${TGoods.tGoodsPackQuantity}";--%>
+        <%--document.getElementById("mingcheng3").value = "${TGoods.tGoodsGoodsName}";--%>
+        <%--document.getElementById("dangwei3").value = "${TGoods.tGoodsUnit}";--%>
+        <%--document.getElementById("baozjiqi3").value = "${TGoods.tGoodsExDay/30}";--%>
+        <%--document.getElementById("suilv3").value = "${TGoods.tGoodsInTax}";--%>
+        <%--document.getElementById("danjia3").value = "${TGoods.tGoodsSPrice}";--%>
+        <%--document.getElementById("shuliang3").value = "${TGoods.tGoodsPackQuantity}";--%>
+        <%--document.getElementById("bPurchaseOrdSBoxPrice3").value = "${TGoods.tGoodsPackQuantity * TGoods.tGoodsInTaxprice}";--%>
+        <%--break;--%>
+        <%--</c:forEach>--%>
+        <%--}--%>
         <%--}--%>
 
         <%--function priceupdate(id) {--%>
@@ -259,17 +263,16 @@
 
         <%--}--%>
     </script>
-
+    <style type="text/css">
+        ul{width:1200px; height:20px;  size: 20px; color: rgba(0,0,0,0.5); font-weight: 600; font-size: inherit;}
+        li{width:150px; height:20px; float:left;}
+    </style>
     <title>采购管理</title>
 </head>
 <style>
     .display-none {
         display:none;
     }
-</style>
-<style type="text/css">
-    ul{width:1200px; height:20px;  size: 20px; color: rgba(0,0,0,0.5); font-weight: 600; font-size: inherit;}
-    li{width:150px; height:20px; float:left;}
 </style>
 
 <body onload="hidediv();hideform();hidefirst();top();">
@@ -309,37 +312,28 @@
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家编码</li>
                     <%--<li><input type="text" class="input-text" id="bPurchaseOrdSFactoryGoodsNo"  name="bPurchaseOrdSFactoryGoodsNo" ></li>--%>
                 <li>
-                    <select class="input-text" name="bPurchaseOrdSFactoryGoodsNo" id="bPurchaseOrdSFactoryGoodsNo" required>
-                        <option value="" >选择厂家编号</option>
+                    <select class="select" name="bPurchaseOrdSFactoryGoodsNo" id="bPurchaseOrdSFactoryGoodsNo" required>
+                        <option value="" ></option>
                         <c:forEach items="${TFactorys}" var="TFactorys">
                             <option value="${TFactorys.tFactorysFactoryGoodsNo}">${TFactorys.tFactorysFactoryGoodsNo}(${TFactorys.tFactorysFactoryGoodsName})</option>
                         </c:forEach>
-
                     </select>
                 </li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;赠送性质</li>
-                <li><input type="text" class="input-text" id="bPurchaseOrdSPresentationProperty" name="bPurchaseOrdSPresentationProperty" onmousedown="return lichanged()"></li>
+                <%--<li><input type="text" class="input-text" id="bPurchaseOrdSPresentationProperty" name="bPurchaseOrdSPresentationProperty" onmousedown="return lichanged()"></li>--%>
+                <li><input type="text" class="input-text"  name="bPurchaseOrdSPresentationProperty" >
             </ul><br>
+
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品编码</li>
-                    <%--<li><input type="text" class="input-text" readonly="readonly" name="" ></li>--%>
                 <li>
-                        <%--<select class="input-text" name="bPurchaseOrdSGoodsNo" id="bPurchaseOrdSGoodsNo" onchange="lichanged()">--%>
-                        <%--<option value="1" selected>选择商品编号</option>--%>
-                        <%--<c:forEach items="${TGoods}" var="TGoods">--%>
-                        <%--<option value="${TGoods.tGoodsBrandNo}">${TGoods.tGoodsBrandNo}(${TGoods.tGoodsGoodsName})</option>--%>
-                        <%--</c:forEach>--%>
-
-                        <%--</select>--%>
-
-                    <select id="good1" class="input-text" required onchange="goodsChange(this.value);" name="bPurchaseOrdSGoodsNo" required>
+                    <select class='select' id="good1" class="input-text" required onchange="goodsChange(this.value);" name="bPurchaseOrdSGoodsNo" required>
                         <option value="" selected>选择商品编号</option>
                         <c:forEach items="${TGoods}" var="TGoods">
                             <option value="${TGoods.tGoodsGoodsNo}">${TGoods.tGoodsGoodsNo}(${TGoods.tGoodsGoodsName})</option>
                         </c:forEach>
                     </select>
                 </li>
-
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;规格型号</li>
                 <li><input type="text" class="input-text" required id="guige" readonly="readonly" ></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交易原价</li>
@@ -364,7 +358,7 @@
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓库</li>
                 <li>
-                    <select class="input-text" name="bPurchaseOrdSRoomNo" id="bPurchaseOrdSRoomNo" required>
+                    <select class='select' class="input-text" name="bPurchaseOrdSRoomNo" id="bPurchaseOrdSRoomNo" required>
                         <option value="" >选择仓库编号</option>
                         <c:forEach items="${TRoom}" var="TRoom">
                             <option value="${TRoom.tRoomRoomNo}">${TRoom.tRoomRoomNo}(${TRoom.tRoomRoomName})</option>
@@ -393,7 +387,7 @@
                 <li><input type="text" class="input-text"  id="bPurchaseOrdSBoxPrice" name="bPurchaseOrdSBoxPrice" readonly="readonly" required></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结算方式</li>
                 <li>
-                    <select class="input-text" name="bPurchaseOrdSPaymentNo" id="bPurchaseOrdSPaymentNo" required>
+                    <select class='select' class="input-text" name="bPurchaseOrdSPaymentNo" id="bPurchaseOrdSPaymentNo" required>
                         <option value="" >选择结算方式</option>
                         <c:forEach items="${TPayment}" var="TPayment">
                             <option value="${TPayment.tPaymentPaymentNo}">${TPayment.tPaymentPaymentName}</option>
@@ -623,6 +617,7 @@
 <script type="text/javascript" src="../../../statics/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../../statics/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript" src="../../../statics/lib/scrolltopcontrol.js"></script>
+<script type="text/javascript" src="../../../statics/select/ansel_select.js"></script>
 <script type="text/javascript">
     $('.table-sort').dataTable({
         "aaSorting": [[ 1, "desc" ]],//默认第几个排序
@@ -632,6 +627,10 @@
             {"orderable":false,"aTargets":[0,6]}// 制定列不参与排序
         ]
     });
+</script>
+<script>
+    //插件初始化配置
+    $('.select').anselcfg({});
 </script>
 </body>
 </html>
