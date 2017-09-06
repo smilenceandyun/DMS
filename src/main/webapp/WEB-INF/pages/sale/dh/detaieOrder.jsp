@@ -351,11 +351,11 @@
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对账日期</li>
-                <li><input type="date" class="input-text"  <%--id="bSOrderSCheckAccountDate" name="bSOrderSCheckAccountDate"--%> required></li>
+                <li><input type="date" class="input-text"  id="bSOrderSCheckAccountDate" name="bSOrderSCheckAccountDate" required></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;拿支票日期</li>
-                <li><input type="date" class="input-text"  <%--id="bSOrderSTakeCheckDate" name="bSOrderSTakeCheckDate"--%> required></li>
+                <li><input type="date" class="input-text"  id="bSOrderSTakeCheckDate" name="bSOrderSTakeCheckDate" required></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;开票日期</li>
-                <li><input type="date" class="input-text" <%--id="bSOrderSInvoiceDate" name="bSOrderSInvoiceDate" --%> required></li>
+                <li><input type="date" class="input-text" id="bSOrderSInvoiceDate" name="bSOrderSInvoiceDate"  required></li>
             </ul><br>
             <ul>
 

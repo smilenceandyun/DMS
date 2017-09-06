@@ -123,7 +123,7 @@
                 <ul>
                     <li><a data-href="sale_order" data-title="销售管理" href="javascript:;">销售订货</a></li>
                     <li><a data-href="sale_xs" data-title="销售单" href="javascript:void(0)">销售单</a></li>
-                    <li><a data-href="sale_xs" data-title="销售单" href="javascript:void(0)">销售单</a></li>
+                    <li><a data-href="zp_order" data-title="销售单" href="javascript:void(0)">赠品出库</a></li>
                 </ul>
             </dd>
         </dl>

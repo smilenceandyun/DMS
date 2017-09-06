@@ -245,11 +245,11 @@
             </ul><br>
             <ul>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对账日期</li>
-                <li><input type="date" class="input-text"  <%--id="bSOrderSCheckAccountDate" name="bSOrderSCheckAccountDate"--%> required value="${bSOrdS.bSOrderSCheckAccountDate}"></li>
+                <li><input type="date" class="input-text"  id="bSOrderSCheckAccountDate" name="bSOrderSCheckAccountDate" required value="${bSOrdS.bSOrderSCheckAccountDate}"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;拿支票日期</li>
-                <li><input type="date" class="input-text"  <%--id="bSOrderSTakeCheckDate" name="bSOrderSTakeCheckDate"--%> required  value="${bSOrdS.bSOrderSTakeCheckDate}"></li>
+                <li><input type="date" class="input-text"  id="bSOrderSTakeCheckDate" name="bSOrderSTakeCheckDate" required  value="${bSOrdS.bSOrderSTakeCheckDate}"></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;开票日期</li>
-                <li><input type="date" class="input-text" <%--id="bSOrderSInvoiceDate" name="bSOrderSInvoiceDate"--%>  required value="${bSOrdS.bSOrderSInvoiceDate}"></li>
+                <li><input type="date" class="input-text" id="bSOrderSInvoiceDate" name="bSOrderSInvoiceDate"  required value="${bSOrdS.bSOrderSInvoiceDate}"></li>
             </ul><br>
             <ul>
 

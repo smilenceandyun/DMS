@@ -124,40 +124,42 @@ public class DhController {
     }
 
     @RequestMapping(value = "/sale_order/addP", method = RequestMethod.POST)
-    public String addBPurchaseOrdMPost(HttpServletRequest request) {
+    public String addBPurchaseOrdMPost(BSOrderMEntity bSOrderMEntity) {
 
-        BSOrderMEntity bSOrderMEntity = new BSOrderMEntity();
+      //  System.out.println(bSOrderMEntity);
 
-        bSOrderMEntity.setbSOrderMSOrderNo(request.getParameter("bSOrderMSOrderNo"));
-        bSOrderMEntity.setbSOrderMSalesman(request.getParameter("bSOrderMSalesman"));
-        bSOrderMEntity.setbSOrderMAdPaymoney(new BigDecimal(request.getParameter("bSOrderMAdPaymoney")));
-        bSOrderMEntity.setbSOrderMCreateNo(request.getParameter("bSOrderMCreateNo"));
+//        BSOrderMEntity bSOrderMEntity = new BSOrderMEntity();
+//
+//        bSOrderMEntity.setbSOrderMSOrderNo(request.getParameter("bSOrderMSOrderNo"));
+//        bSOrderMEntity.setbSOrderMSalesman(request.getParameter("bSOrderMSalesman"));
+       // bSOrderMEntity.setbSOrderMAdPaymoney(new BigDecimal(request.getParameter("bSOrderMAdPaymoney")));
+//        bSOrderMEntity.setbSOrderMCreateNo(request.getParameter("bSOrderMCreateNo"));
+//
+//        bSOrderMEntity.setbSOrderMOrderNo(request.getParameter("bSOrderMOrderNo"));
+//        bSOrderMEntity.setbSOrderMSalesTypeNo(request.getParameter("bSOrderMSalesTypeNo"));
+//        bSOrderMEntity.setbSOrderMChecker(request.getParameter("bSOrderMChecker"));
+      //  bSOrderMEntity.setbSOrderMSalesDiscount(new BigDecimal(request.getParameter("bSOrderMSalesDiscount")));
 
-        bSOrderMEntity.setbSOrderMOrderNo(request.getParameter("bSOrderMOrderNo"));
-        bSOrderMEntity.setbSOrderMSalesTypeNo(request.getParameter("bSOrderMSalesTypeNo"));
-        bSOrderMEntity.setbSOrderMChecker(request.getParameter("bSOrderMChecker"));
-        bSOrderMEntity.setbSOrderMSalesDiscount(new BigDecimal(request.getParameter("bSOrderMSalesDiscount")));
-
-        bSOrderMEntity.setbSOrderMClientNo(request.getParameter("bSOrderMClientNo"));
-        try {
-            bSOrderMEntity.setbSOrderMSendDate(new Timestamp(string2Date(request.getParameter("bSOrderMSendDate")).getTime()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        bSOrderMEntity.setbSOrderMClientAddress(request.getParameter("bSOrderMClientAddress"));
+//        bSOrderMEntity.setbSOrderMClientNo(request.getParameter("bSOrderMClientNo"));
+//        try {
+//            bSOrderMEntity.setbSOrderMSendDate(new Timestamp(string2Date(bSOrderMEntity.getbSOrderMSendDate().toString()).getTime()));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        bSOrderMEntity.setbSOrderMClientAddress(request.getParameter("bSOrderMClientAddress"));
         //bSOrderMEntity.setbSOrderMSOrderNo(request.getParameter("bSOrderMSOrderNo"));//缺少结算方式
-        try {
-            bSOrderMEntity.setbSOrderMCreateDate(new Timestamp(string2Date(request.getParameter("bSOrderMCreateDate")).getTime()));
+        /*try {
+            bSOrderMEntity.setbSOrderMCreateDate(new Timestamp(string2Date(bSOrderMEntity.getbSOrderMCreateDate().toString()).getTime()));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        bSOrderMEntity.setbSOrderMNotes(request.getParameter("bSOrderMNotes"));
+       // bSOrderMEntity.setbSOrderMNotes(request.getParameter("bSOrderMNotes"));
         try {
-            bSOrderMEntity.setbSOrderMOrdDate(new Timestamp(string2Date(request.getParameter("bSOrderMOrdDate")).getTime()));
+            bSOrderMEntity.setbSOrderMOrdDate(new Timestamp(string2Date(bSOrderMEntity.getbSOrderMOrdDate().toString()).getTime()));
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
         bSOrderMEntity.setbSOrderMState("0");
         bSOrderMEntity.setbSOrderMGroupNodeId("01");
 
@@ -210,12 +212,12 @@ public class DhController {
 
         List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);//获取员工信息
         List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);//获取客户信息
-        List<TPaymentEntity> Payment = tPaymentCacheService.findAll(tPaymentRepository);//获取付款信息
+        List<TPaymentEntity> TPayment = tPaymentCacheService.findAll(tPaymentRepository);//获取付款信息
         List<SalesPropertiesEntity> SalesProperties = salesPorpertiesCacheService.findAll(salesPropertiesRepository);
 
         // 传递给请求页面
         modelMap.addAttribute("bSOrderM", bsOrderMEntity);
-        modelMap.addAttribute("Payment", Payment);
+        modelMap.addAttribute("TPayment", TPayment);
         modelMap.addAttribute("Staff", Staff);
         modelMap.addAttribute("Client", Client);
         modelMap.addAttribute("SalesProperties", SalesProperties);
@@ -236,21 +238,21 @@ public class DhController {
         BSOrderMEntity c = bsOrderMRepository.findOne(bsOrderMEntity.getbSOrderMSOrderNo());
         bsOrderMEntity.setbSOrderMState(c.getbSOrderMState());
         bsOrderMEntity.setbSOrderMGroupNodeId("01");
-        try {
-            bsOrderMEntity.setbSOrderMSendDate(new Timestamp(string2Date(bsOrderMEntity.getbSOrderMSendDate().toString()).getTime()));
+        /*try {
+            bsOrderMEntity.setbSOrderMSendDate(new Timestamp(string2Date(request.getParameter("bSOrderMSendDate").toString()).getTime()));
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            bsOrderMEntity.setbSOrderMOrdDate(new Timestamp(string2Date(bsOrderMEntity.getbSOrderMOrdDate().toString()).getTime()));
+            bsOrderMEntity.setbSOrderMOrdDate(new Timestamp(string2Date(request.getParameter("bSOrderMOrdDate").toString()).getTime()));
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            bsOrderMEntity.setbSOrderMCreateDate(new Timestamp(string2Date(bsOrderMEntity.getbSOrderMCreateDate().toString()).getTime()));
+            bsOrderMEntity.setbSOrderMCreateDate(new Timestamp(string2Date(request.getParameter("SOrderMCreateDate").toString()).getTime()));
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
         bsOrderMRepository.saveAndFlush(bsOrderMEntity);
         return "redirect:/sale_order";
     }
@@ -274,7 +276,7 @@ public class DhController {
     public String addBSOrderSEntityPost(BSOrderSEntity bsOrderSEntity) {
         bsOrderSEntity.setbSOrderSMfg("2016");
         bsOrderSEntity.setbSOrderSGroupNodeId("01");
-        try {
+        /*try {
             bsOrderSEntity.setbSOrderSInvoiceDate(new Timestamp(string2Date(bsOrderSEntity.getbSOrderSInvoiceDate().toString()).getTime()));
         } catch (Exception e) {
             e.printStackTrace();
@@ -288,7 +290,7 @@ public class DhController {
             bsOrderSEntity.setbSOrderSCheckAccountDate(new Timestamp(string2Date(bsOrderSEntity.getbSOrderSCheckAccountDate().toString()).getTime()));
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
         // 注意此处，post请求传递过来的是一个UserEntity对象，里面包含了该用户的信息
         // 数据库中添加一个用户，并立即刷新缓存
         bsOrderSRepository.saveAndFlush(bsOrderSEntity);
@@ -387,7 +389,7 @@ public class DhController {
         BSOrderSEntity c = bsOrderSRepository.findBSOrderSEntitiesByBSOrderSSOrderNoAndBSOrderSDetailIdEquals(bsOrderSEntity.getbSOrderSSOrderNo(),bsOrderSEntity.getbSOrderSDetailId());
         bsOrderSEntity.setbSOrderSGroupNodeId(c.getbSOrderSGroupNodeId());
        bsOrderSEntity.setbSOrderSMfg(c.getbSOrderSMfg());
-        try {
+       /* try {
             bsOrderSEntity.setbSOrderSInvoiceDate(new Timestamp(string2Date(bsOrderSEntity.getbSOrderSInvoiceDate().toString()).getTime()));
         } catch (Exception e) {
             e.printStackTrace();
@@ -401,23 +403,9 @@ public class DhController {
             bsOrderSEntity.setbSOrderSCheckAccountDate(new Timestamp(string2Date(bsOrderSEntity.getbSOrderSCheckAccountDate().toString()).getTime()));
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
         bsOrderSRepository.saveAndFlush(bsOrderSEntity); // 刷新缓冲区
         return "redirect:/sale_order/detaileOrder/" + bsOrderSEntity.getbSOrderSSOrderNo();
     }
 
-
-
-    @InitBinder
-    public void InitBinder(HttpServletRequest request,
-                           ServletRequestDataBinder binder) {
-        // 不要删除下行注释!!! 将来"yyyy-MM-dd"将配置到properties文件中
-        // SimpleDateFormat dateFormat = new
-        // SimpleDateFormat(getText("date.format", request.getLocale()));
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss");
-        dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, null, new CustomDateEditor(
-                dateFormat, true));
-    }
 }
