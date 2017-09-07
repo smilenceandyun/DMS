@@ -167,7 +167,7 @@ public class ZpController {
         return "redirect:/zp_order";
     }
     // 删除订货单
-    @RequestMapping(value = "/zp_order/delete/{}", method = RequestMethod.GET)
+    @RequestMapping(value = "/zp_order/delete/{id}", method = RequestMethod.GET)
     public String deleteMM(@PathVariable("id") String id) {
        bOutPresentMRepository.delete(id);
        bOutPresentMRepository.flush();
