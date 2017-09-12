@@ -101,7 +101,7 @@
                 <tr class="text-c">
                     <td><input name="id" type="checkbox"  value="${bOutPreM.bOutPresentMOutPresentNo}"></td>
                     <td><%=i %><% i++; %></td>
-                    <td><a href="/sale_order/detaileOrder/${bOutPreM.bOutPresentMOutPresentNo}">${bOutPreM.bOutPresentMOutPresentNo}</a></td>
+                    <td><a href="/zp_order/detaileOrder/${bOutPreM.bOutPresentMOutPresentNo}">${bOutPreM.bOutPresentMOutPresentNo}</a></td>
                     <td>${null}</td>
                     <td >${bOutPreM.bOutPresentMRoomOutDate}</td>
                     <td >${bOutPreM.bOutPresentMDeliveryDate}</td>

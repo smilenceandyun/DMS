@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BOutPresentMRepository  extends JpaRepository<BOutPresentMEntity, String> {
 
-    BOutPresentMEntity findBOutPresentMEntityByBOutPresentMCreateNoEquals(String id);
+    BOutPresentMEntity findBOutPresentMEntityByBOutPresentMOutPresentNoEquals(String id);
 }

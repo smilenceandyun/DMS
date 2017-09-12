@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -120,7 +122,7 @@ public class ZpController {
        bOutPresentMRepository.saveAndFlush(bOutPresentMEntity);
 
         // 重定向到用户管理页面，方法为 redirect:url
-        return "redirect:/zp_order" ;
+        return "redirect:/zp_order/detaileOrder/add/"+ bOutPresentMEntity.getbOutPresentMOutPresentNo();
     }
     // 更新用户信息 页面
     @RequestMapping(value = "/upda_order/{id}", method = RequestMethod.GET)
@@ -166,6 +168,83 @@ public class ZpController {
         bOutPresentMRepository.saveAndFlush(bOutPresentMEntity);
         return "redirect:/zp_order";
     }
+    // get请求，访问添加 页面
+
+    @RequestMapping(value = "/zp_order/detaileOrder/add/{id}", method = RequestMethod.GET)
+    public String addBPOUTSEntity(@PathVariable("id") String Id, ModelMap modelMap) {
+
+        Integer detailId = (bOutPresentSRepository.findMaxDetailId(Id));
+
+        if (detailId == null) {
+            detailId = 1;
+        } else {
+            detailId += 1;
+        }
+        BOutPresentMEntity bOutPresentMEntity = bOutPresentMRepository.findBOutPresentMEntityByBOutPresentMOutPresentNoEquals(Id);
+        List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);//获取员工信息
+        List<TGoodsEntity> TGoods = tGoodsCacheService.findAll(tGoodsRepository);
+        List<TRoomEntity> TRoom = tRoomCacheService.findAll(tRoomRepository);
+        List<TPaymentEntity> TPayment = tPaymentCacheService.findAll(tPaymentRepository);
+        String UUID = d.getOrderNo();
+
+        modelMap.addAttribute("bOutPresentM", bOutPresentMEntity);
+        modelMap.addAttribute("TPayment", TPayment);
+        modelMap.addAttribute("TRoom", TRoom);
+        modelMap.addAttribute("TGoods", TGoods);
+
+        modelMap.addAttribute("Client", Client);
+        modelMap.addAttribute("Staff", Staff);
+        modelMap.addAttribute("UUID", UUID);
+        modelMap.addAttribute("detailId", detailId);
+        modelMap.addAttribute("OutP", Id);
+        // 转到addOrder.jsp页面
+        return "/sale/zp/addzp_detaile";
+    }
+    @RequestMapping(value = "/zp_order/detaileOrder/addP", method = RequestMethod.POST)
+    public String addBSOrderSEntityPost(BOutPresentSEntity bOutPresentSEntity) {
+        //bOutPresentSEntity.setbSOrderSMfg("2016");
+        bOutPresentSEntity.setbOutPresentSGroupNodeId("01");
+        // 注意此处，post请求传递过来的是一个UserEntity对象，里面包含了该用户的信息
+        // 数据库中添加一个用户，并立即刷新缓存
+        bOutPresentSRepository.saveAndFlush(bOutPresentSEntity);
+
+        // 重定向到用户管理页面，方法为 redirect:url
+        return "redirect:/zp_order/detaileOrder/" + bOutPresentSEntity.getbOutPresentSOutPresentNo();
+    }
+    @RequestMapping(value = "/zp_order/detaileOrder/{id}", method = RequestMethod.GET)
+    public String showBOutEntity(@PathVariable("id") String Id, ModelMap modelMap) {
+        List<BOutPresentSEntity> bOutPresentSEntity = bOutPresentSRepository.findBOutPresentSEntitiesByBOutPresentSOutPresentNoEquals(Id);
+        Integer detailId = (bOutPresentSRepository.findMaxDetailId(Id));
+        if (detailId == null) {
+            detailId = 1;
+        } else {
+            detailId += 1;
+        }
+       BOutPresentMEntity bOutPresentMEntity = bOutPresentMRepository.findBOutPresentMEntityByBOutPresentMOutPresentNoEquals(Id);
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);
+        List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);
+        List<SalesPropertiesEntity> SaleProperries = salesPorpertiesCacheService.findAll(salesPropertiesRepository);
+        List<TGoodsEntity> TGoods = tGoodsCacheService.findAll(tGoodsRepository);
+        List<TRoomEntity> TRoom = tRoomCacheService.findAll(tRoomRepository);
+        List<TPaymentEntity> TPayment = tPaymentCacheService.findAll(tPaymentRepository);
+        String UUID = d.getOrderNo();
+
+        // 传递给请求页面
+        modelMap.addAttribute("bOutPresentM", bOutPresentMEntity);
+        modelMap.addAttribute("TPayment", TPayment);
+        modelMap.addAttribute("TRoom", TRoom);
+        modelMap.addAttribute("TGoods", TGoods);
+        modelMap.addAttribute("SaleProperries", SaleProperries);
+        modelMap.addAttribute("Client", Client);
+        modelMap.addAttribute("Staff", Staff);
+        modelMap.addAttribute("UUID", UUID);
+        modelMap.addAttribute("detailId", detailId);
+        modelMap.addAttribute("bOutPresentS", bOutPresentSEntity);
+        modelMap.addAttribute("ordOutNo", Id);
+
+        return "/sale/zp/zp_dateieOrder";
+    }
     // 删除订货单
     @RequestMapping(value = "/zp_order/delete/{id}", method = RequestMethod.GET)
     public String deleteMM(@PathVariable("id") String id) {
@@ -173,7 +252,55 @@ public class ZpController {
        bOutPresentMRepository.flush();
         return "redirect:/zp_order";
     }
+    // 删除一条明细
+    @RequestMapping(value = "/zp_order/detaileOrder/delete/{detailID}&{id}", method = RequestMethod.GET)
+    public void deleteBPOutSEntity(@PathVariable("detailID") Integer detailID, @PathVariable("id") String Id, HttpServletResponse response) {
 
+        // 删除id为Id的用户
+        bOutPresentSRepository.deleteBOutPresentSEntity(Id, detailID);
+        // 立即刷新
+        bOutPresentSRepository.flush();
+
+        try {
+            response.sendRedirect("/zp_order/detaileOrder/" + Id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    // 更新明细信息 页面
+    @RequestMapping(value = "/zp_order/detaileOrder/update/{detailID}&{id}", method = RequestMethod.GET)
+    public String updateBSOrdSEntity(@PathVariable("detailID") Integer detailID,@PathVariable("id") String id, ModelMap modelMap) {
+
+        // 找到userId所表示的用户
+        BOutPresentMEntity bOutPresentMEntity = bOutPresentMRepository.findBOutPresentMEntityByBOutPresentMOutPresentNoEquals(id);
+        BOutPresentSEntity bOutPresentSEntity = bOutPresentSRepository.findBOutPresentSEntitiesByBOutPresentSOutPresentNoAndAndBOutPresentSDetailIdEquals(id,detailID);
+
+        List<TStaffEntity> Staff = tStaffCacheService.findAll(tStaffRepository);
+        List<TClientEntity> Client = tClientCacheService.findAll(tClientRepository);
+        List<TGoodsEntity> TGoods = tGoodsCacheService.findAll(tGoodsRepository);
+        List<TRoomEntity> TRoom = tRoomCacheService.findAll(tRoomRepository);
+        List<TPaymentEntity> TPayment = tPaymentCacheService.findAll(tPaymentRepository);
+
+        // 传递给请求页面
+        modelMap.addAttribute("bOutPresentM",bOutPresentMEntity);
+        modelMap.addAttribute("TPayment", TPayment);
+        modelMap.addAttribute("TRoom", TRoom);
+        modelMap.addAttribute("TGoods", TGoods);
+        modelMap.addAttribute("Client", Client);
+        modelMap.addAttribute("Staff", Staff);
+        modelMap.addAttribute("detailID", detailID);
+        modelMap.addAttribute("bOutPresentS", bOutPresentSEntity);
+        return "/sale/zp/update_zp_detaile";
+    }
+    // 更新明细信息 操作
+    @RequestMapping(value = "/zp_order/detaileOrder/updateP", method = RequestMethod.POST)
+    public String updateBPurSEntityPost(BOutPresentSEntity bOutPresentSEntity) {
+       BOutPresentSEntity c = bOutPresentSRepository.findBOutPresentSEntitiesByBOutPresentSOutPresentNoAndAndBOutPresentSDetailIdEquals(bOutPresentSEntity.getbOutPresentSOutPresentNo(),bOutPresentSEntity.getbOutPresentSDetailId());
+       bOutPresentSEntity.setbOutPresentSGroupNodeId(c.getbOutPresentSGroupNodeId());
+
+        bOutPresentSRepository.saveAndFlush(bOutPresentSEntity); // 刷新缓冲区
+        return "redirect:/zp_order/detaileOrder/" + bOutPresentSEntity.getbOutPresentSOutPresentNo();
+    }
 
     /**
      * method 将字符串类型的日期转换为一个Date（java.sql.Date）
