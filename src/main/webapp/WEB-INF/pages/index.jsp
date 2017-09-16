@@ -100,10 +100,14 @@
             <dt><i class="Hui-iconfont">&#xe613;</i> 仓库管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="pur_order" data-title="仓库管理" href="javascript:void(0)">仓库管理</a></li>
-                    <li><a data-href="pur_order" data-title="仓库管理" href="javascript:void(0)">仓库管理</a></li>
-                    <li><a data-href="pur_order" data-title="仓库管理" href="javascript:void(0)">仓库管理</a></li>
-
+                    <li><a data-href="pur_in" data-title="仓库管理" href="javascript:void(0)">入库</a></li>
+                    <li><a data-href="pur_order" data-title="仓库管理" href="javascript:void(0)">调整</a></li>
+                    <li><a data-href="pur_order" data-title="仓库管理" href="javascript:void(0)">调拨</a></li>
+                    <li><a data-href="pur_order" data-title="仓库管理" href="javascript:void(0)">盘点</a></li>
+                    <li><a data-href="pur_order" data-title="仓库管理" href="javascript:void(0)">出库</a></li>
+                    <li><a data-href="pur_order" data-title="仓库管理" href="javascript:void(0)">退货</a></li>
+                    <li><a data-href="pur_order" data-title="仓库管理" href="javascript:void(0)">配送</a></li>
+                    <li><a data-href="pur_order" data-title="仓库管理" href="javascript:void(0)">出入库确认</a></li>
                 </ul>
             </dd>
         </dl>

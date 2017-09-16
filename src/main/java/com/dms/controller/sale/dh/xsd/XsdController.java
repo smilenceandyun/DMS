@@ -86,8 +86,8 @@ public class XsdController {
         return "/sale/xsd/add_detaile_xsd";
     }*/
 
-   /* // 更新用户信息 页面
-    @RequestMapping(value = "/updateMa/{bSOrderMSOrderNo}", method = RequestMethod.GET)
+    // 更新用户信息 页面
+  /*  @RequestMapping(value = "/updateMa/{bSOrderMSOrderNo}", method = RequestMethod.GET)
     public String updatebSOrderM(@PathVariable("bSOrderMSOrderNo") String bSOrderMSOrderNo, ModelMap modelMap) {
 
 
@@ -95,14 +95,14 @@ public class XsdController {
     }*/
 
     // 删除订货单
-    @RequestMapping(value = "/sale_xs/delete/{bSOrderMSOrderNo}", method = RequestMethod.GET)
+   /* @RequestMapping(value = "/sale_xs/delete/{bSOrderMSOrderNo}", method = RequestMethod.GET)
     public String deleteMM(@PathVariable("bSOrderMSOrderNo") String bSOrderMSOrderNo) {
 
         return "redirect:/sale_xs";
-    }
+    }*/
     // 更新销售订货 信息操作
     // 更新用户信息 操作
-   /* @RequestMapping(value = "/updateMSa", method = RequestMethod.POST)
+/*    @RequestMapping(value = "/updateMSa", method = RequestMethod.POST)
     public String updateOrder(BSOrderMEntity bsOrderMEntity) {
 
         return "redirect:/sale_xs";
@@ -130,7 +130,7 @@ public class XsdController {
        // return "redirect:/sale_xs/detaileOrder/" + bsOrderSEntity.getbSOrderSSOrderNo();
     }
 
-   /* @RequestMapping(value = "/sale_xs/detaileOrder/{id}", method = RequestMethod.GET)
+/*    @RequestMapping(value = "/sale_xs/detaileOrder/{id}", method = RequestMethod.GET)
     public String showBSOrderSEntity(@PathVariable("id") String Id, ModelMap modelMap) {
 
         return "/sale/xsd/detaieOrder_xs";
@@ -138,12 +138,12 @@ public class XsdController {
 
 
     // 更新明细信息 页面吖
-    @RequestMapping(value = "/sale_xs/detaileOrder/update/{detailID}&{id}", method = RequestMethod.GET)
+ /*   @RequestMapping(value = "/sale_xs/detaileOrder/update/{detailID}&{id}", method = RequestMethod.GET)
     public String updateBSOrdSEntity(@PathVariable("detailID") Integer detailID,@PathVariable("id") String id, ModelMap modelMap) {
 
 
         return "/sale/xsd/update_detaile_Order";
-    }
+    }*/
    /* // 更新明细信息 操作
     @RequestMapping(value = "/sale_xs/detaileOrder/updateP", method = RequestMethod.POST)
     public String updateBPurchaseOrdSEntityPost(BSOrderSEntity bsOrderSEntity) {
@@ -153,18 +153,6 @@ public class XsdController {
 
 */
 
-    @InitBinder
-    public void InitBinder(HttpServletRequest request,
-                           ServletRequestDataBinder binder) {
-        // 不要删除下行注释!!! 将来"yyyy-MM-dd"将配置到properties文件中
-        // SimpleDateFormat dateFormat = new
-        // SimpleDateFormat(getText("date.format", request.getLocale()));
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss");
-        dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, null, new CustomDateEditor(
-                dateFormat, true));
-    }
 }
 
 

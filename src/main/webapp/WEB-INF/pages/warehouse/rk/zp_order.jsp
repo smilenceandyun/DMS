@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Krystal_wy
-  Date: 2017/9/4
-  Time: 11:13
+  Date: 2017/9/14
+  Time: 11:24
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -63,7 +63,7 @@
         }
     </script>
 
-    <title>销售订货</title>
+    <title>采购入库</title>
 </head>
 <style>
     .display-none {
@@ -71,9 +71,18 @@
     }
 </style>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 销售管理 <span class="c-gray en">&gt;</span> 赠品处理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 仓库管理 <span class="c-gray en">&gt;</span> 采购入库 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="0">&nbsp;&nbsp;&nbsp;<a href="/zp_order/add" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 添加订单</a></span> <span class="r">共有数据：<strong>0</strong> 条</span> </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="0">&nbsp;&nbsp;&nbsp;<a href="/pur_inzp/add" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 添加订单</a></span> <span class="r">共有数据：<strong>0</strong> 条</span> </div>
+    <select style="width: 400px; " class="input-text" name="select"  id="a"  onchange="window.location.href=this.options[selectedIndex].value">
+        <option value="/pur_inzp" >赠品入库</option>
+        <option value="/pur_injy">借用入库</option>
+        <option value="/pur_in">采购入库</option>
+        <option value="/pur_inds">代送入库</option>
+        <option value="/pur_incp">产品入库</option>
+        <option value="/pur_injc">借出归还</option>
+
+    </select><br>
     <div class="mt-20">
     <form:form action="/index3" method="post" commondName="p">
 
@@ -83,14 +92,15 @@
                 <th width="25"><input type="checkbox" name="id" value=""></th>
                 <th width="30">ID</th>
                     <%--<th width="80">排序</th>--%>
-                <th width="100">出库单号</th>
-                <th width="120">客户名称</th>
-                <th width="80">仓库出库日期</th>
-                <th width="80">回单日期</th>
+                <th width="100">赠品入库单号</th>
+                <th width="100">客户名称</th>
+                <th width="80">来货单号</th>
+                <th width="80">业务属性</th>
+                <th width="80">结算方式</th>
                 <th width="80">业务员</th>
+                <th width="80">制单人</th>
                 <th width="80">审核日期</th>
-                <th width="80">审核状态</th>
-                <th width="100">备注</th>
+                <th width="120">审核状态</th>
                 <th width="100">操作</th>
             </tr>
             </thead>
@@ -98,19 +108,20 @@
             <%
                 int i = 1;
             %>
-            <c:forEach items="${bOutPreM}" var="bOutPreM">
+            <c:forEach items="" var="bSOrder">
                 <tr class="text-c">
-                    <td><input name="id" type="checkbox"  value="${bOutPreM.bOutPresentMOutPresentNo}"></td>
+                    <td><input name="id" type="checkbox"  value="${bSOrder.bSOrderMSOrderNo}"></td>
                     <td><%=i %><% i++; %></td>
-                    <td><a href="/zp_order/detaileOrder/${bOutPreM.bOutPresentMOutPresentNo}">${bOutPreM.bOutPresentMOutPresentNo}</a></td>
-                    <td>${null}</td>
-                    <td >${bOutPreM.bOutPresentMRoomOutDate}</td>
-                    <td >${bOutPreM.bOutPresentMDeliveryDate}</td>
-                    <td >${bOutPreM.bOutPresentMWarehouseKeeper}</td>
-                    <td >${bOutPreM.bOutPresentMCheckDate}</td>
-                    <td >${bOutPreM.bOutPresentMState==0? "未审核" : "已审核"}</td>
-                    <td >${bOutPreM.bOutPresentMNotes}</td>
-                    <td class="f-14 product-brand-manage"><c:if test="${bOutPreM.bOutPresentMState == \"0\"}"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/upda_order/${bOutPreM.bOutPresentMOutPresentNo}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a></c:if><a style="text-decoration:none" class="ml-5" onclick="if(!confirm('确定删除？')) return false;" href="/zp_order/delete/${bOutPreM.bOutPresentMOutPresentNo}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                    <td><a href="/sale_order/detaileOrder/${bSOrder.bSOrderMSOrderNo}">${bSOrder.bSOrderMSOrderNo}</a></td>
+                    <td>${bSOrder.tClientByBSOrderMClientNo.tClientClientName}</td>
+                    <td >${bSOrder.bSOrderMSumMoney}</td>
+                    <td >${bSOrder.bSOrderMOrdDate}</td>
+                    <td >${null}</td>
+                    <td >${bSOrder.tStaffByBSOrderMSalesman.tStaffStaffName}</td>
+                    <td >${bSOrder.tStaffByBSOrderMCreateNo.tStaffStaffName}</td>
+                    <td >${bSOrder.bSOrderMState == 0? "未审核" : "已审核"}</td>
+                    <td >${bSOrder.bSOrderMNotes}</td>
+                    <td class="f-14 product-brand-manage"><c:if test="${bSOrder.bSOrderMState == \"0\"}"><a style="text-decoration:none" onClick="product_brand_edit('订单编辑','index2.html','1')" href="/updateMzpin" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a></c:if><a style="text-decoration:none" class="ml-5" onclick="if(!confirm('确定删除？')) return false;" href="" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -141,4 +152,5 @@
 </script>
 </body>
 </html>
+
 

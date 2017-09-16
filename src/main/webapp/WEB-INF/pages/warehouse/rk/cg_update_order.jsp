@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Krystal_wy
-  Date: 2017/9/5
-  Time: 9:37
+  Date: 2017/9/15
+  Time: 10:47
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -41,7 +41,7 @@
         }
     </script>
 
-    <title>赠品处理</title>
+    <title>采购入库</title>
 </head>
 <style>
     .display-none {
@@ -53,94 +53,103 @@
     li{width:115px; height:20px; float:left;}
 </style>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 销售管理 <span class="c-gray en">&gt;</span> 更新 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 仓库管理 <span class="c-gray en">&gt;</span> 更新 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
     <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel1()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>--%>
     <%--&lt;%&ndash;<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datasearch()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 查询</a></span>  </div>&ndash;%&gt;--%>
     <div class="mt-20">
-    <form:form action="/upda_order" method="post" role="form">
+    <form:form action="/updateMcg" method="post" role="form">
 
         <ul>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;赠品出库单号</li>
-            <li><input id="bOutPresentMOutPresentNo" name="bOutPresentMOutPresentNo" type="text" class="input-text"  value="${bOutPresentM.bOutPresentMOutPresentNo}" readonly="readonly" required></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;采购入库单号</li>
+            <li><input id="bSOrderMSOrderNo" name="bSOrderMSOrderNo" type="text" class="input-text"  value="${UUID}" readonly="readonly" required></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;付款方式</li>
+            <li>
+                <select class="input-text" name="bSOrderMSalesman"  id="bSOrderMSalesman" >
+                    <option value="" >选择付款方式</option>
+                    <c:forEach items="${Staff}" var="Staff">
+                        <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                    </c:forEach>
+                </select>
+            </li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单据总金额</li>
+            <li><input id="bSOrderMAdPaymoney" name="bSOrderMAdPaymoney" type="text" class="input-text" required ></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓管员</li>
+            <li>
+                <select class="input-text" name="bSOrderMCreateNo"  id="bSOrderMCreateNo" >
+                    <option value="" >选择仓管员</option>
+                    <c:forEach items="${Staff}" var="Staff">
+                        <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
+                    </c:forEach>
+                </select>
+            </li>
+        </ul><br>
+        <ul>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手工单号</li>
+            <li><input type="text" class="input-text" name="bSOrderMOrderNo" id="bSOrderMOrderNo" ></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务属性</li>
+            <li><select class="input-text" name="bSOrderMSalesTypeNo" id="bSOrderMSalesTypeNo" >
+                <option value="" >市销</option>
+                <c:forEach items="${SalesProperties}" var="SalesProperties">
+                    <option value="${SalesProperties.salesPropertiesSalesTypeNo}">${SalesProperties.salesPropertiesSalesPropertiesName}</option>
+                </c:forEach>
+            </select></li>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务员</li>
             <li>
-                <select class="input-text" name="bSOrderMSalesman"  id="bSOrderMSalesman" required>
+                <select class="input-text" name="bSOrderMCreateNo"   >
                     <option value="" >选择业务员</option>
                     <c:forEach items="${Staff}" var="Staff">
                         <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
                     </c:forEach>
                 </select>
             </li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;送货员</li>
-            <li>
-                <select class="input-text" name="bOutPresentMDeliverymanNo" id="bOutPresentMDeliverymanNo" required>
-                    <option value="${bOutPresentM.bOutPresentMDeliverymanNo}" >${bOutPresentM.deliverymanByBOutPresentMDeliverymanNo.deliverymanDeliverymanName}</option>
-                    <c:forEach items="${Deliver}" var="Deliver">
-                        <option value="${Deliver.deliverymanDeliverymanNo}">${Deliver.deliverymanDeliverymanName}</option>
-                    </c:forEach>
-                </select>
-            </li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单人</li>
-            <li>
-                <select class="input-text" name="bOutPresentMCreateNo"  id="bOutPresentMCreateNo" required>
-                    <option value="${bOutPresentM.bOutPresentMCreateNo}" >选择制单人</option>
-                    <c:forEach items="${Staff}" var="Staff">
-                        <option value="${Staff.tStaffStaffNo}">${Staff.tStaffStaffName}</option>
-                    </c:forEach>
-                </select>
-            </li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现金折扣</li>
+            <li><input type="text" class="input-text" id="bSOrderMChecker" name="bSOrderMChecker"  ></li>
         </ul><br>
         <ul>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售订单号</li>
-            <li><input type="text" class="input-text" name="bOutPresentMSOrderNo" id="bOutPresentMSOrderNo" value="${bOutPresentM.bOutPresentMSOrderNo}"></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;采购订单号</li>
+            <li><input type="text" class="input-text" id="b" name="bSOrderMChecer"  ></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;预付款</li>
+            <li><input type="text" class="input-text" id="bS" name="bSOrderker"  ></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家订单号</li>
+            <li><input type="text" class="input-text" id="bSO" name="bSOrdChecker"  ></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;厂家代表</li>
+            <li><input type="text" class="input-text" id="bSOrde" name="bSOrderMChr"  ></li>
+        </ul><br>
+        <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户名称</li>
             <li>
-                <select class="input-text" name="bSOrderMClientNo" id="bSOrderMClientNo" >
-                    <option value="" >选择客户</option>
-                    <c:forEach items="${Client}" var="Client">
-                        <option value="${Client.tClientClientNo}">${Client.tClientClientName}</option>
-                    </c:forEach>
-                </select>
-            </li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓管员</li>
-            <li><input type="text" class="input-text" name=" bOutPresentMWarehouseKeeper" id=" bOutPresentMWarehouseKeeper" value="${bOutPresentM.bOutPresentMWarehouseKeeper}"></li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核人</li>
-            <li><input type="text" class="input-text" id="bOutPresentMChecker" name="bOutPresentMChecker" disabled ></li>
-        </ul><br>
-        <ul>
-
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业务日期</li>
-            <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bOutPresentMServiceDate" name="bOutPresentMServiceDate" value="${bOutPresentM.bOutPresentMServiceDate}" required></li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓库出库日期</li>
-            <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bOutPresentMRoomOutDate" name="bOutPresentMRoomOutDate" value="${bOutPresentM.bOutPresentMRoomOutDate}" required></li>
-        </ul><br>
-        <ul>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;地址</li>
-            <li>
-                <select style="float: left;width: 390px;" class="input-text" name="bSOrderMClientAddress"  id="bSOrderMClientAddress">
-                    <option value="" >选择地址</option>
+                <select class="input-text" name="bSOrderMClientAddress"  id="bSOrderMClientAddress">
+                    <option value="" >选择客户名称</option>
                     <c:forEach items="${Client}" var="Client">
                         <option value="${Client.tClientClientAddress}">${Client.tClientClientAddress}</option>
                     </c:forEach>
                 </select>
-
             </li>
-            <li></li>   <li></li>               <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单日期</li>
-            <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bOutPresentMCreateDate" name="bOutPresentMCreateDate" required></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户编号</li>
+            <li><input type="text" class="input-text" id="bCher" name="bSOhecker"  ></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核人</li>
+            <li><input type="text" class="input-text" id="ba" name="bker"  ></li>
+
+        </ul><br>
+        <ul>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交货日期</li>
+            <li><input type="date" class="input-text" name="bSOrdersDiscount"  ></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制单日期</li>
+            <li><input type="date" class="input-text" name="bSOrderMSalesDiscount" id="bSOrderMSalesDiscount" ></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核日期</li>
+            <li><input type="date" class="input-text" name="bSOrderMSalesDiscount"  ></li>
         </ul><br>
         <ul>
             <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</li>
-            <li style="float: left;width: 390px;"><input type="text" class="input-text" id="bOutPresentMNotes" name="bOutPresentMNotes" value="${bOutPresentM.bOutPresentMNotes}"></li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;回单日期</li>
-            <li style="float: left;width: 345px;"><input type="date" class="input-text" id="bOutPresentMDeliveryDate" name="bOutPresentMDeliveryDate" value="${bOutPresentM.bOutPresentMDeliveryDate}" required></li>
-        </ul>
-        <input type="hidden" id=" bOutPresentMIsPass" name=" bOutPresentMIsPass" value="0" >
-        <input type="hidden" id="bOutPresentMState" name="bOutPresentMState" value="1">
+            <li style="float: left;width: 300px;"><input type="text" class="input-text" id="bSOrderMNotes" name="bSOrderMNotes" ></li>
+        </ul><br>
+        <input type="hidden" id="bSOrderMIsPass" name="bSOrderMIsPass" value="0" >
+        <input type="hidden" id="bSOrderMState" name="bSOrderMState" value="1">
         <center>
             <div style="margin:0 auto;">
                 <br><br><input class="btn btn-primary upload-btn" type="submit" name="submit" value="确定修改">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="/zp_order"  class="btn btn radius">取消</a>
+                <a href="/pur_in"  class="btn btn radius">取消</a>
             </div>
         </center>
     </form:form>
